@@ -6,10 +6,13 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.bintang.banyan.TabMainFragment.TabBerandaFragment;
+import com.bintang.banyan.TabMainFragment.TabKebunFragment;
+import com.bintang.banyan.TabMainFragment.TabProfileFragment;
+import com.bintang.banyan.TabMainFragment.TabSocialFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,6 +59,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-
 }
