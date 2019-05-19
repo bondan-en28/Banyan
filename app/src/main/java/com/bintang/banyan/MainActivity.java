@@ -32,7 +32,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName(); //get info
-    public static String name, email, getId;
+    public static String name, email, photo, getId;
     private static String URL_READ = "http://192.168.1.28/banyan/read_detail.php";
     SessionManager sessionManager;
 
@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         getId = user.get(SessionManager.ID);
 
         loadFragment(new TabBerandaFragment());
+        getUserDetail();
+
     }
 
     private void getUserDetail() {
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     name = object.getString("name").trim();
                                     email = object.getString("email").trim();
+                                    photo = object.getString("photo").trim();
                                 }
                             } else {
                                 Toast.makeText(MainActivity.this, "Error Login.", Toast.LENGTH_SHORT).show();
@@ -110,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         getUserDetail();
+        super.onResume();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

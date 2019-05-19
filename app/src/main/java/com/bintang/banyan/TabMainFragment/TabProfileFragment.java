@@ -28,6 +28,9 @@ import com.android.volley.toolbox.Volley;
 import com.bintang.banyan.MainActivity;
 import com.bintang.banyan.R;
 import com.bintang.banyan.SessionManager;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +50,7 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
     private static String URL_EDIT = "http://192.168.1.28/banyan/edit_detail.php";
     private static String URL_UPLOAD = "http://192.168.1.28/banyan/upload.php";
     SessionManager sessionManager;
-    Button btnLogout, btnSave, btnGantiFoto;
+    Button btnLogout, btnSave;
     ImageView fotoProfil;
     private EditText edtNama, edtEmail;
 
@@ -73,17 +76,21 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
 
         btnLogout = view.findViewById(R.id.btn_logout);
         btnSave = view.findViewById(R.id.btn_save);
-        btnGantiFoto = view.findViewById(R.id.btn_ganti_foto);
 
         fotoProfil = view.findViewById(R.id.img_profile);
 
         btnLogout.setOnClickListener(this);
         btnSave.setOnClickListener(this);
-        btnGantiFoto.setOnClickListener(this);
+        fotoProfil.setOnClickListener(this);
 
         edtNama.setText(MainActivity.name);
         edtEmail.setText(MainActivity.email);
 
+        try {
+            Picasso.get().load(MainActivity.photo).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(fotoProfil);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -95,9 +102,8 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
             case R.id.btn_save:
                 saveEdit();
                 break;
-            case R.id.btn_ganti_foto:
+            case R.id.img_profile:
                 pilihFoto();
-//                openGallery();
                 break;
         }
     }
@@ -118,7 +124,6 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
             try {
                 imageprofilbitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filepath);
                 fotoProfil.setImageBitmap(imageprofilbitmap);
-                uploadFoto(getId, getStringImage(imageprofilbitmap));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -189,6 +194,8 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
 
 
     private void saveEdit() {
+        uploadFoto(getId, getStringImage(imageprofilbitmap));
+
         final String name = edtNama.getText().toString().trim();
         final String email = edtEmail.getText().toString().trim();
         final String id = getId;
