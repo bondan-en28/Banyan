@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static String URL_REGIST = "http://192.168.1.6/banyan/register.php";
+    private static String URL_REGIST = "http://192.168.1.28/banyan/register.php";
     private EditText edtNama, edtEmail, edtPassword, edtCPassword;
     private Button btnRegist;
     private ProgressBar progressBarLoading;
@@ -66,22 +66,17 @@ public class RegisterActivity extends AppCompatActivity {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")) {
-                                progressBarLoading.setVisibility(View.GONE);
-                                btnRegist.setVisibility(View.VISIBLE);
-
+                                showButton();
                                 Toast.makeText(RegisterActivity.this, "Register Success!", Toast.LENGTH_SHORT).show();
                             } else {
-                                progressBarLoading.setVisibility(View.GONE);
-                                btnRegist.setVisibility(View.VISIBLE);
-
+                                showButton();
                                 Toast.makeText(RegisterActivity.this, "Register Error! ", Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Toast.makeText(RegisterActivity.this, "Register Error! " + e.toString(), Toast.LENGTH_SHORT).show();
-                            progressBarLoading.setVisibility(View.GONE);
-                            btnRegist.setVisibility(View.VISIBLE);
+                            showButton();
                         }
                     }
                 },
@@ -89,8 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(RegisterActivity.this, "Register Error! " + error.toString(), Toast.LENGTH_SHORT).show();
-                        progressBarLoading.setVisibility(View.GONE);
-                        btnRegist.setVisibility(View.VISIBLE);
+                        showButton();
 
                     }
                 }) {
@@ -107,6 +101,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+
+    }
+
+    public void showButton() {
+        progressBarLoading.setVisibility(View.GONE);
+        btnRegist.setVisibility(View.VISIBLE);
 
     }
 }

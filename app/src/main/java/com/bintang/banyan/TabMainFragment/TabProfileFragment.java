@@ -1,22 +1,56 @@
 package com.bintang.banyan.TabMainFragment;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bintang.banyan.MainActivity;
 import com.bintang.banyan.R;
+import com.bintang.banyan.SessionManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.app.Activity.RESULT_OK;
+import static com.android.volley.VolleyLog.TAG;
+import static com.bintang.banyan.MainActivity.getId;
 
 public class TabProfileFragment extends Fragment implements View.OnClickListener {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    public static Bitmap imageprofilbitmap;
+    private static String URL_EDIT = "http://192.168.1.28/banyan/edit_detail.php";
+    private static String URL_UPLOAD = "http://192.168.1.28/banyan/upload.php";
+    SessionManager sessionManager;
+    Button btnLogout, btnSave, btnGantiFoto;
+    ImageView fotoProfil;
+    private EditText edtNama, edtEmail;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -32,21 +66,181 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
     }
 
     private void initView(View view) {
-//        ImageView imagePost = view.findViewById(R.id.imagePost);
-    }
+        sessionManager = new SessionManager(getActivity());
 
-    private void changeFragment() {
-//        getFragmentManager().beginTransaction().replace(R.id.tabHome, new TabHomePost()).addToBackStack(null).commit();
+        edtNama = view.findViewById(R.id.edt_profile_nama);
+        edtEmail = view.findViewById(R.id.edt_profile_email);
+
+        btnLogout = view.findViewById(R.id.btn_logout);
+        btnSave = view.findViewById(R.id.btn_save);
+        btnGantiFoto = view.findViewById(R.id.btn_ganti_foto);
+
+        fotoProfil = view.findViewById(R.id.img_profile);
+
+        btnLogout.setOnClickListener(this);
+        btnSave.setOnClickListener(this);
+        btnGantiFoto.setOnClickListener(this);
+
+        edtNama.setText(MainActivity.name);
+        edtEmail.setText(MainActivity.email);
+
     }
 
     @Override
     public void onClick(View view) {
-/*        switch (view.getId()) {
-            case R.id.imagePost:
-                changeFragment();
+        switch (view.getId()) {
+            case R.id.btn_logout:
+                sessionManager.logout();
+                break;
+            case R.id.btn_save:
+                saveEdit();
+                break;
+            case R.id.btn_ganti_foto:
+                pilihFoto();
+//                openGallery();
                 break;
         }
-*/
+    }
+
+    private void pilihFoto() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Pilih Gambar"), 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1 && data != null && data.getData() != null) {
+
+            Uri filepath = data.getData();
+            try {
+                imageprofilbitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filepath);
+                fotoProfil.setImageBitmap(imageprofilbitmap);
+                uploadFoto(getId, getStringImage(imageprofilbitmap));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void uploadFoto(final String id, final String foto) {
+
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Uploading...");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPLOAD,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        Log.i(TAG, response);
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")) {
+                                Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "Coba Lagi.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(), "Error." + e.toString(), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "Error." + error.toString(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", id);
+                params.put("foto", foto);
+
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
+
+
+    }
+
+    private String getStringImage(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] imageByteArray = byteArrayOutputStream.toByteArray();
+        String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+
+    private void saveEdit() {
+        final String name = edtNama.getText().toString().trim();
+        final String email = edtEmail.getText().toString().trim();
+        final String id = getId;
+
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_EDIT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")) {
+                                Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            } else {
+                                Toast.makeText(getActivity(), "Error.", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(), "Error Login." + e.toString(), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getActivity(), "Error Login." + error.toString(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("name", name);
+                params.put("email", email);
+                params.put("id", id);
+
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.add(stringRequest);
     }
 
 }
