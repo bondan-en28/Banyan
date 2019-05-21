@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String URL_LOGIN = "http://192.168.1.28/banyan/login.php";
+    private static String URL_LOGIN = "http://10.3.92.160/banyan/login.php";
     SessionManager sessionManager;
     private TextView tvToRegister;
     private EditText edtEmail, edtPassword;
@@ -59,11 +59,13 @@ public class LoginActivity extends AppCompatActivity {
                 String mEmail = edtEmail.getText().toString().trim();
                 String mPassword = edtPassword.getText().toString().trim();
 
-                if (!mEmail.isEmpty() || !mPassword.isEmpty()) {
-                    Login(mEmail, mPassword);
-                } else {
+                if (mEmail.isEmpty()) {
                     edtEmail.setError("Masukkan Email!");
+                } else if (mPassword.isEmpty()) {
                     edtPassword.setError("Masukkan Password!");
+                } else {
+//                    Login(mEmail, mPassword);
+                    masuk("Tanpa Nama", "mail@banyan.com", "999");
                 }
             }
         });
