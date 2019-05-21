@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static String URL_REGIST = "http://192.168.1.28/banyan/register.php";
+    private static String URL_REGIST = "http://10.3.92.160/banyan/register.php";
     private EditText edtNama, edtEmail, edtPassword, edtCPassword;
     private Button btnRegist;
     private ProgressBar progressBarLoading;

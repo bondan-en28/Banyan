@@ -47,8 +47,8 @@ import static com.bintang.banyan.MainActivity.getId;
 public class TabProfileFragment extends Fragment implements View.OnClickListener {
 
     public static Bitmap imageprofilbitmap;
-    private static String URL_EDIT = "http://192.168.1.28/banyan/edit_detail.php";
-    private static String URL_UPLOAD = "http://192.168.1.28/banyan/upload.php";
+    private static String URL_EDIT = "http://10.3.92.160/banyan/edit_detail.php";
+    private static String URL_UPLOAD = "http://10.3.92.160/banyan/upload.php";
     SessionManager sessionManager;
     Button btnLogout, btnSave;
     ImageView fotoProfil;
