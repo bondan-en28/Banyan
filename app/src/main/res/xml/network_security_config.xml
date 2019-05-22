@@ -6,6 +6,6 @@
         </trust-anchors>
     </base-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">192.168.1.3</domain>
+        <domain includeSubdomains="true">https://bonbon28.000webhostapp.com/</domain>
     </domain-config>
 </network-security-config>

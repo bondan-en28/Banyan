@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static String URL_REGIST = "http://10.3.92.160/banyan/register.php";
+    private static String URL_REGIST = "https://bonbon28.000webhostapp.com/banyan/register.php";
     private EditText edtNama, edtEmail, edtPassword, edtCPassword;
     private Button btnRegist;
     private ProgressBar progressBarLoading;
@@ -68,6 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if (success.equals("1")) {
                                 showButton();
                                 Toast.makeText(RegisterActivity.this, "Register Success!", Toast.LENGTH_SHORT).show();
+                                finish();
                             } else {
                                 showButton();
                                 Toast.makeText(RegisterActivity.this, "Register Error! ", Toast.LENGTH_SHORT).show();
