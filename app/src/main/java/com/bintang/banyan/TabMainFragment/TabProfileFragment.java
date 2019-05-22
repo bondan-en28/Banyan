@@ -84,8 +84,6 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
         edtNama.setText(MainActivity.name);
         edtEmail.setText(MainActivity.email);
 
-        Toast.makeText(getActivity(), MainActivity.photo, Toast.LENGTH_SHORT).show();
-
         if (!MainActivity.photo.equals("0")) {
             try {
                 Picasso.get().load(MainActivity.photo).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(fotoProfil);
