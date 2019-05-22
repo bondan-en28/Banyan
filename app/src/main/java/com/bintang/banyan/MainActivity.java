@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                                     name = object.getString("name").trim();
                                     email = object.getString("email").trim();
                                     photo = object.getString("photo").trim();
+
                                 }
                             } else {
                                 Toast.makeText(MainActivity.this, "Error Login.", Toast.LENGTH_SHORT).show();
