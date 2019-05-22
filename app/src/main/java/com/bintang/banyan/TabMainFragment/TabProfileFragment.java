@@ -3,7 +3,6 @@ package com.bintang.banyan.TabMainFragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -36,7 +35,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,8 +45,8 @@ import static com.bintang.banyan.MainActivity.getId;
 public class TabProfileFragment extends Fragment implements View.OnClickListener {
 
     public static Bitmap imageprofilbitmap;
-    private static String URL_EDIT = "http://10.3.92.160/banyan/edit_detail.php";
-    private static String URL_UPLOAD = "http://10.3.92.160/banyan/upload.php";
+    private static String URL_EDIT = "https://bonbon28.000webhostapp.com/banyan/edit_detail.php";
+    private static String URL_UPLOAD = "https://bonbon28.000webhostapp.com/banyan/upload.php";
     SessionManager sessionManager;
     Button btnLogout, btnSave;
     ImageView fotoProfil;
@@ -86,13 +84,17 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
         edtNama.setText(MainActivity.name);
         edtEmail.setText(MainActivity.email);
 
-        try {
-            Picasso.get().load(MainActivity.photo).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(fotoProfil);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+        Toast.makeText(getActivity(), MainActivity.photo, Toast.LENGTH_SHORT).show();
 
+        if (!MainActivity.photo.equals("0")) {
+            try {
+                Picasso.get().load(MainActivity.photo).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(fotoProfil);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -109,24 +111,25 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
     }
 
     private void pilihFoto() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Pilih Gambar"), 1);
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        gallery.putExtra("crop", "true");
+        gallery.putExtra("aspectX", 1);
+        gallery.putExtra("aspectY", 1);
+        gallery.putExtra("outputX", 200);
+        gallery.putExtra("outputY", 200);
+        gallery.putExtra("return-data", true);
+        startActivityForResult(gallery, 2);
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 1 && data != null && data.getData() != null) {
+        if (resultCode == RESULT_OK && requestCode == 2 && data != null) {
+            Bundle extras = data.getExtras();
+            imageprofilbitmap = extras.getParcelable("data");
 
-            Uri filepath = data.getData();
-            try {
-                imageprofilbitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filepath);
-                fotoProfil.setImageBitmap(imageprofilbitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            fotoProfil.setImageBitmap(imageprofilbitmap);
         }
     }
 
@@ -177,6 +180,7 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
                 return params;
             }
         };
+
         RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
 
@@ -194,7 +198,13 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
 
 
     private void saveEdit() {
-        uploadFoto(getId, getStringImage(imageprofilbitmap));
+
+        try {
+            uploadFoto(getId, getStringImage(imageprofilbitmap));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         final String name = edtNama.getText().toString().trim();
         final String email = edtEmail.getText().toString().trim();
