@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName(); //get info
     public static String name, email, photo, getId;
-    private static String URL_READ = "http://10.3.92.160/banyan/read_detail.php";
+    private static String URL_READ = "https://bonbon28.000webhostapp.com/banyan/read_detail.php";
     SessionManager sessionManager;
 
     @Override
