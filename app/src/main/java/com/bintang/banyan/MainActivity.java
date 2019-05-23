@@ -6,7 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -35,6 +37,35 @@ public class MainActivity extends AppCompatActivity {
     public static String name, email, photo, getId;
     private static String URL_READ = "https://bonbon28.000webhostapp.com/banyan/read_detail.php";
     SessionManager sessionManager;
+    Toolbar toolbar;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment = null;
+
+            switch (item.getItemId()) {
+                case R.id.navigation_beranda:
+                    fragment = new TabBerandaFragment();
+                    toolbar.setTitle("Banyan");
+                    break;
+                case R.id.navigation_social:
+                    toolbar.setTitle("Feed");
+                    fragment = new TabSocialFragment();
+                    break;
+                case R.id.navigation_kebun:
+                    toolbar.setTitle("Progress");
+                    fragment = new TabKebunFragment();
+                    break;
+                case R.id.navigation_profile:
+                    toolbar.setTitle(name);
+                    fragment = new TabProfileFragment();
+                    break;
+            }
+            return loadFragment(fragment);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         sessionManager = new SessionManager(this);
         sessionManager.checkLogin();
@@ -53,6 +87,12 @@ public class MainActivity extends AppCompatActivity {
         loadFragment(new TabBerandaFragment());
         getUserDetail();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
     }
 
     private void getUserDetail() {
@@ -118,30 +158,24 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment = null;
-
-            switch (item.getItemId()) {
-                case R.id.navigation_beranda:
-                    fragment = new TabBerandaFragment();
-                    break;
-                case R.id.navigation_social:
-                    fragment = new TabSocialFragment();
-                    break;
-                case R.id.navigation_kebun:
-                    fragment = new TabKebunFragment();
-                    break;
-                case R.id.navigation_profile:
-                    fragment = new TabProfileFragment();
-                    break;
-            }
-            return loadFragment(fragment);
+        if (id == R.id.menu_share) {
+            Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menu_about) {
+            Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menu_exit) {
+            finish();
+        } else if (id == R.id.menu_search) {
+            Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.menu_settings) {
+            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
         }
-    };
+
+        return true;
+    }
 
     public boolean loadFragment(Fragment fragment) {
         if (fragment != null) {

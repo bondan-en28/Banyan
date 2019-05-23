@@ -7,7 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:elevation="5dp"
+        app:logo="@mipmap/ic_launcher"
+        app:title="Banyan"
+        app:titleMarginStart="40dp">
+
+    </android.support.v7.widget.Toolbar>
+
     <FrameLayout
+        android:layout_below="@id/toolbar"
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,6 +29,7 @@
     <android.support.design.widget.BottomNavigationView
         android:layout_width="match_parent"
         android:id="@+id/nav_view"
+        android:elevation="5dp"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
