@@ -86,7 +86,10 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
 
         if (!MainActivity.photo.equals("0")) {
             try {
-                Picasso.get().load(MainActivity.photo).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(fotoProfil);
+                Picasso.get().load(MainActivity.photo)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .into(fotoProfil);
             } catch (Exception e) {
                 e.printStackTrace();
             }
