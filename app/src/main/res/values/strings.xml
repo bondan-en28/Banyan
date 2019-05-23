@@ -3,6 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="app_desc">Di zaman digital yang semakin pesat, ditengah gencarnya Revolusi industri 4.0 ini, Diperlukan sebuah inovasi untuk mengatasi masalah masalah yang terjadi dimasyarakat melalui aplikasi digital dan socialentepreuner yang dikembangkan melalui Startup (Industri kreatif). Salah satu masalah yang harus segera diatasi yaitu semakin berkurangnya lahan terbuka hijau / lahan pertanian baik diperumahan, daerah perkotaan bahkan didesa. Juga berkurangnya minat dan terbatasnya pengetahuan masyarakat dalam bercocok tanam serta penurunan jumlah pekerja yang ada disektor pertanian yang terjadi ditahun 2018 akhir akhir ini, menjadi hal yang mendasari  pembuatan aplikasi ini, dengan harapan nantinya aplikasi ini dapat memberikan model dan metode bercocok tanam yang inovatif dan kreatif dalam rangka untuk meningkatkan kembali minat masyarakat khususnya petani untuk kembali berperan aktif disektor pertaniaan. Melaui aplikasi ini diharapkan dapat menjadi tempat atau wadah masyarakat dalam melakukan pertukaran informasi terutama dalam bidang agricultural dan juga dapat membuka lapangan pekerjaan baru dan menarik minat para anak muda untuk ikut terjun disektor pertanian.</string>
+    <string name="app_team">RPL-Banyan Team</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

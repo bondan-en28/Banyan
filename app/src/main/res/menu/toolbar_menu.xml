@@ -3,20 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_share"
-        android:title="Share" />
-
-    <item
-        android:id="@+id/menu_about"
-        android:title="About" />
-    <item
-        android:id="@+id/menu_exit"
-        android:title="Exit" />
-    <item
-        android:id="@+id/menu_search"
-        android:icon="@drawable/ic_search_black_24dp"
+        android:id="@+id/menu_add"
+        android:icon="@drawable/ic_add_black_24dp"
         android:iconTint="@android:color/black"
-        android:title="Search"
+        android:title="Add"
         app:showAsAction="always" />
 
     <item
@@ -25,5 +15,31 @@
         android:iconTint="@android:color/black"
         android:title="Settings"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_done"
+        android:icon="@drawable/ic_done_black_24dp"
+        android:iconTint="@android:color/black"
+        android:title="Settings"
+        app:showAsAction="always" />
+
+    <item
+        android:icon="@drawable/ic_share_black_24dp"
+        android:id="@+id/menu_share"
+        android:iconTint="@android:color/black"
+        app:showAsAction="ifRoom"
+        android:title="Share" />
+
+    <item
+        android:icon="@drawable/ic_info_black_24dp"
+        android:id="@+id/menu_about"
+        android:iconTint="@android:color/black"
+        android:title="About" />
+
+    <item
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:id="@+id/menu_exit"
+        android:iconTint="@android:color/black"
+        android:title="Logout" />
+
 
 </menu>

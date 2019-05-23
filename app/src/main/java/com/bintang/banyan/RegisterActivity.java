@@ -44,7 +44,25 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Regist();
+                if (edtNama.getText().toString().isEmpty()) {
+                    edtNama.requestFocus();
+                    edtNama.setError("Masukkan Nama!");
+                } else if (edtEmail.getText().toString().isEmpty()) {
+                    edtEmail.requestFocus();
+                    edtEmail.setError("Masukkan Email!");
+                } else if (edtPassword.getText().toString().isEmpty()) {
+                    edtPassword.requestFocus();
+                    edtPassword.setError("Masukkan Password!");
+                } else if (edtCPassword.getText().toString().isEmpty()) {
+                    edtCPassword.requestFocus();
+                    edtCPassword.setError("Konfirmasi Password!");
+                } else if (!edtPassword.getText().toString().equals(edtCPassword.getText().toString())) {
+                    edtCPassword.requestFocus();
+                    edtCPassword.setError("Password tidak sama!");
+                } else {
+                    Regist();
+                }
+
             }
         });
     }

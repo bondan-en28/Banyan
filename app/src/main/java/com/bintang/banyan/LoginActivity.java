@@ -65,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                     edtPassword.setError("Masukkan Password!");
                 } else {
                     Login(mEmail, mPassword);
-//                    masuk("Tanpa Nama", "mail@banyan.com", "999");
                 }
             }
         });
@@ -83,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
+                            String message = jsonObject.getString("message");
                             JSONArray jsonArray = jsonObject.getJSONArray("login");
 
                             if (success.equals("1")) {
@@ -96,13 +96,13 @@ public class LoginActivity extends AppCompatActivity {
                                     showButton();
                                 }
                             } else {
-                                Toast.makeText(LoginActivity.this, "Error Login.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                                 showButton();
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(LoginActivity.this, "Error " + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Error: " + e.toString(), Toast.LENGTH_SHORT).show();
                             showButton();
                         }
 
