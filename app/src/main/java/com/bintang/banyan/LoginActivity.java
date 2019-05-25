@@ -28,6 +28,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     private static String URL_LOGIN = "https://bonbon28.000webhostapp.com/banyan/login.php";
+    //    private static String URL_LOGIN = "http://10.1.2.46/banyan/login.php";
     SessionManager sessionManager;
     private TextView tvToRegister;
     private EditText edtEmail, edtPassword;

@@ -25,6 +25,7 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 
     private static String URL_REGIST = "https://bonbon28.000webhostapp.com/banyan/register.php";
+    //    private static String URL_REGIST = "http://10.1.2.46/banyan/register.php";
     private EditText edtNama, edtEmail, edtPassword, edtCPassword;
     private Button btnRegist;
     private ProgressBar progressBarLoading;

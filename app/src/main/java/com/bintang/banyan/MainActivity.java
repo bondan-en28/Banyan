@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -35,21 +36,31 @@ import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.bintang.banyan.TabMainFragment.TabProfileFragment.btnGantiFoto;
+import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtAlamat;
 import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtEmail;
 import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtNama;
+import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtNoTelp;
+import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtTtl;
 import static com.bintang.banyan.TabMainFragment.TabProfileFragment.imageprofilbitmap;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName(); //get info
     public static String name, email, photo, getId;
+
     private static String URL_READ = "https://bonbon28.000webhostapp.com/banyan/read_detail.php";
     private static String URL_EDIT = "https://bonbon28.000webhostapp.com/banyan/edit_detail.php";
     private static String URL_UPLOAD = "https://bonbon28.000webhostapp.com/banyan/upload.php";
+    /*
+    private static String URL_READ = "http://10.1.2.46/banyan/read_detail.php";
+    private static String URL_EDIT = "http://10.1.2.46/banyan/edit_detail.php";
+    private static String URL_UPLOAD = "http://10.1.2.46/banyan/upload.php";
+    */
 
+    public int currrentFragment = 1;
     SessionManager sessionManager;
     Toolbar toolbar;
-    public int currrentFragment = 1;
     Menu toolbarMenu;
     MenuItem menu_add, menu_settings, menu_done, menu_about, menu_share, menu_logout;
     boolean edit = false;
@@ -65,14 +76,17 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_beranda:
                     currrentFragment = 1;
                     fragment = new TabBerandaFragment();
+                    edit = false;
                     toolbar.setTitle("Banyan");
                     break;
                 case R.id.navigation_social:
                     currrentFragment = 2;
+                    edit = false;
                     toolbar.setTitle("Feed");
                     fragment = new TabSocialFragment();
                     break;
                 case R.id.navigation_kebun:
+                    edit = false;
                     currrentFragment = 3;
                     toolbar.setTitle("Progress");
                     fragment = new TabKebunFragment();
@@ -225,25 +239,14 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.menu_add) {
             Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.menu_settings) {
-            edtNama.setEnabled(true);
-            edtNama.setFocusable(true);
-            edtNama.setFocusableInTouchMode(true);
-            edtEmail.setEnabled(true);
-            edtEmail.setFocusable(true);
-            edtEmail.setFocusableInTouchMode(true);
+            initContent(true);
             toolbarMenu.findItem(R.id.menu_settings).setVisible(false);
             toolbarMenu.findItem(R.id.menu_done).setVisible(true);
-            edit = true;
+
         } else if (id == R.id.menu_done) {
-            edtNama.setEnabled(false);
-            edtNama.setFocusable(false);
-            edtNama.setFocusableInTouchMode(false);
-            edtEmail.setEnabled(false);
-            edtEmail.setFocusable(false);
-            edtEmail.setFocusableInTouchMode(false);
+            initContent(false);
             toolbarMenu.findItem(R.id.menu_settings).setVisible(true);
             toolbarMenu.findItem(R.id.menu_done).setVisible(false);
-            edit = false;
             saveEdit();
 
         } else if (id == R.id.menu_share) {
@@ -255,6 +258,38 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void initContent(boolean kondisi) {
+        edtNama.setEnabled(kondisi);
+        edtNama.setFocusable(kondisi);
+        edtNama.setFocusableInTouchMode(kondisi);
+
+        edtEmail.setEnabled(kondisi);
+        edtEmail.setFocusable(kondisi);
+        edtEmail.setFocusableInTouchMode(kondisi);
+
+        edtTtl.setEnabled(kondisi);
+        edtTtl.setFocusable(kondisi);
+        edtTtl.setFocusableInTouchMode(kondisi);
+
+        edtAlamat.setEnabled(kondisi);
+        edtAlamat.setFocusable(kondisi);
+        edtAlamat.setFocusableInTouchMode(kondisi);
+
+        edtNoTelp.setEnabled(kondisi);
+        edtNoTelp.setFocusable(kondisi);
+        edtNoTelp.setFocusableInTouchMode(kondisi);
+
+        btnGantiFoto.setEnabled(kondisi);
+        btnGantiFoto.setClickable(kondisi);
+        if (kondisi) {
+            btnGantiFoto.setVisibility(View.VISIBLE);
+        } else {
+            btnGantiFoto.setVisibility(View.GONE);
+        }
+        edit = kondisi;
+
     }
 
     public boolean loadFragment(Fragment fragment) {
@@ -329,7 +364,6 @@ public class MainActivity extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
         return encodedImage;
     }
-
 
     public void saveEdit() {
 

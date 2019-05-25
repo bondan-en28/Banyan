@@ -13,68 +13,156 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp">
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_profile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/ic_person_black_100dp"
-                app:civ_border_color="#E0E0E0"
-                app:civ_border_width="2dp" />
+            <LinearLayout
+                android:id="@+id/container_lengkapi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/background_button_normal"
+                android:gravity="center"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/redhattext_bold"
+                    android:text="Ayo lengkapi identitasmu!"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:padding="15dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/redhattext_bold"
-                    android:text="Identitas"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12sp" />
-                <EditText
-                    android:layout_marginTop="5dp"
-                    android:background="@null"
-                    android:drawableStart="@drawable/ic_person_black_24dp"
-                    android:id="@+id/edt_profile_nama"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:hint="Nama"
-                    android:inputType="textPersonName"
-                    android:textColor="@android:color/black"
-                    android:theme="@style/TextBox" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/redhattext_bold"
-                    android:text="Email"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12sp" />
-                <EditText
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/edt_profile_email"
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/img_profile"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:clickable="false"
+                        android:src="@drawable/ic_person_black_100dp"
+                        app:civ_border_color="#E0E0E0"
+                        app:civ_border_width="2dp" />
+
+                    <Button
+                        android:id="@+id/btn_ganti_foto"
+                        style="@style/Widget.AppCompat.Toolbar"
+                        android:layout_width="100dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/background_button"
+                        android:fontFamily="@font/redhattext_regular"
+                        android:text="Ganti Foto"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:drawableStart="@drawable/ic_email_black_24dp"
-                    android:drawablePadding="10dp"
-                    android:ems="10"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@android:color/black"
-                    android:theme="@style/TextBox" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/redhattext_bold"
+                        android:text="Identitas"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="12sp" />
+
+                    <EditText
+                        android:id="@+id/edt_profile_nama"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawableStart="@drawable/ic_person_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:ems="10"
+                        android:hint="Nama"
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/black"
+                        android:theme="@style/AppThemeTosca" />
+
+                    <EditText
+                        android:id="@+id/edt_profile_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawableStart="@drawable/ic_email_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:ems="10"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@android:color/black"
+                        android:theme="@style/AppThemeTosca" />
+
+                    <EditText
+                        android:id="@+id/edt_profile_ttl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawableStart="@drawable/ic_date_range_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:ems="10"
+                        android:hint="TTL (DD/MM/YY)"
+                        android:inputType="date"
+                        android:textColor="@android:color/black"
+                        android:theme="@style/AppThemeTosca" />
+
+                    <EditText
+                        android:id="@+id/edt_profile_alamat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawableStart="@drawable/ic_place_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:ems="10"
+                        android:hint="Alamat"
+                        android:inputType="text"
+                        android:textColor="@android:color/black"
+                        android:theme="@style/AppThemeTosca" />
+
+                    <EditText
+                        android:id="@+id/edt_profile_notelp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawableStart="@drawable/ic_local_phone_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:ems="10"
+                        android:hint="No. HP"
+                        android:inputType="phone"
+                        android:textColor="@android:color/black"
+                        android:theme="@style/AppThemeTosca" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
+
         </LinearLayout>
+
     </ScrollView>
 </FrameLayout>

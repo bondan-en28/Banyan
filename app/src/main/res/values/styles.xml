@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="TextBox" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeTosca" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -17,6 +17,11 @@
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:fontFamily">@font/michela</item>
+    </style>
+
+    <style name="Toolbar.NavigatonText" parent="Toolbar.TitleText">
+        <item name="android:fontFamily">@font/michela</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
 

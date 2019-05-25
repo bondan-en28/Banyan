@@ -1,5 +1,6 @@
 package com.bintang.banyan.TabMainFragment;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -9,8 +10,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bintang.banyan.MainActivity;
@@ -19,13 +23,21 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Objects;
+
 import static android.app.Activity.RESULT_OK;
 
 public class TabProfileFragment extends Fragment implements View.OnClickListener {
 
     public static Bitmap imageprofilbitmap;
-    ImageView fotoProfil;
-    public static EditText edtNama, edtEmail;
+    public static ImageView fotoProfil;
+    public static Button btnGantiFoto;
+    public static EditText edtNama, edtEmail, edtTtl, edtAlamat, edtNoTelp;
+    DatePickerDialog.OnDateSetListener date;
+    Calendar myCalendar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -45,41 +57,113 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
 
         edtNama = view.findViewById(R.id.edt_profile_nama);
         edtEmail = view.findViewById(R.id.edt_profile_email);
-        edtNama.setEnabled(false);
-        edtNama.setFocusable(false);
-        edtNama.setFocusableInTouchMode(false);
-        edtEmail.setEnabled(false);
-        edtEmail.setFocusable(false);
-        edtEmail.setFocusableInTouchMode(false);
-
+        edtTtl = view.findViewById(R.id.edt_profile_ttl);
+        edtAlamat = view.findViewById(R.id.edt_profile_alamat);
+        edtNoTelp = view.findViewById(R.id.edt_profile_notelp);
         fotoProfil = view.findViewById(R.id.img_profile);
-        fotoProfil.setOnClickListener(this);
+        btnGantiFoto = view.findViewById(R.id.btn_ganti_foto);
 
+        initContent(false);
+
+        btnGantiFoto.setOnClickListener(this);
+
+        LinearLayout txtLengkapi = view.findViewById(R.id.container_lengkapi);
+        if (edtNama.getText().toString().isEmpty() ||
+                edtEmail.getText().toString().isEmpty() ||
+                edtTtl.getText().toString().isEmpty() ||
+                edtAlamat.getText().toString().isEmpty() ||
+                edtNoTelp.getText().toString().isEmpty()) {
+            txtLengkapi.setVisibility(View.VISIBLE);
+        } else {
+            txtLengkapi.setVisibility(View.GONE);
+        }
         try {
             edtNama.setText(MainActivity.name);
             edtEmail.setText(MainActivity.email);
 
-            if (!MainActivity.photo.equals("0")) {
-                try {
-                    Picasso.get().load(MainActivity.photo)
-                            .memoryPolicy(MemoryPolicy.NO_CACHE)
-                            .networkPolicy(NetworkPolicy.NO_CACHE)
-                            .into(fotoProfil);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            try {
+                Picasso.get().load(MainActivity.photo)
+                        .memoryPolicy(MemoryPolicy.NO_CACHE)
+                        .networkPolicy(NetworkPolicy.NO_CACHE)
+                        .error(R.drawable.ic_person_black_100dp)
+                        .into(fotoProfil);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }
 
+        myCalendar = Calendar.getInstance();
+        edtTtl.setOnClickListener(this);
+
     }
+
+    private void updateLabel() {
+        String myFormat = "MM/dd/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        edtTtl.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    private void initContent(boolean kondisi) {
+        edtNama.setEnabled(kondisi);
+        edtNama.setFocusable(kondisi);
+        edtNama.setFocusableInTouchMode(kondisi);
+
+        edtEmail.setEnabled(kondisi);
+        edtEmail.setFocusable(kondisi);
+        edtEmail.setFocusableInTouchMode(kondisi);
+
+        edtTtl.setEnabled(kondisi);
+        edtTtl.setFocusable(kondisi);
+        edtTtl.setFocusableInTouchMode(kondisi);
+
+        edtAlamat.setEnabled(kondisi);
+        edtAlamat.setFocusable(kondisi);
+        edtAlamat.setFocusableInTouchMode(kondisi);
+
+        edtNoTelp.setEnabled(kondisi);
+        edtNoTelp.setFocusable(kondisi);
+        edtNoTelp.setFocusableInTouchMode(kondisi);
+
+        btnGantiFoto.setEnabled(kondisi);
+        btnGantiFoto.setClickable(kondisi);
+        if (kondisi) {
+            btnGantiFoto.setVisibility(View.VISIBLE);
+        } else {
+            btnGantiFoto.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.img_profile:
+            case R.id.btn_ganti_foto:
                 pilihFoto();
+                break;
+
+            case R.id.edt_profile_ttl:
+
+                new DatePickerDialog(Objects.requireNonNull(getActivity()), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+                date = new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                          int dayOfMonth) {
+                        // TODO myCalendar AmBIL TGL
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, monthOfYear);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        updateLabel();
+                    }
+
+                };
+
                 break;
         }
     }
