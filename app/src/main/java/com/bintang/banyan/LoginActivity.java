@@ -91,9 +91,12 @@ public class LoginActivity extends AppCompatActivity {
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     String name = object.getString("name").trim();
                                     String email = object.getString("email").trim();
+                                    String ttl = object.getString("ttl").trim();
+                                    String alamat = object.getString("alamat").trim();
+                                    String notelp = object.getString("notelp").trim();
                                     String id = object.getString("id").trim();
 
-                                    masuk(name, email, id);
+                                    masuk(name, email, ttl, alamat, notelp, id);
                                     showButton();
                                 }
                             } else {
@@ -136,8 +139,8 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void masuk(String name, String email, String id) {
-        sessionManager.createSession(name, email, id);
+    private void masuk(String name, String email, String ttl, String alamat, String notelp, String id) {
+        sessionManager.createSession(name, email, ttl, alamat, notelp, id);
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();

@@ -47,7 +47,7 @@ import static com.bintang.banyan.TabMainFragment.TabProfileFragment.imageprofilb
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName(); //get info
-    public static String name, email, photo, getId;
+    public static String name, email, photo, ttl, alamat, notelp, getId;
 
     private static String URL_READ = "https://bonbon28.000webhostapp.com/banyan/read_detail.php";
     private static String URL_EDIT = "https://bonbon28.000webhostapp.com/banyan/edit_detail.php";
@@ -193,16 +193,19 @@ public class MainActivity extends AppCompatActivity {
                                     name = object.getString("name").trim();
                                     email = object.getString("email").trim();
                                     photo = object.getString("photo").trim();
+                                    ttl = object.getString("ttl").trim();
+                                    alamat = object.getString("alamat").trim();
+                                    notelp = object.getString("notelp").trim();
 
                                 }
                             } else {
-                                Toast.makeText(MainActivity.this, "Error Login.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Error: Gagal mendapatkan detail", Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                             progressDialog.dismiss();
-                            Toast.makeText(MainActivity.this, "Error Login." + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Error: ." + e.toString(), Toast.LENGTH_SHORT).show();
 
                         }
                     }
@@ -210,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this, "Error Login." + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Error Connection: " + error.toString(), Toast.LENGTH_SHORT).show();
 
                     }
                 }) {
@@ -376,6 +379,9 @@ public class MainActivity extends AppCompatActivity {
 
         final String name = edtNama.getText().toString().trim();
         final String email = edtEmail.getText().toString().trim();
+        final String ttl = edtTtl.getText().toString().trim();
+        final String alamat = edtAlamat.getText().toString().trim();
+        final String notelp = edtNoTelp.getText().toString().trim();
         final String id = getId;
 
         final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
@@ -401,7 +407,7 @@ public class MainActivity extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(MainActivity.this, "Error Login." + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Error: " + e.toString(), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     }
@@ -409,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this, "Error Login." + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Error Connection." + error.toString(), Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
 
                     }
@@ -419,6 +425,9 @@ public class MainActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("name", name);
                 params.put("email", email);
+                params.put("ttl", ttl);
+                params.put("alamat", alamat);
+                params.put("notelp", notelp);
                 params.put("id", id);
 
                 return params;

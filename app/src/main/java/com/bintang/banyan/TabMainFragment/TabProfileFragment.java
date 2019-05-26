@@ -62,24 +62,20 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
         edtNoTelp = view.findViewById(R.id.edt_profile_notelp);
         fotoProfil = view.findViewById(R.id.img_profile);
         btnGantiFoto = view.findViewById(R.id.btn_ganti_foto);
+        LinearLayout txtLengkapi = view.findViewById(R.id.container_lengkapi);
+        myCalendar = Calendar.getInstance();
+
+        btnGantiFoto.setOnClickListener(this);
+        edtTtl.setOnClickListener(this);
 
         initContent(false);
 
-        btnGantiFoto.setOnClickListener(this);
-
-        LinearLayout txtLengkapi = view.findViewById(R.id.container_lengkapi);
-        if (edtNama.getText().toString().isEmpty() ||
-                edtEmail.getText().toString().isEmpty() ||
-                edtTtl.getText().toString().isEmpty() ||
-                edtAlamat.getText().toString().isEmpty() ||
-                edtNoTelp.getText().toString().isEmpty()) {
-            txtLengkapi.setVisibility(View.VISIBLE);
-        } else {
-            txtLengkapi.setVisibility(View.GONE);
-        }
         try {
             edtNama.setText(MainActivity.name);
             edtEmail.setText(MainActivity.email);
+            edtTtl.setText(MainActivity.ttl);
+            edtAlamat.setText(MainActivity.alamat);
+            edtNoTelp.setText(MainActivity.notelp);
 
             try {
                 Picasso.get().load(MainActivity.photo)
@@ -95,8 +91,22 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
             Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }
 
-        myCalendar = Calendar.getInstance();
-        edtTtl.setOnClickListener(this);
+
+        if (edtNama.getText().toString().isEmpty() ||
+                edtEmail.getText().toString().isEmpty() ||
+                edtTtl.getText().toString().isEmpty() ||
+                edtAlamat.getText().toString().isEmpty() ||
+                edtNoTelp.getText().toString().isEmpty() ||
+                edtNama.getText().toString().equals("null") ||
+                edtEmail.getText().toString().equals("null") ||
+                edtTtl.getText().toString().equals("null") ||
+                edtAlamat.getText().toString().equals("null") ||
+                edtNoTelp.getText().toString().equals("null")
+        ) {
+            txtLengkapi.setVisibility(View.VISIBLE);
+        } else {
+            txtLengkapi.setVisibility(View.GONE);
+        }
 
     }
 
@@ -173,8 +183,8 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
         gallery.putExtra("crop", "true");
         gallery.putExtra("aspectX", 1);
         gallery.putExtra("aspectY", 1);
-        gallery.putExtra("outputX", 200);
-        gallery.putExtra("outputY", 200);
+        gallery.putExtra("outputX", 100);
+        gallery.putExtra("outputY", 100);
         gallery.putExtra("return-data", true);
         startActivityForResult(gallery, 2);
 

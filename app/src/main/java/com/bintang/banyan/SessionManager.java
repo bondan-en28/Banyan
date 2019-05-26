@@ -9,7 +9,11 @@ import java.util.HashMap;
 public class SessionManager {
     public static final String NAME = "NAME";
     public static final String EMAIL = "EMAIL";
+    public static final String TTL = "TTL";
+    public static final String ALAMAT = "ALAMAT";
+    public static final String NOTELP = "NOTELP";
     public static final String ID = "ID";
+
     private static final String PREF_NAME = "LOGIN";
     private static final String LOGIN = "IS_LOGIN";
     public SharedPreferences.Editor editor;
@@ -24,10 +28,13 @@ public class SessionManager {
         editor = sharedPreferences.edit();
     }
 
-    public void createSession(String name, String email, String id) {
+    public void createSession(String name, String email, String ttl, String alamat, String notelp, String id) {
         editor.putBoolean(LOGIN, true);
         editor.putString(NAME, name);
         editor.putString(EMAIL, email);
+        editor.putString(TTL, ttl);
+        editor.putString(ALAMAT, alamat);
+        editor.putString(NOTELP, notelp);
         editor.putString(ID, id);
         editor.apply();
     }
