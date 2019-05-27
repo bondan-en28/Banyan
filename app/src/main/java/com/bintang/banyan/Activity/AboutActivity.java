@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.bintang.banyan.Activity.Main.MainActivity;
 import com.bintang.banyan.R;
 
 public class AboutActivity extends AppCompatActivity {

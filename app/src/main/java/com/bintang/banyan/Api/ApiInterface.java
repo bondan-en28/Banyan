@@ -2,9 +2,12 @@ package com.bintang.banyan.Api;
 
 import com.bintang.banyan.Model.Posting;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiInterface {
@@ -16,5 +19,9 @@ public interface ApiInterface {
             @Field("deskripsi") String deskripsi,
             @Field("gambar") String gambar
     );
+
+    @GET("getposting.php")
+    Call<List<Posting>> getPosting();
+
 
 }

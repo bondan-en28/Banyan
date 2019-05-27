@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.bintang.banyan.Activity.MainActivity;
+import com.bintang.banyan.Activity.Main.MainActivity;
 import com.bintang.banyan.R;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;

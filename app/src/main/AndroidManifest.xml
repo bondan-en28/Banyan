@@ -25,7 +25,7 @@
             android:name=".Activity.LoginActivity"
             android:theme="@style/AppThemePastel" />
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Activity.Main.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

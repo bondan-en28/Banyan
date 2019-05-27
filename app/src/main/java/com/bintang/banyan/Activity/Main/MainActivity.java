@@ -1,4 +1,4 @@
-package com.bintang.banyan.Activity;
+package com.bintang.banyan.Activity.Main;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,10 +23,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bintang.banyan.Activity.AboutActivity;
 import com.bintang.banyan.Activity.AddPost.AddPostActivity;
+import com.bintang.banyan.Model.Posting;
 import com.bintang.banyan.R;
 import com.bintang.banyan.SessionManager;
-import com.bintang.banyan.TabMainFragment.TabBerandaFragment;
+import com.bintang.banyan.TabMainFragment.Beranda.BerandaAdapter;
+import com.bintang.banyan.TabMainFragment.Beranda.BerandaPresenter;
+import com.bintang.banyan.TabMainFragment.Beranda.BerandaView;
+import com.bintang.banyan.TabMainFragment.Beranda.TabBerandaFragment;
 import com.bintang.banyan.TabMainFragment.TabKebunFragment;
 import com.bintang.banyan.TabMainFragment.TabProfileFragment;
 import com.bintang.banyan.TabMainFragment.TabSocialFragment;
@@ -37,8 +42,12 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static com.bintang.banyan.TabMainFragment.Beranda.TabBerandaFragment.itemClickListener;
+import static com.bintang.banyan.TabMainFragment.Beranda.TabBerandaFragment.recyclerView;
+import static com.bintang.banyan.TabMainFragment.Beranda.TabBerandaFragment.swipeRefresh;
 import static com.bintang.banyan.TabMainFragment.TabProfileFragment.btnGantiFoto;
 import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtAlamat;
 import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtEmail;
@@ -47,7 +56,7 @@ import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtNoTelp;
 import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtTtl;
 import static com.bintang.banyan.TabMainFragment.TabProfileFragment.imageprofilbitmap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BerandaView {
 
     private static final String TAG = MainActivity.class.getSimpleName(); //get info
     public static String name, email, photo, ttl, alamat, notelp, getId;
@@ -55,11 +64,6 @@ public class MainActivity extends AppCompatActivity {
     private static String URL_READ = "https://bonbon28.000webhostapp.com/banyan/read_detail.php";
     private static String URL_EDIT = "https://bonbon28.000webhostapp.com/banyan/edit_detail.php";
     private static String URL_UPLOAD = "https://bonbon28.000webhostapp.com/banyan/upload.php";
-    /*
-    private static String URL_READ = "http://10.1.2.46/banyan/read_detail.php";
-    private static String URL_EDIT = "http://10.1.2.46/banyan/edit_detail.php";
-    private static String URL_UPLOAD = "http://10.1.2.46/banyan/upload.php";
-    */
 
     public int currrentFragment = 1;
     SessionManager sessionManager;
@@ -67,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
     Menu toolbarMenu;
     MenuItem menu_add, menu_settings, menu_done, menu_about, menu_share, menu_logout;
     boolean edit = false;
+
+    public static BerandaPresenter presenter;
+    public static BerandaAdapter adapter;
+    List<Posting> posts;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -124,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
 
         loadFragment(new TabBerandaFragment());
         getUserDetail();
+        presenter = new BerandaPresenter(this);
+
 
     }
 
@@ -442,4 +453,28 @@ public class MainActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
+    @Override
+    public void showLoading() {
+        swipeRefresh.setRefreshing(true);
+
+    }
+
+    @Override
+    public void hideLoading() {
+        swipeRefresh.setRefreshing(false);
+
+    }
+
+    @Override
+    public void onGetResult(List<Posting> posts) {
+        adapter = new BerandaAdapter(this, posts, itemClickListener);
+        adapter.notifyDataSetChanged();
+        recyclerView.setAdapter(adapter);
+        this.posts = posts;
+    }
+
+    @Override
+    public void onErrorLoading(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }

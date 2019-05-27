@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.bintang.banyan.Activity.LoginActivity;
-import com.bintang.banyan.Activity.MainActivity;
+import com.bintang.banyan.Activity.Main.MainActivity;
 
 import java.util.HashMap;
 
