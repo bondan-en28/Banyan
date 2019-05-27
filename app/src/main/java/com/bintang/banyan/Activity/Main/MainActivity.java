@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bintang.banyan.Activity.AboutActivity;
 import com.bintang.banyan.Activity.AddPost.AddPostActivity;
+import com.bintang.banyan.DetailPostActivity;
 import com.bintang.banyan.Model.Posting;
 import com.bintang.banyan.R;
 import com.bintang.banyan.SessionManager;
@@ -45,7 +46,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.bintang.banyan.TabMainFragment.Beranda.TabBerandaFragment.itemClickListener;
 import static com.bintang.banyan.TabMainFragment.Beranda.TabBerandaFragment.recyclerView;
 import static com.bintang.banyan.TabMainFragment.Beranda.TabBerandaFragment.swipeRefresh;
 import static com.bintang.banyan.TabMainFragment.TabProfileFragment.btnGantiFoto;
@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
 
     public static BerandaPresenter presenter;
     public static BerandaAdapter adapter;
+    BerandaAdapter.ItemClickListener itemClickListener;
+
     List<Posting> posts;
 
 
@@ -135,7 +137,24 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
         getUserDetail();
         presenter = new BerandaPresenter(this);
 
+        itemClickListener = ((view, position) ->
+        {
+            int id = posts.get(position).getId();
+            String user_id = posts.get(position).getUser_id();
+            String judul = posts.get(position).getJudul();
+            String deskripsi = posts.get(position).getDeskripsi();
+            String gambar = posts.get(position).getGambar();
+            String tanggal = posts.get(position).getTanggal();
 
+            Intent intent = new Intent(this, DetailPostActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("user_id", user_id);
+            intent.putExtra("judul", judul);
+            intent.putExtra("deskripsi", deskripsi);
+            intent.putExtra("gambar", gambar);
+            intent.putExtra("tanggal", tanggal);
+            startActivity(intent);
+        });
     }
 
     @Override
