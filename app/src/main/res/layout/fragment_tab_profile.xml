@@ -97,8 +97,7 @@
                         android:ems="10"
                         android:hint="Nama"
                         android:inputType="textPersonName"
-                        android:textColor="@android:color/black"
-                        android:theme="@style/AppThemeTosca" />
+                        android:textColor="@android:color/black" />
 
                     <EditText
                         android:id="@+id/edt_profile_email"
@@ -111,8 +110,7 @@
                         android:ems="10"
                         android:hint="Email"
                         android:inputType="textEmailAddress"
-                        android:textColor="@android:color/black"
-                        android:theme="@style/AppThemeTosca" />
+                        android:textColor="@android:color/black" />
 
                     <EditText
                         android:id="@+id/edt_profile_ttl"
@@ -125,8 +123,7 @@
                         android:ems="10"
                         android:hint="TTL (DD/MM/YY)"
                         android:inputType="date"
-                        android:textColor="@android:color/black"
-                        android:theme="@style/AppThemeTosca" />
+                        android:textColor="@android:color/black" />
 
                     <EditText
                         android:id="@+id/edt_profile_alamat"
@@ -139,8 +136,7 @@
                         android:ems="10"
                         android:hint="Alamat"
                         android:inputType="text"
-                        android:textColor="@android:color/black"
-                        android:theme="@style/AppThemeTosca" />
+                        android:textColor="@android:color/black" />
 
                     <EditText
                         android:id="@+id/edt_profile_notelp"
@@ -153,8 +149,7 @@
                         android:ems="10"
                         android:hint="No. HP"
                         android:inputType="phone"
-                        android:textColor="@android:color/black"
-                        android:theme="@style/AppThemeTosca" />
+                        android:textColor="@android:color/black" />
 
                 </LinearLayout>
 

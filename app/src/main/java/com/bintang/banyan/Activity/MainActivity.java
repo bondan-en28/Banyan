@@ -1,4 +1,4 @@
-package com.bintang.banyan;
+package com.bintang.banyan.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,6 +23,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bintang.banyan.Activity.AddPost.AddPostActivity;
+import com.bintang.banyan.R;
+import com.bintang.banyan.SessionManager;
 import com.bintang.banyan.TabMainFragment.TabBerandaFragment;
 import com.bintang.banyan.TabMainFragment.TabKebunFragment;
 import com.bintang.banyan.TabMainFragment.TabProfileFragment;
@@ -240,7 +243,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu_add) {
-            Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, AddPostActivity.class);
+            intent.putExtra("id", getId);
+            startActivity(intent);
         } else if (id == R.id.menu_settings) {
             initContent(true);
             toolbarMenu.findItem(R.id.menu_settings).setVisible(false);

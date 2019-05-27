@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.bintang.banyan.Activity.LoginActivity;
+import com.bintang.banyan.Activity.MainActivity;
+
 import java.util.HashMap;
 
 public class SessionManager {

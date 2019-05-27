@@ -1,4 +1,4 @@
-package com.bintang.banyan;
+package com.bintang.banyan.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bintang.banyan.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

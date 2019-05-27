@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_login"
     android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    tools:context=".Activity.RegisterActivity">
 
     <TextView
         android:layout_width="wrap_content"

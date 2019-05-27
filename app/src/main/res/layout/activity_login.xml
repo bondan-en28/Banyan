@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg_login"
-    tools:context=".LoginActivity">
+    tools:context=".Activity.LoginActivity">
 
     <TextView
         android:layout_width="wrap_content"
