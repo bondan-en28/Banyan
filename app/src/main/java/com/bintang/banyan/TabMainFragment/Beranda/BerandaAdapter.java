@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.bintang.banyan.Model.Posting;
 import com.bintang.banyan.R;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -40,15 +38,21 @@ public class BerandaAdapter extends RecyclerView.Adapter<BerandaAdapter.Recycler
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter recyclerViewAdapter, int i) {
         Posting postt = this.post.get(i);
+
+        recyclerViewAdapter.tv_id.setText(postt.getUser_id());
         recyclerViewAdapter.tv_judul.setText(postt.getJudul());
         recyclerViewAdapter.tv_deskripsi.setText(postt.getDeskripsi());
         recyclerViewAdapter.tv_date.setText(postt.getTanggal());
+
         try {
             Picasso.get().load(postt.getGambar())
-                    .memoryPolicy(MemoryPolicy.NO_CACHE)
-                    .networkPolicy(NetworkPolicy.NO_CACHE)
                     .error(R.drawable.ic_person_black_100dp)
                     .into(recyclerViewAdapter.iv_post);
+
+            Picasso.get().load(postt.getUserImage())
+                    .error(R.drawable.ic_person_black_100dp)
+                    .into(recyclerViewAdapter.iv_user_image);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,8 +70,8 @@ public class BerandaAdapter extends RecyclerView.Adapter<BerandaAdapter.Recycler
 
     public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tv_judul, tv_deskripsi, tv_date;
-        ImageView iv_post;
+        TextView tv_id, tv_judul, tv_deskripsi, tv_date;
+        ImageView iv_post, iv_user_image;
 
         CardView card_item;
         ItemClickListener itemClickListener;
@@ -75,10 +79,12 @@ public class BerandaAdapter extends RecyclerView.Adapter<BerandaAdapter.Recycler
         RecyclerViewAdapter(View itemView, ItemClickListener itemClickListener) {
             super(itemView);
 
+            tv_id = itemView.findViewById(R.id.item_user_id);
             tv_judul = itemView.findViewById(R.id.item_judul);
             tv_deskripsi = itemView.findViewById(R.id.item_deskripsi);
             tv_date = itemView.findViewById(R.id.item_date);
             iv_post = itemView.findViewById(R.id.iv_item_post);
+            iv_user_image = itemView.findViewById(R.id.item_user_image);
             card_item = itemView.findViewById(R.id.card_item);
 
             this.itemClickListener = itemClickListener;

@@ -23,6 +23,9 @@ public class Posting {
     @SerializedName("date")
     private String tanggal;
     @Expose
+    @SerializedName("user_image")
+    private String userImage;
+    @Expose
     @SerializedName("success")
     private Boolean success;
     @Expose
@@ -75,6 +78,14 @@ public class Posting {
 
     public void setTanggal(String tanggal) {
         this.tanggal = tanggal;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 
     public Boolean getSuccess() {

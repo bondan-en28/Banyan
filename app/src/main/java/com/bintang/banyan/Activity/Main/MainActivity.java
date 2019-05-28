@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
             String deskripsi = posts.get(position).getDeskripsi();
             String gambar = posts.get(position).getGambar();
             String tanggal = posts.get(position).getTanggal();
+            String user_image = posts.get(position).getUserImage();
 
             Intent intent = new Intent(this, DetailPostActivity.class);
             intent.putExtra("id", id);
@@ -155,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
             intent.putExtra("deskripsi", deskripsi);
             intent.putExtra("gambar", gambar);
             intent.putExtra("tanggal", tanggal);
+            intent.putExtra("user_image", user_image);
             startActivity(intent);
         });
     }
