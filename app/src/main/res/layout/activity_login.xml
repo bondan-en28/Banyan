@@ -59,7 +59,8 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:text="b"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:autofillHints="" />
         </android.support.design.widget.TextInputLayout>
 
         <ProgressBar
