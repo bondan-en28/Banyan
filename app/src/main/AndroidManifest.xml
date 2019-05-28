@@ -16,9 +16,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SplashActivity"></activity>
-        <activity android:name=".Activity.Main.SplahActivity" />
-        <activity android:name=".DetailPostActivity" />
+        <activity android:name=".Activity.DetailPostActivity" />
         <activity android:name=".Activity.AddPost.AddPostActivity" />
         <activity android:name=".Activity.AboutActivity" />
         <activity
@@ -27,6 +25,7 @@
         <activity
             android:name=".Activity.LoginActivity"
             android:theme="@style/AppThemePastel" />
+        <activity android:name=".Activity.SplashActivity" />
         <activity
             android:name=".Activity.Main.MainActivity"
             android:label="@string/app_name">

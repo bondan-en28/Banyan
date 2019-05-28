@@ -1,7 +1,9 @@
-package com.bintang.banyan;
+package com.bintang.banyan.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.bintang.banyan.R;
 
 public class DetailPostActivity extends AppCompatActivity {
 
