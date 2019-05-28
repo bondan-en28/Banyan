@@ -265,12 +265,6 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
     }
 
     @Override
-    protected void onResume() {
-        getUserDetail();
-        super.onResume();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
