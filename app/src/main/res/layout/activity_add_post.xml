@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Activity.AddPost.AddPostActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -98,7 +99,7 @@
         android:background="@android:color/white"
         android:elevation="5dp"
         app:logo="@mipmap/ic_launcher"
-        app:title="Post Your Journey!"
+        app:title="Judul Post"
         app:titleMarginStart="40dp"
         app:titleTextAppearance="@style/Toolbar.TitleText">
 

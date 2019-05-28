@@ -25,7 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bintang.banyan.Activity.AboutActivity;
 import com.bintang.banyan.Activity.AddPost.AddPostActivity;
-import com.bintang.banyan.DetailPostActivity;
+import com.bintang.banyan.Activity.DetailPostActivity;
 import com.bintang.banyan.Model.Posting;
 import com.bintang.banyan.R;
 import com.bintang.banyan.SessionManager;
@@ -134,7 +134,9 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
         getId = user.get(SessionManager.ID);
 
         loadFragment(new TabBerandaFragment());
-        getUserDetail();
+        if (sessionManager.isLogin()) {
+            getUserDetail();
+        }
         presenter = new BerandaPresenter(this);
 
         itemClickListener = ((view, position) ->
@@ -238,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             progressDialog.dismiss();
-                            Toast.makeText(MainActivity.this, "Error: ." + e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Error: " + e.toString(), Toast.LENGTH_SHORT).show();
 
                         }
                     }
@@ -246,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(MainActivity.this, "Error Connection: " + error.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Error Connection DISINI: " + error.toString(), Toast.LENGTH_SHORT).show();
 
                     }
                 }) {
@@ -260,12 +262,6 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-    }
-
-    @Override
-    protected void onResume() {
-        getUserDetail();
-        super.onResume();
     }
 
     @Override
@@ -494,6 +490,6 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
 
     @Override
     public void onErrorLoading(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Error Loading" + message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.bintang.banyan.Activity.LoginActivity;
 import com.bintang.banyan.Activity.Main.MainActivity;
+import com.bintang.banyan.Activity.SplashActivity;
 
 import java.util.HashMap;
 
@@ -48,7 +48,8 @@ public class SessionManager {
 
     public void checkLogin() {
         if (!this.isLogin()) {
-            Intent intent = new Intent(context, LoginActivity.class);
+            this.logout();
+            Intent intent = new Intent(context, SplashActivity.class);
             context.startActivity(intent);
             ((MainActivity) context).finish();
         }
@@ -61,13 +62,12 @@ public class SessionManager {
         user.put(ID, sharedPreferences.getString(ID, null));
 
         return user;
-
     }
 
     public void logout() {
         editor.clear();
         editor.commit();
-        Intent intent = new Intent(context, LoginActivity.class);
+        Intent intent = new Intent(context, SplashActivity.class);
         context.startActivity(intent);
         ((MainActivity) context).finish();
     }

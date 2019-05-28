@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         sessionManager = new SessionManager(this);
+
         edtEmail = findViewById(R.id.edt_login_email);
         edtPassword = findViewById(R.id.edt_login_password);
         tvToRegister = findViewById(R.id.tvToRegister);
