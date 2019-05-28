@@ -1,9 +1,10 @@
 package com.bintang.banyan.Activity.Main;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SplahActivity extends AppCompatActivity {
+public class SplahActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
