@@ -6,47 +6,54 @@
     android:layout_height="match_parent"
     tools:context=".Activity.AddPost.AddPostActivity">
 
-
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/container_btn_posting"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp">
+        android:layout_below="@id/toolbar">
 
-        <ImageView
-            android:id="@+id/iv_post"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_person_black_100dp" />
-
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edt_judul"
+            <android.support.v7.widget.CardView
+                android:id="@+id/container_iv_post"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Judul"
-                android:inputType="text"
-                android:textColor="@color/colorPrimaryDark" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="5dp">
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/iv_post"
+                    android:layout_width="400dp"
+                    android:layout_height="400dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_banyan_496px_post" />
+
+            </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:layout_above="@id/container_btn_posting"
+                android:layout_below="@id/container_iv_post"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/edt_judul"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Judul"
+                        android:inputType="text"
+                        android:textColor="@color/colorPrimaryDark" />
+                </android.support.design.widget.TextInputLayout>
 
 
                 <android.support.design.widget.TextInputLayout
@@ -65,11 +72,11 @@
                         android:textColor="@color/colorPrimaryDark" />
                 </android.support.design.widget.TextInputLayout>
 
+
             </LinearLayout>
+        </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
-
-    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/container_btn_posting"

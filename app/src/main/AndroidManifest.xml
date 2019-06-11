@@ -5,6 +5,7 @@
     android:targetSandboxVersion="1">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +17,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".Activity.WelcomeScreen.WelcomeScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.DetailPostActivity" />
         <activity android:name=".Activity.AddPost.AddPostActivity" />
         <activity android:name=".Activity.AboutActivity" />
@@ -28,7 +32,8 @@
         <activity android:name=".Activity.SplashActivity" />
         <activity
             android:name=".Activity.Main.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/AppThemeLightStatusBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

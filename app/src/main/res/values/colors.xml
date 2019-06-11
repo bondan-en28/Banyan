@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#001E24</color>
     <color name="colorAccent">#f8fda6</color>
     <color name="colorAccentt">#00B1A2</color>
+    <color name="statusBarBG">#F0F0F0</color>
+
+    <color name="color1">#424549</color>
+    <color name="color2">#7e455e</color>
+    <color name="color3">#796e25</color>
+    <color name="color4">#59717c</color>
 </resources>
