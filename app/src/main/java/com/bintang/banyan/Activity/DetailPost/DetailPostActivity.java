@@ -95,7 +95,7 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
 
     private void kirimKomentar() {
         presenter.postKomentar(id,
-                user_id,
+                MainActivity.getId,
                 edtComment.getText().toString()
         );
     }
