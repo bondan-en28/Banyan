@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
     Toolbar toolbar;
     ImageView ivImagePostDetail, ivUserImage;
     TextView tvDeskripsi, tvTanggal, tvUserName;
+    EditText edtComment;
     Button sendKomentar;
     AddCommentPresenter presenter;
     ProgressDialog progressDialog;
@@ -51,6 +53,7 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Mohon Tunggu...");
         presenter = new AddCommentPresenter(this);
+        edtComment = findViewById(R.id.edt_comment);
 
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0);
@@ -88,12 +91,13 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
 
     }
 
-    private void kirimKomentar() {
-        presenter.postKomentar("post_id",
-                "user_id",
-                "komentar"
-        );
+    // TODO: USER_ID MASIH SALAH!!!!!!!!!
 
+    private void kirimKomentar() {
+        presenter.postKomentar(id,
+                user_id,
+                edtComment.getText().toString()
+        );
     }
 
     @Override
@@ -127,6 +131,7 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
     @Override
     public void onRequestSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        edtComment.setText("");
     }
 
     @Override

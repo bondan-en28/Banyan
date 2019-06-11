@@ -27,7 +27,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("komentar.php")
     Call<Komentar> postKomentar(
-            @Field("post_id") String post_id,
+            @Field("post_id") int post_id,
             @Field("user_id") String user_id,
             @Field("komentar") String komentar
     );

@@ -17,7 +17,7 @@ public class AddCommentPresenter {
         this.view = view;
     }
 
-    void postKomentar(final String post_id, final String user_id, final String komentar) {
+    void postKomentar(final int post_id, final String user_id, final String komentar) {
 
         view.showProgress();
 
