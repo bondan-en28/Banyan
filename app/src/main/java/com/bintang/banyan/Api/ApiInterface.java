@@ -1,5 +1,6 @@
 package com.bintang.banyan.Api;
 
+import com.bintang.banyan.Model.Komentar;
 import com.bintang.banyan.Model.Posting;
 
 import java.util.List;
@@ -23,5 +24,12 @@ public interface ApiInterface {
     @GET("getposting.php")
     Call<List<Posting>> getPosting();
 
+    @FormUrlEncoded
+    @POST("komentar.php")
+    Call<Komentar> postKomentar(
+            @Field("post_id") String post_id,
+            @Field("user_id") String user_id,
+            @Field("komentar") String komentar
+    );
 
 }

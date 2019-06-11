@@ -25,7 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bintang.banyan.Activity.AboutActivity;
 import com.bintang.banyan.Activity.AddPost.AddPostActivity;
-import com.bintang.banyan.Activity.DetailPostActivity;
+import com.bintang.banyan.Activity.DetailPost.DetailPostActivity;
 import com.bintang.banyan.Model.Posting;
 import com.bintang.banyan.R;
 import com.bintang.banyan.SessionManager;

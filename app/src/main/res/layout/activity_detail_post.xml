@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.DetailPostActivity">
+    tools:context=".Activity.DetailPost.DetailPostActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -167,7 +167,7 @@
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@id/btn_send_post">
+                android:layout_toLeftOf="@id/btn_send_komen">
 
                 <EditText
                     android:id="@+id/edt_comment"
@@ -179,7 +179,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/btn_send_post"
+                android:id="@+id/btn_send_komen"
                 style="@style/Widget.AppCompat.Toolbar"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"

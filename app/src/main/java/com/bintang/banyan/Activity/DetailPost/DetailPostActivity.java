@@ -1,25 +1,33 @@
-package com.bintang.banyan.Activity;
+package com.bintang.banyan.Activity.DetailPost;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bintang.banyan.Activity.Main.MainActivity;
 import com.bintang.banyan.R;
 import com.squareup.picasso.Picasso;
 
-public class DetailPostActivity extends AppCompatActivity {
+public class DetailPostActivity extends AppCompatActivity implements AddCommentView {
 
     int id;
     String user_id, judul, deskripsi, gambar, tanggal, user_image;
     Toolbar toolbar;
     ImageView ivImagePostDetail, ivUserImage;
     TextView tvDeskripsi, tvTanggal, tvUserName;
+    Button sendKomentar;
+    AddCommentPresenter presenter;
+    ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,10 @@ public class DetailPostActivity extends AppCompatActivity {
         tvTanggal = findViewById(R.id.tv_tanggal_detail);
         ivUserImage = findViewById(R.id.iv_user_image_detail);
         tvUserName = findViewById(R.id.tv_user_name_detail);
+        sendKomentar = findViewById(R.id.btn_send_komen);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Mohon Tunggu...");
+        presenter = new AddCommentPresenter(this);
 
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0);
@@ -67,6 +79,21 @@ public class DetailPostActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        sendKomentar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                kirimKomentar();
+            }
+        });
+
+    }
+
+    private void kirimKomentar() {
+        presenter.postKomentar("post_id",
+                "user_id",
+                "komentar"
+        );
+
     }
 
     @Override
@@ -86,4 +113,25 @@ public class DetailPostActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void showProgress() {
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideProgress() {
+        progressDialog.hide();
+    }
+
+    @Override
+    public void onRequestSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+    }
 }

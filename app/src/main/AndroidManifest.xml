@@ -20,7 +20,7 @@
         <activity
             android:name=".Activity.WelcomeScreen.WelcomeScreenActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.DetailPostActivity" />
+        <activity android:name=".Activity.DetailPost.DetailPostActivity" />
         <activity android:name=".Activity.AddPost.AddPostActivity" />
         <activity android:name=".Activity.AboutActivity" />
         <activity
