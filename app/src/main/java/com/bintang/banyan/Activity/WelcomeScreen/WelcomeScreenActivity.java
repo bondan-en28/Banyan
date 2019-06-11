@@ -30,10 +30,10 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_screen);
 
         fitur = new ArrayList<>();
-        fitur.add(new FiturWelcomeScreen(R.drawable.fitur_1, "Judu Pertama", "Deskripsi Pertama"));
-        fitur.add(new FiturWelcomeScreen(R.drawable.fitur_2, "Judu Kedua", "Deskripsi Kedua"));
-        fitur.add(new FiturWelcomeScreen(R.drawable.fitur_3, "Judu Ketiga", "Deskripsi Ketiga"));
-        fitur.add(new FiturWelcomeScreen(R.drawable.fitur_4, "Judu Terakhir", "Deskripsi Terakhir"));
+        fitur.add(new FiturWelcomeScreen(R.drawable.fitur_1, getString(R.string.judul_fitur_1), getString(R.string.desc_fitur_1)));
+        fitur.add(new FiturWelcomeScreen(R.drawable.fitur_2, getString(R.string.judul_fitur_2), getString(R.string.desc_fitur_2)));
+        fitur.add(new FiturWelcomeScreen(R.drawable.fitur_3, getString(R.string.judul_fitur_3), getString(R.string.desc_fitur_3)));
+        fitur.add(new FiturWelcomeScreen(R.drawable.fitur_4, getString(R.string.judul_fitur_4), getString(R.string.desc_fitur_4)));
 
         adapter = new WelcomeScreenAdapter(fitur, this);
 

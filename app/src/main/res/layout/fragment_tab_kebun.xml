@@ -14,21 +14,6 @@
         android:text="Kebun"
         android:textColor="#ffffff" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-        </FrameLayout>
-    </FrameLayout>
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="419dp"
@@ -38,5 +23,5 @@
         android:layout_marginStart="2dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="-4dp"
-        android:background="@mipmap/ic_monitor" />
+        android:src="@mipmap/ic_monitor" />
 </RelativeLayout>

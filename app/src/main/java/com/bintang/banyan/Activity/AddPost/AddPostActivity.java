@@ -63,18 +63,6 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
         gallery.putExtra("return-data", true);
 
         startActivityForResult(gallery, 2);
-/*
-        //Create an Intent with action as ACTION_PICK
-        Intent intent=new Intent(Intent.ACTION_PICK);
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        String[] mimeTypes = {"image/jpeg", "image/png"};
-        //getExtras
-        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
-        // Launching the Intent
-        startActivityForResult(intent,2);
-*/
     }
 
     @Override
@@ -86,22 +74,6 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
 
             imgPost.setImageBitmap(imageprofilbitmap);
             imgPost.setImageURI(data.getData());
-/*
-            //data.getData return the content URI for the selected Image
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-            // Get the cursor
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            // Move to first row
-            cursor.moveToFirst();
-            //Get the column index of MediaStore.Images.Media.DATA
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            //Gets the String value in the column
-            String imgDecodableString = cursor.getString(columnIndex);
-            cursor.close();
-            // Set the Image in ImageView after decoding the String
-            imgPost.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-*/
         }
     }
 
