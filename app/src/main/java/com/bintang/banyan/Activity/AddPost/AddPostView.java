@@ -5,8 +5,8 @@ public interface AddPostView {
 
     void hideProgress();
 
-    void onRequestSuccess(String message);
+    void onRequestPostSuccess(String message);
 
-    void onRequestError(String message);
+    void onRequestPostError(String message);
 
 }

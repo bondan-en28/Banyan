@@ -106,7 +106,7 @@
         android:background="@android:color/white"
         android:elevation="5dp"
         app:logo="@mipmap/ic_launcher"
-        app:title="Judul Post"
+        app:title="Posting Yuk"
         app:titleMarginStart="40dp"
         app:titleTextAppearance="@style/Toolbar.TitleText">
 

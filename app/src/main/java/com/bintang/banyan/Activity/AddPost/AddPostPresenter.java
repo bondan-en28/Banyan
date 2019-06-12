@@ -34,9 +34,9 @@ public class AddPostPresenter {
                 if (response.isSuccessful() && response.body() != null) {
                     Boolean success = response.body().getSuccess();
                     if (success) {
-                        view.onRequestSuccess(response.body().getMessage());
+                        view.onRequestPostSuccess(response.body().getMessage());
                     } else {
-                        view.onRequestError(response.body().getMessage());
+                        view.onRequestPostError(response.body().getMessage());
                     }
                 }
             }
@@ -44,9 +44,72 @@ public class AddPostPresenter {
             @Override
             public void onFailure(@NonNull Call<Posting> call, @NonNull Throwable t) {
                 view.hideProgress();
-                view.onRequestError(t.getLocalizedMessage());
+                view.onRequestPostError(t.getLocalizedMessage());
             }
         });
     }
+
+    public void deleteKonten(int id) {
+        view.showProgress();
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+
+        Call<Posting> call = apiInterface.deletePost(id);
+        call.enqueue(new Callback<Posting>() {
+            @Override
+            public void onResponse(@NonNull Call<Posting> call, @NonNull Response<Posting> response) {
+                view.hideProgress();
+                if (response.isSuccessful() && response.body() != null) {
+                    Boolean success = response.body().getSuccess();
+                    if (success) {
+                        view.onRequestPostSuccess(response.body().getMessage());
+                    } else {
+                        view.onRequestPostError(response.body().getMessage());
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Posting> call, @NonNull Throwable t) {
+                view.hideProgress();
+                view.onRequestPostError(t.getLocalizedMessage());
+
+            }
+        });
+    }
+
+    public void editKonten(final int id, final String judul, final String deskripsi, final String gambar) {
+
+        view.showProgress();
+
+        ApiInterface apiInterface = ApiClient.getApiClient()
+                .create(ApiInterface.class);
+        Call<Posting> call = apiInterface.editPost(id, judul, deskripsi, gambar);
+
+        call.enqueue(new Callback<Posting>() {
+            @Override
+            public void onResponse(@NonNull Call<Posting> call, @NonNull Response<Posting> response) {
+
+                view.hideProgress();
+
+                if (response.isSuccessful() && response.body() != null) {
+                    Boolean success = response.body().getSuccess();
+                    if (success) {
+                        view.onRequestPostSuccess(response.body().getMessage());
+                    } else {
+                        view.onRequestPostError(response.body().getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Posting> call, @NonNull Throwable t) {
+                view.hideProgress();
+                view.onRequestPostError(t.getLocalizedMessage());
+            }
+        });
+    }
+
 
 }

@@ -25,6 +25,21 @@ public interface ApiInterface {
     Call<List<Posting>> getPosting();
 
     @FormUrlEncoded
+    @POST("editpost.php")
+    Call<Posting> editPost(
+            @Field("id") int id,
+            @Field("judul") String judul,
+            @Field("deskripsi") String deskripsi,
+            @Field("gambar") String gambar
+    );
+
+    @FormUrlEncoded
+    @POST("deletepost.php")
+    Call<Posting> deletePost(
+            @Field("id") int id);
+
+
+    @FormUrlEncoded
     @POST("komentar.php")
     Call<Komentar> postKomentar(
             @Field("post_id") int post_id,

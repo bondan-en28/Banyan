@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -28,6 +29,7 @@ import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -50,6 +52,9 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
     Button btnPost;
     ProgressDialog progressDialog;
     String user_id = MainActivity.getId;
+    String intentGambar, intentJudulPost, intentDeskripsi;
+    int intentId;
+    boolean isEditPost = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,15 +74,46 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
         ImagePickerActivity.clearCache(this);
         loadDefaultPic();
 
+        Intent intent = getIntent();
+        intentId = intent.getIntExtra("id", 0);
+        intentJudulPost = intent.getStringExtra("judul");
+        intentDeskripsi = intent.getStringExtra("deskripsi");
+        intentGambar = intent.getStringExtra("gambar");
+
+        setDataFromIntentExtra();
+
+
         //CLICK LISTENER
 //        imgPost.setOnClickListener(view -> pilihFoto());
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadPost();
+                if (isEditPost) {
+                    editPost();
+                    Toast.makeText(AddPostActivity.this, "is Edit Post", Toast.LENGTH_SHORT).show();
+                } else {
+                    uploadPost();
+                    Toast.makeText(AddPostActivity.this, "New Post", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
+
+    }
+
+
+    private void setDataFromIntentExtra() {
+        if (intentId != 0) {
+            edtJudul.setText(intentJudulPost);
+            edtDeskripsi.setText(intentDeskripsi);
+            Picasso.get().load(intentGambar)
+                    .error(R.drawable.ic_person_black_100dp)
+                    .into(ivPost);
+
+            bitmap = ((BitmapDrawable) ivPost.getDrawable()).getBitmap();
+
+            isEditPost = true;
+        }
 
     }
 
@@ -86,36 +122,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
                 .into(ivPost);
     }
 
-
-    /**
-     * private void pilihFoto() {
-     * Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-     * gallery.putExtra("crop", "true");
-     * gallery.putExtra("aspectX", 1);
-     * gallery.putExtra("aspectY", 1);
-     * gallery.putExtra("outputX", 500);
-     * gallery.putExtra("outputY", 500);
-     * gallery.putExtra("scale", true);
-     * gallery.putExtra("scaleUpIfNeeded", true);
-     * gallery.putExtra("return-data", true);
-     * <p>
-     * startActivityForResult(gallery, 2);
-     * }
-     *
-     * @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
-     * super.onActivityResult(requestCode, resultCode, data);
-     * if (resultCode == RESULT_OK && requestCode == 2 && data != null) {
-     * Bundle extras = data.getExtras();
-     * imageprofilbitmap = extras.getParcelable("data");
-     * <p>
-     * imgPost.setImageBitmap(imageprofilbitmap);
-     * imgPost.setImageURI(data.getData());
-     * }
-     * }
-     */
-
-
-//==================================================================================================================================
+    //==================================================================================================================================
     private void loadProfile(String url) {
         Log.d(TAG, "Image cache path: " + url);
 
@@ -245,6 +252,16 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
         );
     }
 
+    private void editPost() {
+        presenter.editKonten(
+                intentId,
+                edtJudul.getText().toString().trim(),
+                edtDeskripsi.getText().toString().trim(),
+                getStringImage(((BitmapDrawable) ivPost.getDrawable()).getBitmap())
+        );
+    }
+
+
     private String getStringImage(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
@@ -266,13 +283,16 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
     }
 
     @Override
-    public void onRequestSuccess(String message) {
+    public void onRequestPostSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(AddPostActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
         finish();
     }
 
     @Override
-    public void onRequestError(String message) {
+    public void onRequestPostError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
     }
