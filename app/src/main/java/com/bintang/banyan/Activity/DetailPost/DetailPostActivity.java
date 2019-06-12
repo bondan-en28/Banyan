@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,8 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
     int id;
     String user_id, judul, deskripsi, gambar, tanggal, user_image;
     Toolbar toolbar;
+    Menu toolbarMenu;
+    MenuItem menuDelete;
     ImageView ivImagePostDetail, ivUserImage;
     TextView tvDeskripsi, tvTanggal, tvUserName;
     EditText edtComment;
@@ -140,13 +143,38 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_detailpost_menu, menu);
+
+        toolbarMenu = menu;
+
+        menuDelete = toolbarMenu.findItem(R.id.menu_delete);
+
+        invalidateOptionsMenu();
+        if (user_id.equals(MainActivity.name)) {
+            menuDelete.setVisible(true);
+        } else {
+            menuDelete.setVisible(false);
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(DetailPostActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         switch (item.getItemId()) {
             case android.R.id.home:
                 // kembali ke Main Menu
 
-                Intent intent = new Intent(DetailPostActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+                return true;
+
+            case R.id.menu_delete:
+                // kembali ke Main Menu
+
                 startActivity(intent);
                 finish();
                 return true;

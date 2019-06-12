@@ -1,12 +1,19 @@
 package com.bintang.banyan.Activity.AddPost;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,14 +22,30 @@ import android.widget.Toast;
 
 import com.bintang.banyan.Activity.Main.MainActivity;
 import com.bintang.banyan.R;
+import com.bumptech.glide.Glide;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AddPostActivity extends AppCompatActivity implements AddPostView {
 
-    Bitmap imageprofilbitmap;
+    public static final int REQUEST_IMAGE = 100;
+    private static final String TAG = AddPostActivity.class.getSimpleName();
+    @BindView(R.id.iv_post)
+    ImageView ivPost;
+
+    Bitmap bitmap;
     AddPostPresenter presenter;
-    ImageView imgPost;
     EditText edtJudul, edtDeskripsi;
     Button btnPost;
     ProgressDialog progressDialog;
@@ -33,7 +56,9 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
 
-        imgPost = findViewById(R.id.iv_post);
+        ButterKnife.bind(this);
+
+        ivPost = findViewById(R.id.iv_post);
         edtJudul = findViewById(R.id.edt_judul);
         edtDeskripsi = findViewById(R.id.edt_deskripsi);
         btnPost = findViewById(R.id.btn_send_post);
@@ -41,47 +66,182 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
         progressDialog.setMessage("Mohon Tunggu...");
         presenter = new AddPostPresenter(this);
 
-        imgPost.setOnClickListener(view ->
-                pilihFoto());
+        ImagePickerActivity.clearCache(this);
+        loadDefaultPic();
+
+        //CLICK LISTENER
+//        imgPost.setOnClickListener(view -> pilihFoto());
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadPost();
             }
         });
+
+
     }
 
-    private void pilihFoto() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        gallery.putExtra("crop", "true");
-        gallery.putExtra("aspectX", 1);
-        gallery.putExtra("aspectY", 1);
-        gallery.putExtra("outputX", 500);
-        gallery.putExtra("outputY", 500);
-        gallery.putExtra("scale", true);
-        gallery.putExtra("scaleUpIfNeeded", true);
-        gallery.putExtra("return-data", true);
+    private void loadDefaultPic() {
+        Glide.with(this).load(R.drawable.ic_banyan_496px_post)
+                .into(ivPost);
+    }
 
-        startActivityForResult(gallery, 2);
+
+    /**
+     * private void pilihFoto() {
+     * Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+     * gallery.putExtra("crop", "true");
+     * gallery.putExtra("aspectX", 1);
+     * gallery.putExtra("aspectY", 1);
+     * gallery.putExtra("outputX", 500);
+     * gallery.putExtra("outputY", 500);
+     * gallery.putExtra("scale", true);
+     * gallery.putExtra("scaleUpIfNeeded", true);
+     * gallery.putExtra("return-data", true);
+     * <p>
+     * startActivityForResult(gallery, 2);
+     * }
+     *
+     * @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+     * super.onActivityResult(requestCode, resultCode, data);
+     * if (resultCode == RESULT_OK && requestCode == 2 && data != null) {
+     * Bundle extras = data.getExtras();
+     * imageprofilbitmap = extras.getParcelable("data");
+     * <p>
+     * imgPost.setImageBitmap(imageprofilbitmap);
+     * imgPost.setImageURI(data.getData());
+     * }
+     * }
+     */
+
+
+//==================================================================================================================================
+    private void loadProfile(String url) {
+        Log.d(TAG, "Image cache path: " + url);
+
+        Glide.with(this).load(url)
+                .into(ivPost);
+    }
+
+    @OnClick(R.id.iv_post)
+    void onProfileImageClick() {
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        if (report.areAllPermissionsGranted()) {
+                            showImagePickerOptions();
+                        }
+
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            showSettingsDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+    }
+
+    private void showImagePickerOptions() {
+        ImagePickerActivity.showImagePickerOptions(this, new ImagePickerActivity.PickerOptionListener() {
+            @Override
+            public void onTakeCameraSelected() {
+                launchCameraIntent();
+            }
+
+            @Override
+            public void onChooseGallerySelected() {
+                launchGalleryIntent();
+            }
+        });
+    }
+
+    private void launchCameraIntent() {
+        Intent intent = new Intent(AddPostActivity.this, ImagePickerActivity.class);
+        intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_IMAGE_CAPTURE);
+
+        // setting aspect ratio
+        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+
+        // setting maximum bitmap width and height
+        intent.putExtra(ImagePickerActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
+        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000);
+        intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000);
+
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
+
+    private void launchGalleryIntent() {
+        Intent intent = new Intent(AddPostActivity.this, ImagePickerActivity.class);
+        intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_GALLERY_IMAGE);
+
+        // setting aspect ratio
+        intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+        startActivityForResult(intent, REQUEST_IMAGE);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 2 && data != null) {
-            Bundle extras = data.getExtras();
-            imageprofilbitmap = extras.getParcelable("data");
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == REQUEST_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri uri = data.getParcelableExtra("path");
+                try {
+                    // You can update this bitmap to your server
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                    ivPost.setImageBitmap(bitmap);
 
-            imgPost.setImageBitmap(imageprofilbitmap);
-            imgPost.setImageURI(data.getData());
+                    // loading profile image from local cache
+                    loadProfile(uri.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
+
+    /**
+     * Showing Alert Dialog with Settings option
+     * Navigates user to app settings
+     * NOTE: Keep proper title and message depending on your app
+     */
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddPostActivity.this);
+        builder.setTitle(getString(R.string.dialog_permission_title));
+        builder.setMessage(getString(R.string.dialog_permission_message));
+        builder.setPositiveButton(getString(R.string.go_to_settings), (dialog, which) -> {
+            dialog.cancel();
+            openSettings();
+        });
+        builder.setNegativeButton(getString(android.R.string.cancel), (dialog, which) -> dialog.cancel());
+        builder.show();
+
+    }
+
+    // navigating user to app settings
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
+    }
+
+
+//==================================================================================================================================
+
 
     private void uploadPost() {
         presenter.postKonten(user_id,
                 edtJudul.getText().toString().trim(),
                 edtDeskripsi.getText().toString().trim(),
-                getStringImage(imageprofilbitmap)
+                getStringImage(bitmap)
         );
     }
 

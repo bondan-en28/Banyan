@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        getMenuInflater().inflate(R.menu.toolbar_main_menu, menu);
 
         toolbarMenu = menu;
 

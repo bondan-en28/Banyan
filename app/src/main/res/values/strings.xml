@@ -16,4 +16,15 @@
     <string name="desc_fitur_3">Deskripsi Ketiga</string>
     <string name="desc_fitur_4">Deskripsi Terakhir</string>
 
+    <!-- INI IMAGE PICKER -->
+    <string name="toast_image_intent_null">Image picker option is missing!</string>
+    <string name="lbl_set_profile_photo">Set profile image</string>
+    <string name="lbl_take_camera_picture">Take a picture</string>
+    <string name="lbl_choose_from_gallery">Choose from gallery</string>
+
+    <string name="dialog_permission_title">Grant Permissions</string>
+    <string name="dialog_permission_message">This app needs permission to use this feature. You can grant them in app settings.</string>
+    <string name="go_to_settings">GOTO SETTINGS</string>
+
+
 </resources>

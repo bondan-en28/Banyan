@@ -23,21 +23,21 @@
         app:showAsAction="always" />
 
     <item
-        android:icon="@drawable/ic_share_black_24dp"
         android:id="@+id/menu_share"
+        android:icon="@drawable/ic_share_black_24dp"
         android:iconTint="@android:color/black"
-        app:showAsAction="ifRoom"
-        android:title="Share" />
+        android:title="Share"
+        app:showAsAction="ifRoom" />
 
     <item
-        android:icon="@drawable/ic_info_black_24dp"
         android:id="@+id/menu_about"
+        android:icon="@drawable/ic_info_black_24dp"
         android:iconTint="@android:color/black"
         android:title="About" />
 
     <item
-        android:icon="@drawable/ic_exit_to_app_black_24dp"
         android:id="@+id/menu_exit"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
         android:iconTint="@android:color/black"
         android:title="Logout" />
 
