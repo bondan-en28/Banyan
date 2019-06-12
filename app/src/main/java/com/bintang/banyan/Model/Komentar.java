@@ -17,6 +17,9 @@ public class Komentar {
     @SerializedName("komentar")
     private String komentar;
     @Expose
+    @SerializedName("date")
+    private String date;
+    @Expose
     @SerializedName("success")
     private Boolean success;
     @Expose
@@ -53,6 +56,14 @@ public class Komentar {
 
     public void setKomentar(String komentar) {
         this.komentar = komentar;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Boolean getSuccess() {

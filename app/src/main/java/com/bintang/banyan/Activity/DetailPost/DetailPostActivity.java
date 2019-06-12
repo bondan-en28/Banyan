@@ -4,7 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +18,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bintang.banyan.Activity.DetailPost.Komentar.KomentarAdapter;
+import com.bintang.banyan.Activity.DetailPost.Komentar.KomentarPresenter;
+import com.bintang.banyan.Activity.DetailPost.Komentar.KomentarView;
 import com.bintang.banyan.Activity.Main.MainActivity;
+import com.bintang.banyan.Model.Komentar;
 import com.bintang.banyan.R;
 import com.squareup.picasso.Picasso;
 
-public class DetailPostActivity extends AppCompatActivity implements AddCommentView {
+import java.util.List;
+
+public class DetailPostActivity extends AppCompatActivity implements AddCommentView, KomentarView {
 
     int id;
     String user_id, judul, deskripsi, gambar, tanggal, user_image;
@@ -29,7 +39,16 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
     Button sendKomentar;
     AddCommentPresenter presenter;
     ProgressDialog progressDialog;
+    RecyclerView recyclerViewKomen;
 
+    KomentarPresenter komentarPresenter;
+    KomentarAdapter komentarAdapter;
+
+    List<Komentar> komentars;
+
+    SwipeRefreshLayout swipeRefreshKomentar;
+
+    FloatingActionButton fabShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +62,7 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        swipeRefreshKomentar = findViewById(R.id.swipe_refresh_komentar);
 
         ivImagePostDetail = findViewById(R.id.iv_post_detail);
         tvDeskripsi = findViewById(R.id.tv_deskripsi_detail);
@@ -54,6 +74,7 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
         progressDialog.setMessage("Mohon Tunggu...");
         presenter = new AddCommentPresenter(this);
         edtComment = findViewById(R.id.edt_comment);
+        fabShare = findViewById(R.id.fab_share);
 
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0);
@@ -63,6 +84,9 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
         gambar = intent.getStringExtra("gambar");
         tanggal = intent.getStringExtra("tanggal");
         user_image = intent.getStringExtra("user_image");
+
+        komentarPresenter = new KomentarPresenter(this);
+        komentarPresenter.getKomentar(id);
 
         toolbar.setTitle(judul);
         toolbarLayout.setTitle(judul);
@@ -82,6 +106,9 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
             e.printStackTrace();
         }
 
+        recyclerViewKomen = findViewById(R.id.recycler_view_komen);
+        recyclerViewKomen.setLayoutManager(new LinearLayoutManager(this));
+
         sendKomentar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,9 +116,21 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
             }
         });
 
-    }
+        swipeRefreshKomentar.setOnRefreshListener(() -> komentarPresenter.getKomentar(id));
 
-    // TODO: USER_ID MASIH SALAH!!!!!!!!!
+        fabShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Halo Gardeners! Ayo download Banyan, " + user_id + " berbagi pengalamannya lho!";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Banyan ;)");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
+
+    }
 
     private void kirimKomentar() {
         presenter.postKomentar(id,
@@ -120,23 +159,47 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
 
     @Override
     public void showProgress() {
-        progressDialog.show();
+        swipeRefreshKomentar.setRefreshing(true);
     }
 
     @Override
     public void hideProgress() {
-        progressDialog.hide();
+        swipeRefreshKomentar.setRefreshing(false);
     }
 
     @Override
     public void onRequestSuccess(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         edtComment.setText("");
+        komentarPresenter.getKomentar(id);
     }
 
     @Override
     public void onRequestError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showKomentarProgress() {
+        swipeRefreshKomentar.setRefreshing(true);
+    }
+
+    @Override
+    public void hideKomentarProgress() {
+        swipeRefreshKomentar.setRefreshing(false);
+    }
+
+    @Override
+    public void onRequestKomentarSuccess(List<Komentar> komentar) {
+        komentarAdapter = new KomentarAdapter(this, komentar);
+        komentarAdapter.notifyDataSetChanged();
+        recyclerViewKomen.setAdapter(komentarAdapter);
+        this.komentars = komentar;
+    }
+
+    @Override
+    public void onRequestKomentarError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

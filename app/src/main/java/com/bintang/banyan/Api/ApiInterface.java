@@ -32,4 +32,10 @@ public interface ApiInterface {
             @Field("komentar") String komentar
     );
 
+    @FormUrlEncoded
+    @POST("getkomentar.php")
+    Call<List<Komentar>> getKomentar(
+            @Field("post_id") int post_id
+    );
+
 }

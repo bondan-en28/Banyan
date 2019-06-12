@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
 
     List<Posting> posts;
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
