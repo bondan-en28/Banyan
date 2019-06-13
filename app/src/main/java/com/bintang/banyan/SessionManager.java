@@ -64,6 +64,12 @@ public class SessionManager {
         return user;
     }
 
+    public void clearSession() {
+        editor.clear();
+        editor.commit();
+        editor.apply();
+    }
+
     public void logout() {
         editor.clear();
         editor.commit();

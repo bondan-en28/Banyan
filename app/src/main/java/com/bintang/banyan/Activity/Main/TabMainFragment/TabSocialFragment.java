@@ -1,4 +1,4 @@
-package com.bintang.banyan.TabMainFragment;
+package com.bintang.banyan.Activity.Main.TabMainFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.bintang.banyan.R;
 
-public class TabKebunFragment extends Fragment implements View.OnClickListener {
+public class TabSocialFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -20,10 +20,10 @@ public class TabKebunFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View KebunView = inflater.inflate(R.layout.fragment_tab_kebun, container, false);
+        View SocialView = inflater.inflate(R.layout.fragment_tab_social, container, false);
 
         // Inflate the layout for this fragment
-        return KebunView;
+        return SocialView;
     }
 
     @Override

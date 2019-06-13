@@ -1,8 +1,10 @@
 package com.bintang.banyan.Activity.Main;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -26,16 +28,16 @@ import com.android.volley.toolbox.Volley;
 import com.bintang.banyan.Activity.AboutActivity;
 import com.bintang.banyan.Activity.AddPost.AddPostActivity;
 import com.bintang.banyan.Activity.DetailPost.DetailPostActivity;
+import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.BerandaAdapter;
+import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.BerandaPresenter;
+import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.BerandaView;
+import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.TabBerandaFragment;
+import com.bintang.banyan.Activity.Main.TabMainFragment.TabKebunFragment;
+import com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment;
+import com.bintang.banyan.Activity.Main.TabMainFragment.TabSocialFragment;
 import com.bintang.banyan.Model.Posting;
 import com.bintang.banyan.R;
 import com.bintang.banyan.SessionManager;
-import com.bintang.banyan.TabMainFragment.Beranda.BerandaAdapter;
-import com.bintang.banyan.TabMainFragment.Beranda.BerandaPresenter;
-import com.bintang.banyan.TabMainFragment.Beranda.BerandaView;
-import com.bintang.banyan.TabMainFragment.Beranda.TabBerandaFragment;
-import com.bintang.banyan.TabMainFragment.TabKebunFragment;
-import com.bintang.banyan.TabMainFragment.TabProfileFragment;
-import com.bintang.banyan.TabMainFragment.TabSocialFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,15 +48,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.bintang.banyan.TabMainFragment.Beranda.TabBerandaFragment.recyclerView;
-import static com.bintang.banyan.TabMainFragment.Beranda.TabBerandaFragment.swipeRefresh;
-import static com.bintang.banyan.TabMainFragment.TabProfileFragment.btnGantiFoto;
-import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtAlamat;
-import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtEmail;
-import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtNama;
-import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtNoTelp;
-import static com.bintang.banyan.TabMainFragment.TabProfileFragment.edtTtl;
-import static com.bintang.banyan.TabMainFragment.TabProfileFragment.imageprofilbitmap;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.TabBerandaFragment.recyclerView;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.TabBerandaFragment.swipeRefresh;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.btnGantiFoto;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.edtAlamat;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.edtEmail;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.edtNama;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.edtNoTelp;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.edtTtl;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.imageprofilbitmap;
 
 public class MainActivity extends AppCompatActivity implements BerandaView {
 
@@ -81,9 +83,15 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @SuppressLint("ResourceAsColor")
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment = null;
+            toolbar.setBackgroundColor(getResources().getColor(R.color.putih));
+            toolbar.setTitleTextColor(getResources().getColor(R.color.hitam));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                toolbar.setElevation(14);
+            }
 
             switch (item.getItemId()) {
                 case R.id.navigation_beranda:
@@ -107,6 +115,12 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
                 case R.id.navigation_profile:
                     currrentFragment = 4;
                     toolbar.setTitle("Me");
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    toolbar.setTitleTextColor(getResources().getColor(R.color.putih));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        toolbar.setElevation(0);
+                    }
+
                     fragment = new TabProfileFragment();
                     break;
             }
@@ -123,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleMarginStart(50);
+        toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp));
         setSupportActionBar(toolbar);
 
         sessionManager = new SessionManager(this);
@@ -467,6 +482,11 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
         requestQueue.add(stringRequest);
+
+        this.sessionManager.clearSession();
+        this.sessionManager.createSession(name, email, ttl, alamat, notelp, id);
+        this.sessionManager.getUserDetail();
+
     }
 
     @Override

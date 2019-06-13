@@ -1,4 +1,4 @@
-package com.bintang.banyan.TabMainFragment.Beranda;
+package com.bintang.banyan.Activity.Main.TabMainFragment.Beranda;
 
 import android.support.annotation.NonNull;
 

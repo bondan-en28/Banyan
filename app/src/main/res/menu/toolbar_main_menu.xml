@@ -11,20 +11,20 @@
 
     <item
         android:id="@+id/menu_settings"
-        android:icon="@drawable/ic_settings_black_24dp"
+        android:icon="@drawable/ic_edit_white_24dp"
         android:iconTint="@android:color/black"
         android:title="Settings"
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_done"
-        android:icon="@drawable/ic_done_black_24dp"
+        android:icon="@drawable/ic_done_white_24dp"
         android:iconTint="@android:color/black"
         android:title="Settings"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/menu_share"
-        android:icon="@drawable/ic_share_black_24dp"
+        android:icon="@drawable/ic_share_white_24dp"
         android:iconTint="@android:color/black"
         android:title="Share"
         app:showAsAction="ifRoom" />

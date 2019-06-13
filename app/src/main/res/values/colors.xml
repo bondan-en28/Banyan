@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#095b67</color>
     <color name="colorPrimaryDark">#001E24</color>
+    <color name="colorPrimaryDarkLight">#024E58</color>
     <color name="colorAccent">#f8fda6</color>
     <color name="colorAccentt">#00B1A2</color>
     <color name="statusBarBG">#F0F0F0</color>
@@ -10,4 +11,10 @@
     <color name="color2">#7e455e</color>
     <color name="color3">#796e25</color>
     <color name="color4">#59717c</color>
+
+    <color name="bg_meta_container">#000000</color>
+    <color name="hitam">#000</color>
+    <color name="putih">#FFFFFF</color>
+
+
 </resources>

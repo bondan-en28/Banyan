@@ -174,14 +174,14 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(DetailPostActivity.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        Intent intent = new Intent(DetailPostActivity.this, MainActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
         switch (item.getItemId()) {
             case android.R.id.home:
                 // kembali ke Main Menu
 
-                startActivity(intent);
+//                startActivity(intent);
                 finish();
                 return true;
 
