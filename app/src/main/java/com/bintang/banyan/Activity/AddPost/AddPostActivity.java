@@ -110,7 +110,12 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
                     .error(R.drawable.ic_person_black_100dp)
                     .into(ivPost);
 
-            bitmap = ((BitmapDrawable) ivPost.getDrawable()).getBitmap();
+            try {
+                bitmap = ((BitmapDrawable) ivPost.getDrawable()).getBitmap();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             isEditPost = true;
         }

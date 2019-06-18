@@ -124,7 +124,9 @@ public class DetailPostActivity extends AppCompatActivity implements AddCommentV
         sendKomentar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                kirimKomentar();
+                if (!edtComment.getText().toString().isEmpty()) {
+                    kirimKomentar();
+                }
             }
         });
 
