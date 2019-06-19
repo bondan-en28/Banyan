@@ -32,7 +32,7 @@ import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.BerandaAdapter;
 import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.BerandaPresenter;
 import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.BerandaView;
 import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.TabBerandaFragment;
-import com.bintang.banyan.Activity.Main.TabMainFragment.TabKebunFragment;
+import com.bintang.banyan.Activity.Main.TabMainFragment.Kebun.TabKebunFragment;
 import com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment;
 import com.bintang.banyan.Activity.Main.TabMainFragment.TabSocialFragment;
 import com.bintang.banyan.Model.Posting;
@@ -109,7 +109,10 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
                 case R.id.navigation_kebun:
                     edit = false;
                     currrentFragment = 3;
-                    toolbar.setTitle("Progress");
+                    toolbar.setTitle("Kebun");
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.hitam));
+                    toolbar.setTitleTextColor(getResources().getColor(R.color.putih));
+
                     fragment = new TabKebunFragment();
                     break;
                 case R.id.navigation_profile:

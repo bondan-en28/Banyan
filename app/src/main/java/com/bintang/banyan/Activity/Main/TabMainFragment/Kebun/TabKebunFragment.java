@@ -1,4 +1,4 @@
-package com.bintang.banyan.Activity.Main.TabMainFragment;
+package com.bintang.banyan.Activity.Main.TabMainFragment.Kebun;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
