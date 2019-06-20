@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
 
     public int currrentFragment = 1;
     SessionManager sessionManager;
-    Toolbar toolbar;
+    public static Toolbar toolbar;
     Menu toolbarMenu;
     MenuItem menu_add, menu_settings, menu_done, menu_about, menu_share, menu_logout;
     boolean edit = false;
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
                     edit = false;
                     currrentFragment = 3;
                     toolbar.setTitle("Kebun");
-                    toolbar.setBackgroundColor(getResources().getColor(R.color.hitam));
+                    toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     toolbar.setTitleTextColor(getResources().getColor(R.color.putih));
 
                     fragment = new TabKebunFragment();

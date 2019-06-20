@@ -6,10 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.bintang.banyan.Activity.Main.MainActivity;
 import com.bintang.banyan.R;
 
-public class TabKebunFragment extends Fragment implements View.OnClickListener {
+public class TabKebunFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,21 +35,19 @@ public class TabKebunFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView(View view) {
-//        ImageView imagePost = view.findViewById(R.id.imagePost);
+        Button btnTanam = view.findViewById(R.id.btn_tanam);
+
+        btnTanam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeFragment();
+            }
+        });
     }
 
     private void changeFragment() {
-//        getFragmentManager().beginTransaction().replace(R.id.tabHome, new TabHomePost()).addToBackStack(null).commit();
-    }
-
-    @Override
-    public void onClick(View view) {
-/*        switch (view.getId()) {
-            case R.id.imagePost:
-                changeFragment();
-                break;
-        }
-*/
+        MainActivity.toolbar.setTitle("Rekomendasi");
+        getFragmentManager().beginTransaction().replace(R.id.fragment_container, new TambahTanamanFragment()).addToBackStack(null).commit();
     }
 
 }
