@@ -84,6 +84,7 @@
                         android:paddingBottom="5dp">
 
                         <ImageView
+                            android:id="@+id/btn_kelola"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center_horizontal"

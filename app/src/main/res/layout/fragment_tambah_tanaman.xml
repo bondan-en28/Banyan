@@ -7,35 +7,44 @@
     android:orientation="vertical"
     tools:context=".Activity.Main.TabMainFragment.Kebun.TambahTanamanFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <ImageView
-        android:id="@+id/iv_maps"
+    <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/design_maps" />
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        android:id="@+id/searchBar"
+        style="@style/MaterialSearchBarLight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:elevation="5dp"
+        android:outlineProvider="bounds"
+        app:mt_hint="Search a place!"
+        app:mt_maxSuggestionsCount="10"
+        app:mt_navIconEnabled="true"
+        app:mt_placeholder="Search a Place"
+        app:mt_speechMode="false" />
+
 
     <LinearLayout
+        android:id="@+id/marker"
+        android:layout_centerInParent="true"
+        android:paddingBottom="60dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingBottom="20dp">
+        android:visibility="gone">
 
         <Button
-            android:id="@+id/btn_find_location"
+            android:id="@+id/btn_marker"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerInParent="true"
             android:background="@drawable/ic_add_location_red_48dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Temukan Lokasi Saya" />
 
     </LinearLayout>
 
@@ -45,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="250dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="-20dp"
         android:background="@drawable/background_dark_rounded"
@@ -76,13 +85,22 @@
             <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/btn_rekomendasi"
+                android:layout_above="@id/container_btn_rekomendasi"
                 android:layout_marginBottom="-30dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_alamat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:gravity="center_horizontal"
+                        android:text="Alamat"
+                        android:textColor="@color/putih" />
 
                     <GridLayout
                         android:id="@+id/grid_view_kebun"
@@ -127,6 +145,9 @@
                                 android:gravity="center">
 
                                 <TextView
+                                    android:id="@+id/tv_lokasi"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="3dp"
@@ -171,6 +192,8 @@
                                 android:gravity="center">
 
                                 <TextView
+                                    android:maxLines="1"
+                                    android:singleLine="true"
                                     android:id="@+id/tv_ketinggian"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -216,6 +239,9 @@
                                 android:gravity="center">
 
                                 <TextView
+                                    android:id="@+id/tv_suhu"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="3dp"
@@ -225,8 +251,100 @@
                             </LinearLayout>
 
                         </android.support.v7.widget.CardView>
-
                         <!--row4, kolom1-->
+                        <LinearLayout
+                            android:layout_columnWeight="1"
+                            android:layout_margin="5dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:text="Kelembapan"
+                                    android:textColor="@color/putih"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!--row4, kolom2-->
+                        <android.support.v7.widget.CardView
+                            android:layout_columnWeight="1"
+                            android:layout_margin="5dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="5dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/tv_kelembapan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:gravity="center_horizontal"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
+                                    android:text="20%"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+                        <!--row5, kolom1-->
+                        <LinearLayout
+                            android:layout_columnWeight="1"
+                            android:layout_margin="5dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:text="Tekanan"
+                                    android:textColor="@color/putih"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!--row5, kolom2-->
+                        <android.support.v7.widget.CardView
+                            android:layout_columnWeight="1"
+                            android:layout_margin="5dp"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="5dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/tv_tekanan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="3dp"
+                                    android:gravity="center_horizontal"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
+                                    android:text="30 Inch Hg"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+                        <!--row6, kolom1-->
                         <LinearLayout
                             android:layout_columnWeight="1"
                             android:layout_margin="5dp">
@@ -247,7 +365,7 @@
                             </LinearLayout>
                         </LinearLayout>
 
-                        <!--row4, kolom2-->
+                        <!--row6, kolom2-->
                         <android.support.v7.widget.CardView
                             android:layout_columnWeight="1"
                             android:layout_margin="5dp"
@@ -269,7 +387,7 @@
 
                         </android.support.v7.widget.CardView>
 
-                        <!--row5, kolom1-->
+                        <!--row7, kolom1-->
                         <LinearLayout
                             android:layout_columnWeight="1"
                             android:layout_margin="5dp">
@@ -290,7 +408,7 @@
                             </LinearLayout>
                         </LinearLayout>
 
-                        <!--row5, kolom2-->
+                        <!--row7, kolom2-->
                         <android.support.v7.widget.CardView
                             android:layout_columnWeight="1"
                             android:layout_margin="5dp"
@@ -312,7 +430,7 @@
 
                         </android.support.v7.widget.CardView>
 
-                        <!--row6, kolom1-->
+                        <!--row8, kolom1-->
                         <LinearLayout
                             android:layout_columnWeight="1"
                             android:layout_margin="5dp">
@@ -333,7 +451,7 @@
                             </LinearLayout>
                         </LinearLayout>
 
-                        <!--row6, kolom2-->
+                        <!--row8, kolom2-->
                         <android.support.v7.widget.CardView
                             android:layout_columnWeight="1"
                             android:layout_margin="5dp"
@@ -360,20 +478,43 @@
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
 
-            <Button
-                android:id="@+id/btn_rekomendasi"
-                style="@style/Widget.AppCompat.Toolbar"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/container_btn_rekomendasi"
                 android:layout_height="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/background_button_green"
-                android:fontFamily="@font/redhattext_regular"
-                android:text="Minta Rekomendasi"
-                android:textColor="@android:color/white" />
+                android:orientation="horizontal"
+                android:paddingBottom="5dp">
+
+                <Button
+                    android:id="@+id/btn_refresh"
+                    style="@style/Widget.AppCompat.Toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_button_green"
+                    android:fontFamily="@font/redhattext_regular"
+                    android:text="Refresh Data"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/btn_rekomendasi"
+                    style="@style/Widget.AppCompat.Toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_button_green"
+                    android:fontFamily="@font/redhattext_regular"
+                    android:text="Minta Rekomendasi"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 

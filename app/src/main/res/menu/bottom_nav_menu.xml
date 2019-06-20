@@ -7,11 +7,6 @@
         android:title="Beranda" />
 
     <item
-        android:id="@+id/navigation_social"
-        android:icon="@drawable/ic_public_black_24dp"
-        android:title="Social" />
-
-    <item
         android:id="@+id/navigation_kebun"
         android:icon="@drawable/ic_local_florist_black_24dp"
         android:title="Kebun" />

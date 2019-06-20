@@ -34,7 +34,6 @@ import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.BerandaView;
 import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.TabBerandaFragment;
 import com.bintang.banyan.Activity.Main.TabMainFragment.Kebun.TabKebunFragment;
 import com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment;
-import com.bintang.banyan.Activity.Main.TabMainFragment.TabSocialFragment;
 import com.bintang.banyan.Model.Posting;
 import com.bintang.banyan.R;
 import com.bintang.banyan.SessionManager;
@@ -100,15 +99,9 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
                     edit = false;
                     toolbar.setTitle("Banyan");
                     break;
-                case R.id.navigation_social:
-                    currrentFragment = 2;
-                    edit = false;
-                    toolbar.setTitle("Feed");
-                    fragment = new TabSocialFragment();
-                    break;
                 case R.id.navigation_kebun:
                     edit = false;
-                    currrentFragment = 3;
+                    currrentFragment = 2;
                     toolbar.setTitle("Kebun");
                     toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     toolbar.setTitleTextColor(getResources().getColor(R.color.putih));
@@ -116,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
                     fragment = new TabKebunFragment();
                     break;
                 case R.id.navigation_profile:
-                    currrentFragment = 4;
+                    currrentFragment = 3;
                     toolbar.setTitle("Me");
                     toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                     toolbar.setTitleTextColor(getResources().getColor(R.color.putih));
@@ -199,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
             menu_about.setVisible(false);
             menu_share.setVisible(false);
             menu_logout.setVisible(false);
-        } else if (currrentFragment == 2 || currrentFragment == 3) {
+        } else if (currrentFragment == 2) {
             menu_add.setVisible(false);
             menu_settings.setVisible(false);
             menu_done.setVisible(false);
