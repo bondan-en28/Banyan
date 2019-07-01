@@ -19,10 +19,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,6 +97,8 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
     private MaterialSearchBar materialSearchBar;
     private View mapView;
     private Button btnRefresh;
+    Spinner spinnerTanah, spinnerLahan, spinnerPengairan;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,6 +134,21 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
         materialSearchBar = view.findViewById(R.id.searchBar);
         LinearLayout marker = view.findViewById(R.id.marker);
         btnRefresh = view.findViewById(R.id.btn_refresh);
+
+        spinnerTanah = view.findViewById(R.id.spinner_tanah);
+        ArrayAdapter<CharSequence> adapterTanah = ArrayAdapter.createFromResource(getContext(), R.array.struktur_tanah, android.R.layout.simple_spinner_item);
+        adapterTanah.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTanah.setAdapter(adapterTanah);
+
+        spinnerLahan = view.findViewById(R.id.spinner_lahan);
+        ArrayAdapter<CharSequence> adapterLahan = ArrayAdapter.createFromResource(getContext(), R.array.ketersediaan_lahan, android.R.layout.simple_spinner_item);
+        adapterLahan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLahan.setAdapter(adapterLahan);
+
+        spinnerPengairan = view.findViewById(R.id.spinner_perairan);
+        ArrayAdapter<CharSequence> adapterPengairan = ArrayAdapter.createFromResource(getContext(), R.array.pengairan, android.R.layout.simple_spinner_item);
+        adapterPengairan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerPengairan.setAdapter(adapterPengairan);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);

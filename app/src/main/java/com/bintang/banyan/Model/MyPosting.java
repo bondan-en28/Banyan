@@ -3,7 +3,7 @@ package com.bintang.banyan.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Posting {
+public class MyPosting {
     @Expose
     @SerializedName("id")
     private int id;

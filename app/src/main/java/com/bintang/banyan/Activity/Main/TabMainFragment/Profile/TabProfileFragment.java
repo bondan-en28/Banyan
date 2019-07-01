@@ -1,4 +1,4 @@
-package com.bintang.banyan.Activity.Main.TabMainFragment;
+package com.bintang.banyan.Activity.Main.TabMainFragment.Profile;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bintang.banyan.Activity.Main.MainActivity;
+import com.bintang.banyan.Model.MyPosting;
 import com.bintang.banyan.R;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -25,12 +29,14 @@ import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
+import static com.bintang.banyan.Activity.Main.MainActivity.profileAdapter;
 
-public class TabProfileFragment extends Fragment implements View.OnClickListener {
+public class TabProfileFragment extends Fragment implements ProfileView, View.OnClickListener {
 
     public static Bitmap imageprofilbitmap;
     public static ImageView fotoProfil;
@@ -38,6 +44,13 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
     public static EditText edtNama, edtEmail, edtTtl, edtAlamat, edtNoTelp;
     DatePickerDialog.OnDateSetListener date;
     Calendar myCalendar;
+    //POSTINGAN=========================================================================================
+    public static RecyclerView profileRecyclerView;
+    public static SwipeRefreshLayout profileSwipeRefresh;
+    public static ProfileAdapter.ItemClickListener profileItemClickListener;
+
+    List<MyPosting> posts;
+//==================================================================================================
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -91,7 +104,6 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
             Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
         }
 
-
         if (edtNama.getText().toString().isEmpty() ||
                 edtEmail.getText().toString().isEmpty() ||
                 edtTtl.getText().toString().isEmpty() ||
@@ -107,6 +119,22 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
         } else {
             txtLengkapi.setVisibility(View.GONE);
         }
+
+        profileSwipeRefresh = view.findViewById(R.id.swipe_refresh_mypost);
+
+        profileSwipeRefresh.setOnRefreshListener(
+                () -> MainActivity.profilePresenter.getData(Integer.valueOf(MainActivity.getId)));
+
+        profileRecyclerView = view.findViewById(R.id.recycler_view_mypost);
+        int numberOfColumns = 3;
+        profileRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
+//        profileRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        MainActivity.profilePresenter.getData(Integer.valueOf(MainActivity.getId));
+        profileSwipeRefresh.setOnRefreshListener(
+                () -> MainActivity.profilePresenter.getData(Integer.valueOf(MainActivity.getId)));
+
+
 
     }
 
@@ -201,4 +229,29 @@ public class TabProfileFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    @Override
+    public void showLoading() {
+        profileSwipeRefresh.setRefreshing(true);
+
+    }
+
+    @Override
+    public void hideLoading() {
+        profileSwipeRefresh.setRefreshing(false);
+
+    }
+
+    @Override
+    public void onGetMyPostResult(List<MyPosting> postings) {
+        profileAdapter = new ProfileAdapter(getActivity(), postings, profileItemClickListener);
+        profileAdapter.notifyDataSetChanged();
+        profileRecyclerView.setAdapter(profileAdapter);
+        this.posts = postings;
+
+    }
+
+    @Override
+    public void onErrorLoading(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
 }

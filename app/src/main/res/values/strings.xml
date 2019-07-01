@@ -30,5 +30,25 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
 
+    <string-array name="struktur_tanah">
+        <item>Subur</item>
+        <item>Sedang</item>
+        <item>Gersang</item>
+    </string-array>
+
+    <string-array name="ketersediaan_lahan">
+        <item>Tidak ada</item>
+        <item>-100m2</item>
+        <item>100-200m2</item>
+        <item>200-400m2</item>
+        <item>400m2+</item>
+    </string-array>
+
+    <string-array name="pengairan">
+        <item>Kering</item>
+        <item>Cukup</item>
+        <item>Sedang</item>
+        <item>Melimpah</item>
+    </string-array>
 
 </resources>

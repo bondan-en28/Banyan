@@ -17,17 +17,16 @@ import com.bintang.banyan.R;
 
 import java.util.List;
 
-import static com.bintang.banyan.Activity.Main.MainActivity.adapter;
+import static com.bintang.banyan.Activity.Main.MainActivity.berandaAdapter;
 
-public class TabBerandaFragment extends Fragment implements View.OnClickListener, BerandaView {
+public class TabBerandaFragment extends Fragment implements BerandaView {
 
-    public static RecyclerView recyclerView;
-    public static SwipeRefreshLayout swipeRefresh;
+    public static RecyclerView berandaRecyclerView;
+    public static SwipeRefreshLayout berandaSwipeRefresh;
 
-    public static BerandaAdapter.ItemClickListener itemClickListener;
+    public static BerandaAdapter.ItemClickListener berandaItemClickListener;
 
     List<Posting> posts;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,14 +50,14 @@ public class TabBerandaFragment extends Fragment implements View.OnClickListener
     }
 
     private void initView(View view) {
-        swipeRefresh = view.findViewById(R.id.swipe_refresh);
-        recyclerView = view.findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        berandaSwipeRefresh = view.findViewById(R.id.swipe_refresh);
+        berandaRecyclerView = view.findViewById(R.id.recycler_view);
+        berandaRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        MainActivity.presenter.getData();
+        MainActivity.berandaPresenter.getData();
 
-        swipeRefresh.setOnRefreshListener(
-                () -> MainActivity.presenter.getData());
+        berandaSwipeRefresh.setOnRefreshListener(
+                () -> MainActivity.berandaPresenter.getData());
 
     }
 
@@ -67,32 +66,22 @@ public class TabBerandaFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void onClick(View view) {
-/*        switch (view.getId()) {
-            case R.id.imagePost:
-                changeFragment();
-                break;
-        }
-*/
-    }
-
-    @Override
     public void showLoading() {
-        swipeRefresh.setRefreshing(true);
+        berandaSwipeRefresh.setRefreshing(true);
 
     }
 
     @Override
     public void hideLoading() {
-        swipeRefresh.setRefreshing(false);
+        berandaSwipeRefresh.setRefreshing(false);
 
     }
 
     @Override
     public void onGetResult(List<Posting> posts) {
-        adapter = new BerandaAdapter(getActivity(), posts, itemClickListener);
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
+        berandaAdapter = new BerandaAdapter(getActivity(), posts, berandaItemClickListener);
+        berandaAdapter.notifyDataSetChanged();
+        berandaRecyclerView.setAdapter(berandaAdapter);
         this.posts = posts;
     }
 

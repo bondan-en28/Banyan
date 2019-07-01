@@ -33,7 +33,11 @@ import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.BerandaPresenter
 import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.BerandaView;
 import com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.TabBerandaFragment;
 import com.bintang.banyan.Activity.Main.TabMainFragment.Kebun.TabKebunFragment;
-import com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment;
+import com.bintang.banyan.Activity.Main.TabMainFragment.Profile.ProfileAdapter;
+import com.bintang.banyan.Activity.Main.TabMainFragment.Profile.ProfilePresenter;
+import com.bintang.banyan.Activity.Main.TabMainFragment.Profile.ProfileView;
+import com.bintang.banyan.Activity.Main.TabMainFragment.Profile.TabProfileFragment;
+import com.bintang.banyan.Model.MyPosting;
 import com.bintang.banyan.Model.Posting;
 import com.bintang.banyan.R;
 import com.bintang.banyan.SessionManager;
@@ -47,20 +51,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.TabBerandaFragment.recyclerView;
-import static com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.TabBerandaFragment.swipeRefresh;
-import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.btnGantiFoto;
-import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.edtAlamat;
-import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.edtEmail;
-import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.edtNama;
-import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.edtNoTelp;
-import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.edtTtl;
-import static com.bintang.banyan.Activity.Main.TabMainFragment.TabProfileFragment.imageprofilbitmap;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.TabBerandaFragment.berandaRecyclerView;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Beranda.TabBerandaFragment.berandaSwipeRefresh;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Profile.TabProfileFragment.btnGantiFoto;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Profile.TabProfileFragment.edtAlamat;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Profile.TabProfileFragment.edtEmail;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Profile.TabProfileFragment.edtNama;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Profile.TabProfileFragment.edtNoTelp;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Profile.TabProfileFragment.edtTtl;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Profile.TabProfileFragment.imageprofilbitmap;
+import static com.bintang.banyan.Activity.Main.TabMainFragment.Profile.TabProfileFragment.profileRecyclerView;
 
-public class MainActivity extends AppCompatActivity implements BerandaView {
+public class MainActivity extends AppCompatActivity implements BerandaView, ProfileView {
 
     private static final String TAG = MainActivity.class.getSimpleName(); //get info
-    public static String name, email, photo, ttl, alamat, notelp, getId;
+    public static String name;
+    public static String email;
+    public static String photo;
+    public static String ttl;
+    public static String alamat;
+    public static String notelp;
+    public static String getId;
 
     private static String URL_READ = "https://bonbon28.000webhostapp.com/banyan/read_detail.php";
     private static String URL_EDIT = "https://bonbon28.000webhostapp.com/banyan/edit_detail.php";
@@ -73,11 +84,15 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
     MenuItem menu_add, menu_settings, menu_done, menu_about, menu_share, menu_logout;
     boolean edit = false;
 
-    public static BerandaPresenter presenter;
-    public static BerandaAdapter adapter;
-    BerandaAdapter.ItemClickListener itemClickListener;
+    public static BerandaPresenter berandaPresenter;
+    public static BerandaAdapter berandaAdapter;
+    public static ProfilePresenter profilePresenter;
+    public static ProfileAdapter profileAdapter;
+    BerandaAdapter.ItemClickListener berandaItemClickListener;
+    ProfileAdapter.ItemClickListener profileItemClickListener;
 
     List<Posting> posts;
+    List<MyPosting> myPostings;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -147,9 +162,10 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
         if (sessionManager.isLogin()) {
             getUserDetail();
         }
-        presenter = new BerandaPresenter(this);
+        berandaPresenter = new BerandaPresenter(this);
+        profilePresenter = new ProfilePresenter(this);
 
-        itemClickListener = ((view, position) ->
+        berandaItemClickListener = ((view, position) ->
         {
             int id = posts.get(position).getId();
             String user_id = posts.get(position).getUser_id();
@@ -169,6 +185,28 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
             intent.putExtra("user_image", user_image);
             startActivity(intent);
         });
+
+        profileItemClickListener = ((view, position) ->
+        {
+            int id = myPostings.get(position).getId();
+            String user_id = myPostings.get(position).getUser_id();
+            String judul = myPostings.get(position).getJudul();
+            String deskripsi = myPostings.get(position).getDeskripsi();
+            String gambar = myPostings.get(position).getGambar();
+            String tanggal = myPostings.get(position).getTanggal();
+            String user_image = myPostings.get(position).getUserImage();
+
+            Intent intent = new Intent(this, DetailPostActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("user_id", user_id);
+            intent.putExtra("judul", judul);
+            intent.putExtra("deskripsi", deskripsi);
+            intent.putExtra("gambar", gambar);
+            intent.putExtra("tanggal", tanggal);
+            intent.putExtra("user_image", user_image);
+            startActivity(intent);
+        });
+
     }
 
     @Override
@@ -487,21 +525,28 @@ public class MainActivity extends AppCompatActivity implements BerandaView {
 
     @Override
     public void showLoading() {
-        swipeRefresh.setRefreshing(true);
-
+        berandaSwipeRefresh.setRefreshing(true);
     }
 
     @Override
     public void hideLoading() {
-        swipeRefresh.setRefreshing(false);
+        berandaSwipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onGetMyPostResult(List<MyPosting> postings) {
+        profileAdapter = new ProfileAdapter(this, postings, profileItemClickListener);
+        profileAdapter.notifyDataSetChanged();
+        profileRecyclerView.setAdapter(profileAdapter);
+        this.myPostings = postings;
 
     }
 
     @Override
     public void onGetResult(List<Posting> posts) {
-        adapter = new BerandaAdapter(this, posts, itemClickListener);
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
+        berandaAdapter = new BerandaAdapter(this, posts, berandaItemClickListener);
+        berandaAdapter.notifyDataSetChanged();
+        berandaRecyclerView.setAdapter(berandaAdapter);
         this.posts = posts;
     }
 

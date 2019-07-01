@@ -298,8 +298,7 @@ public class AddPostActivity extends AppCompatActivity implements AddPostView {
 
     @Override
     public void onRequestPostError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Error" + message, Toast.LENGTH_SHORT).show();
     }
 
 }
