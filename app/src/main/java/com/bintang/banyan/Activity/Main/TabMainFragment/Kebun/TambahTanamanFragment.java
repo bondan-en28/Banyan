@@ -35,6 +35,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bintang.banyan.Activity.Main.TabMainFragment.Kebun.HasilRekomendasi.HasilRekomendasiActivity;
 import com.bintang.banyan.R;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -83,11 +84,11 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class TambahTanamanFragment extends Fragment implements OnMapReadyCallback {
     private final float DEFAULT_ZOOM = 18;
+    public String kota, provinsi, negara, zona_waktu, kelembapan, tekanan, suhu, tinggi, latitude, longitude;
+    public Spinner spinnerTanah, spinnerLahan, spinnerPengairan;
     boolean formVisible = true;
-    String latitude, longitude;
     Double elevation;
     TextView tvAlamat, tvLokasi, tvKetinggian, tvSuhu, tvKelembapan, tvTekanan;
-    String kota, provinsi, negara, zona_waktu, kelembapan, tekanan, suhu;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlacesClient placesClient;
@@ -96,9 +97,7 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
     private LocationCallback locationCallback;
     private MaterialSearchBar materialSearchBar;
     private View mapView;
-    private Button btnRefresh;
-    Spinner spinnerTanah, spinnerLahan, spinnerPengairan;
-
+    private Button btnRefresh, btnRekomendasi;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,7 +122,8 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
     private void initView(View view) {
         ImageView expand = view.findViewById(R.id.btn_expand);
         RelativeLayout containerForm = view.findViewById(R.id.container_form_rekomendasi);
-        Button btnRekomendasi = view.findViewById(R.id.btn_rekomendasi);
+        btnRekomendasi = view.findViewById(R.id.btn_rekomendasi);
+
         tvAlamat = view.findViewById(R.id.tv_alamat);
         tvLokasi = view.findViewById(R.id.tv_lokasi);
         tvKetinggian = view.findViewById(R.id.tv_ketinggian);
@@ -307,17 +307,50 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
                 }
             }
         });
+
+        btnRekomendasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!tvLokasi.getText().toString().equals("-")) {
+                    Intent toRekomenPage = new Intent(getActivity(), HasilRekomendasiActivity.class);
+                    toRekomenPage.putExtra("kota", kota);
+                    toRekomenPage.putExtra("provinsi", provinsi);
+                    toRekomenPage.putExtra("negara", negara);
+                    toRekomenPage.putExtra("zona", zona_waktu);
+                    toRekomenPage.putExtra("latitude", latitude);
+                    toRekomenPage.putExtra("longitude", longitude);
+                    toRekomenPage.putExtra("ketinggian", tinggi);
+                    toRekomenPage.putExtra("suhu", suhu);
+                    toRekomenPage.putExtra("kelembapan", kelembapan);
+                    toRekomenPage.putExtra("tekanan", tekanan);
+                    toRekomenPage.putExtra("tanah", spinnerTanah.getSelectedItem().toString());
+                    toRekomenPage.putExtra("lahan", spinnerLahan.getSelectedItem().toString());
+                    toRekomenPage.putExtra("air", spinnerPengairan.getSelectedItem().toString());
+
+                    startActivity(toRekomenPage);
+                } else {
+                    LatLng currentMarkerLocation = mMap.getCameraPosition().target;
+                    latitude = String.valueOf(currentMarkerLocation.latitude);
+                    longitude = String.valueOf(currentMarkerLocation.longitude);
+                    tvLokasi.setText(latitude + ", " + longitude);
+                    getElevation(latitude, longitude);
+                    getWeather(latitude, longitude);
+                }
+
+            }
+        });
     }
 
     private void changeFragment() {
         getFragmentManager().beginTransaction().replace(R.id.fragment_container, new TabKebunFragment()).commit();
     }
 
-    private void getElevation(String lat, String lon) {
+    private boolean getElevation(String lat, String lon) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Get elevation...");
         progressDialog.show();
-        String URL_READ = "https://elevation-api.io/api/elevation?points=(" + latitude + "," + longitude + ")&key=0D30-ebzSu5JIeWaVoaQb1beM01KbC";
+        String URL_READ = "https://elevation-api.io/api/elevation?points=(" + lat + "," + lon + ")&key=0D30-ebzSu5JIeWaVoaQb1beM01KbC";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_READ,
                 new Response.Listener<String>() {
@@ -335,9 +368,9 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
                                 elevation = object.getDouble("elevation");
                             }
 
-                            String tinggi = elevation.toString() + " MDPL";
+                            tinggi = elevation.toString();
 
-                            tvKetinggian.setText(tinggi);
+                            tvKetinggian.setText(tinggi + " MDPL");
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -351,7 +384,6 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getActivity(), "Error Connection DISINI: " + error.toString(), Toast.LENGTH_SHORT).show();
-
                     }
                 }) {
             @Override
@@ -362,9 +394,10 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
+        return true;
     }
 
-    private void getWeather(String lat, String lon) {
+    private boolean getWeather(String lat, String lon) {
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Get Weather Information...");
         progressDialog.show();
@@ -392,8 +425,8 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
                             kelembapan = atmosphere.getString("humidity");
                             tekanan = atmosphere.getString("pressure");
                             suhu = condition.getString("temperature");
-
                             double suhucelcius = (Integer.valueOf(suhu) - 32) * 5 / 9;
+                            suhu = String.valueOf(suhucelcius);
 
                             tvAlamat.setText(kota + ", " + provinsi + ", " + negara + "\nZona Waktu: " + zona_waktu);
                             tvSuhu.setText(suhucelcius + " Celcius");
@@ -426,6 +459,7 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
         };
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
+        return true;
     }
 
     @Override

@@ -38,6 +38,9 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/putih</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="tvRekomendasi">
@@ -49,6 +52,10 @@
         <item name="android:gravity">center_horizontal</item>
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="tvHasilRekomendasi">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

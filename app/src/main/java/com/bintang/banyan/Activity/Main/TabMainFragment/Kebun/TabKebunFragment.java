@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bintang.banyan.Activity.Main.MainActivity;
-import com.bintang.banyan.MapsActivity;
 import com.bintang.banyan.R;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -97,7 +96,7 @@ public class TabKebunFragment extends Fragment {
         btnKelola.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), MapsActivity.class));
+                /* TODO: Menampilkan tanaman yang dimiliki */
             }
         });
     }

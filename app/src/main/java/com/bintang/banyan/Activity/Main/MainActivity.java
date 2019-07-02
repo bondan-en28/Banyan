@@ -65,29 +65,20 @@ import static com.bintang.banyan.Activity.Main.TabMainFragment.Profile.TabProfil
 public class MainActivity extends AppCompatActivity implements BerandaView, ProfileView {
 
     private static final String TAG = MainActivity.class.getSimpleName(); //get info
-    public static String name;
-    public static String email;
-    public static String photo;
-    public static String ttl;
-    public static String alamat;
-    public static String notelp;
-    public static String getId;
-
-    private static String URL_READ = "https://bonbon28.000webhostapp.com/banyan/read_detail.php";
-    private static String URL_EDIT = "https://bonbon28.000webhostapp.com/banyan/edit_detail.php";
-    private static String URL_UPLOAD = "https://bonbon28.000webhostapp.com/banyan/upload.php";
-
-    public int currrentFragment = 1;
-    SessionManager sessionManager;
+    public static String name, email, photo, ttl, alamat, notelp, getId;
     public static Toolbar toolbar;
-    Menu toolbarMenu;
-    MenuItem menu_add, menu_settings, menu_done, menu_about, menu_share, menu_logout;
-    boolean edit = false;
-
     public static BerandaPresenter berandaPresenter;
     public static BerandaAdapter berandaAdapter;
     public static ProfilePresenter profilePresenter;
     public static ProfileAdapter profileAdapter;
+    private static String URL_READ = "https://bonbon28.000webhostapp.com/banyan/read_detail.php";
+    private static String URL_EDIT = "https://bonbon28.000webhostapp.com/banyan/edit_detail.php";
+    private static String URL_UPLOAD = "https://bonbon28.000webhostapp.com/banyan/upload.php";
+    public int currrentFragment = 1;
+    SessionManager sessionManager;
+    Menu toolbarMenu;
+    MenuItem menu_add, menu_settings, menu_done, menu_about, menu_share, menu_logout;
+    boolean edit = false;
     BerandaAdapter.ItemClickListener berandaItemClickListener;
     ProfileAdapter.ItemClickListener profileItemClickListener;
 

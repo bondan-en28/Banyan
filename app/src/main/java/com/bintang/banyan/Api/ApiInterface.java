@@ -3,6 +3,7 @@ package com.bintang.banyan.Api;
 import com.bintang.banyan.Model.Komentar;
 import com.bintang.banyan.Model.MyPosting;
 import com.bintang.banyan.Model.Posting;
+import com.bintang.banyan.Model.RekomendasiTanaman;
 
 import java.util.List;
 
@@ -58,6 +59,14 @@ public interface ApiInterface {
     @POST("getmyposting.php")
     Call<List<MyPosting>> getMyPosting(
             @Field("user_id") int user_id
+    );
+
+    @FormUrlEncoded
+    @POST("getrekomendasitanaman.php")
+    Call<List<RekomendasiTanaman>> getRekomendasiTanaman(
+            @Field("suhu") String suhu,
+            @Field("ketinggian") String ketinggian,
+            @Field("tanah") String tanah
     );
 
 }

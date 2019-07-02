@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:gravity="center_horizontal"
-                        android:text="Alamat"
+                        android:text="-"
                         android:textColor="@color/putih" />
 
                     <GridLayout
@@ -147,7 +147,7 @@
                                 <TextView
                                     android:id="@+id/tv_lokasi"
                                     style="@style/tvRekomendasi"
-                                    android:text="-7.0690338,110.3642461" />
+                                    android:text="-" />
                             </LinearLayout>
 
                         </android.support.v7.widget.CardView>
@@ -188,7 +188,7 @@
                                 <TextView
                                     android:id="@+id/tv_ketinggian"
                                     style="@style/tvRekomendasi"
-                                    android:text="256 MDPL" />
+                                    android:text="-" />
                             </LinearLayout>
 
                         </android.support.v7.widget.CardView>
@@ -229,7 +229,7 @@
                                 <TextView
                                     android:id="@+id/tv_suhu"
                                     style="@style/tvRekomendasi"
-                                    android:text="27 Celcius" />
+                                    android:text="-" />
                             </LinearLayout>
 
                         </android.support.v7.widget.CardView>
@@ -269,7 +269,7 @@
                                 <TextView
                                     android:id="@+id/tv_kelembapan"
                                     style="@style/tvRekomendasi"
-                                    android:text="20%" />
+                                    android:text="-" />
                             </LinearLayout>
 
                         </android.support.v7.widget.CardView>
@@ -309,7 +309,7 @@
                                 <TextView
                                     android:id="@+id/tv_tekanan"
                                     style="@style/tvRekomendasi"
-                                    android:text="30 Inch Hg" />
+                                    android:text="-" />
                             </LinearLayout>
 
                         </android.support.v7.widget.CardView>
