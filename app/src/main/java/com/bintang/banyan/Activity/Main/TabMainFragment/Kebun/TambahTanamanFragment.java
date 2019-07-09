@@ -425,11 +425,9 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
                             kelembapan = atmosphere.getString("humidity");
                             tekanan = atmosphere.getString("pressure");
                             suhu = condition.getString("temperature");
-                            double suhucelcius = (Integer.valueOf(suhu) - 32) * 5 / 9;
-                            suhu = String.valueOf(suhucelcius);
 
                             tvAlamat.setText(kota + ", " + provinsi + ", " + negara + "\nZona Waktu: " + zona_waktu);
-                            tvSuhu.setText(suhucelcius + " Celcius");
+                            tvSuhu.setText(suhu + " Celcius");
                             tvKelembapan.setText(kelembapan + "%");
                             tvTekanan.setText(tekanan + " Inch Hg");
 

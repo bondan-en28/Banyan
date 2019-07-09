@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.DetailTanaman.DetailTanamanActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_tanaman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:elevation="5dp"
+        app:theme="@style/ToolbarTheme"
+        app:title="Detail Tanaman"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:titleTextColor="@color/putih">
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_catatan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_tanaman">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_tanaman"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/ic_plant" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/iv_tanaman"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_nama_tanaman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/redhattext_regular"
+                        android:text="Bougenville"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_lokasi_tanaman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lokasi"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <Button
+                    android:id="@+id/btn_siram"
+                    style="@style/Widget.AppCompat.Toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_button"
+                    android:text="Siram"
+                    android:textColor="@color/putih" />
+
+                <Button
+                    android:id="@+id/btn_pestisida"
+                    style="@style/Widget.AppCompat.Toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_button"
+                    android:text="Pestisida"
+                    android:textColor="@color/putih" />
+
+                <Button
+                    android:id="@+id/btn_catatan"
+                    style="@style/Widget.AppCompat.Toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_button"
+                    android:text="Catatan(+)"
+                    android:textColor="@color/putih" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Catatan"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/colorAccentt" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_catatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/container_catatan_tanaman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        app:cardElevation="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="5dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/btn_send_catatan">
+
+                <EditText
+                    android:id="@+id/edt_catatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="top|left"
+                    android:hint="Tambahkan Catatan"
+                    android:inputType="text" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_send_catatan"
+                style="@style/Widget.AppCompat.Toolbar"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/background_button"
+                android:fontFamily="@font/redhattext_regular"
+                android:text="Kirim"
+                android:textColor="@android:color/white" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

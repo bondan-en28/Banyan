@@ -1,7 +1,9 @@
 package com.bintang.banyan.Api;
 
+import com.bintang.banyan.Model.Catatan;
 import com.bintang.banyan.Model.Komentar;
 import com.bintang.banyan.Model.MyPosting;
+import com.bintang.banyan.Model.MyTanaman;
 import com.bintang.banyan.Model.Posting;
 import com.bintang.banyan.Model.RekomendasiTanaman;
 
@@ -50,9 +52,23 @@ public interface ApiInterface {
     );
 
     @FormUrlEncoded
+    @POST("catatan.php")
+    Call<Catatan> postCatatan(
+            @Field("tanaman_id") int tanaman_id,
+            @Field("user_id") String user_id,
+            @Field("catatan") String catatan
+    );
+
+    @FormUrlEncoded
     @POST("getkomentar.php")
     Call<List<Komentar>> getKomentar(
             @Field("post_id") int post_id
+    );
+
+    @FormUrlEncoded
+    @POST("getcatatan.php")
+    Call<List<Catatan>> getCatatan(
+            @Field("tanaman_id") int tanaman_id
     );
 
     @FormUrlEncoded
@@ -67,6 +83,12 @@ public interface ApiInterface {
             @Field("suhu") String suhu,
             @Field("ketinggian") String ketinggian,
             @Field("tanah") String tanah
+    );
+
+    @FormUrlEncoded
+    @POST("gettanamanku.php")
+    Call<List<MyTanaman>> getTanamanku(
+            @Field("user_id") int user_id
     );
 
 }

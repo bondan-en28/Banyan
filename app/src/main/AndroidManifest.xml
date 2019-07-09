@@ -24,6 +24,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Activity.DetailTanaman.DetailTanamanActivity"></activity>
         <activity android:name=".Activity.Main.TabMainFragment.Kebun.HasilRekomendasi.HasilRekomendasiActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
