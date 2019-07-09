@@ -24,31 +24,52 @@
             android:id="@+id/item_gambar_tanaman"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_plant" />
 
-        <TextView
-            android:id="@+id/item_nama_tanaman"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@id/btn_to_detail"
             android:layout_toRightOf="@id/item_gambar_tanaman"
-            android:text="Nama"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/item_jenis_tanaman"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/item_nama_tanaman"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/item_gambar_tanaman"
-            android:text="jenis"
-            android:textSize="12dp" />
+            <TextView
+                android:id="@+id/item_nama_tanaman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:text="Nama"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_nama_latin_tanaman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:text="Nama latin"
+                android:textSize="12dp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/item_jenis_tanaman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:singleLine="true"
+                android:text="jenis"
+                android:textSize="17dp" />
+
+
+        </LinearLayout>
 
         <ImageView
+            android:id="@+id/btn_to_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

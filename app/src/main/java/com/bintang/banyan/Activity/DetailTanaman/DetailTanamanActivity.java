@@ -37,7 +37,7 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
 
     TextView tvTanaman, tvLokasi;
     int id;
-    String nama, jenis, ketinggian, tanah, suhu, ph;
+    String nama, nama_latin, deskripsi, jenis, ketinggian, tanah, suhu, ph, kelembapan, tekanan, lahan, air;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +68,17 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0);
         nama = intent.getStringExtra("nama");
+        nama_latin = intent.getStringExtra("nama_latin");
+        deskripsi = intent.getStringExtra("deskripsi");
         jenis = intent.getStringExtra("jenis");
         ketinggian = intent.getStringExtra("ketinggian");
         tanah = intent.getStringExtra("tanah");
         suhu = intent.getStringExtra("suhu");
         ph = intent.getStringExtra("ph");
+        kelembapan = intent.getStringExtra("kelembapan");
+        tekanan = intent.getStringExtra("tekanan");
+        lahan = intent.getStringExtra("lahan");
+        air = intent.getStringExtra("air");
 
         tvTanaman.setText(nama);
         tvLokasi.setText(jenis);

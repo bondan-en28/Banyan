@@ -1,5 +1,6 @@
 package com.bintang.banyan.Api;
 
+import com.bintang.banyan.Model.AddTanaman;
 import com.bintang.banyan.Model.Catatan;
 import com.bintang.banyan.Model.Komentar;
 import com.bintang.banyan.Model.MyPosting;
@@ -89,6 +90,13 @@ public interface ApiInterface {
     @POST("gettanamanku.php")
     Call<List<MyTanaman>> getTanamanku(
             @Field("user_id") int user_id
+    );
+
+    @FormUrlEncoded
+    @POST("tambahtanaman.php")
+    Call<AddTanaman> tambahTanaman(
+            @Field("user_id") String user_id,
+            @Field("tanaman_id") int tanaman_id
     );
 
 }

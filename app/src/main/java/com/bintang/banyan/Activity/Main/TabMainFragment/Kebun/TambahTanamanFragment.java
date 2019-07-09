@@ -429,7 +429,7 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
                             tvAlamat.setText(kota + ", " + provinsi + ", " + negara + "\nZona Waktu: " + zona_waktu);
                             tvSuhu.setText(suhu + " Celcius");
                             tvKelembapan.setText(kelembapan + "%");
-                            tvTekanan.setText(tekanan + " Inch Hg");
+                            tvTekanan.setText(tekanan + " Milibars");
 
                         } catch (JSONException e) {
                             e.printStackTrace();

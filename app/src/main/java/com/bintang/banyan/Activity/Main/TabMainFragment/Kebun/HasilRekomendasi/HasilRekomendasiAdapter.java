@@ -37,8 +37,9 @@ public class HasilRekomendasiAdapter extends RecyclerView.Adapter<HasilRekomenda
     public void onBindViewHolder(@NonNull RecyclerViewAdapter recyclerViewAdapter, int i) {
         RekomendasiTanaman rekomendasiTanaman = this.rekomendasiTanaman.get(i);
 
-        recyclerViewAdapter.tv_nama.setText(rekomendasiTanaman.getNama());
-        recyclerViewAdapter.tv_jenis.setText(rekomendasiTanaman.getJenis());
+        recyclerViewAdapter.tvNama.setText(rekomendasiTanaman.getNama());
+        recyclerViewAdapter.tvNamaLatin.setText(rekomendasiTanaman.getNama_latin());
+        recyclerViewAdapter.tvJenis.setText(rekomendasiTanaman.getJenis());
 
     }
 
@@ -53,7 +54,7 @@ public class HasilRekomendasiAdapter extends RecyclerView.Adapter<HasilRekomenda
 
     public class RecyclerViewAdapter extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tv_nama, tv_jenis;
+        TextView tvNama, tvJenis, tvNamaLatin;
 
         CardView card_item;
         ItemClickListener itemClickListener;
@@ -61,8 +62,9 @@ public class HasilRekomendasiAdapter extends RecyclerView.Adapter<HasilRekomenda
         RecyclerViewAdapter(View itemView, ItemClickListener itemClickListener) {
             super(itemView);
 
-            tv_nama = itemView.findViewById(R.id.item_nama_tanaman);
-            tv_jenis = itemView.findViewById(R.id.item_jenis_tanaman);
+            tvNama = itemView.findViewById(R.id.item_nama_tanaman);
+            tvJenis = itemView.findViewById(R.id.item_jenis_tanaman);
+            tvNamaLatin = itemView.findViewById(R.id.item_nama_latin_tanaman);
             card_item = itemView.findViewById(R.id.card_item);
 
             this.itemClickListener = itemClickListener;

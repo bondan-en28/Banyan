@@ -11,6 +11,12 @@ public class RekomendasiTanaman {
     @SerializedName("nama")
     private String nama;
     @Expose
+    @SerializedName("nama_latin")
+    private String nama_latin;
+    @Expose
+    @SerializedName("deskripsi")
+    private String deskripsi;
+    @Expose
     @SerializedName("jenis")
     private String jenis;
     @Expose
@@ -26,16 +32,26 @@ public class RekomendasiTanaman {
     @SerializedName("ph")
     private String ph;
     @Expose
+    @SerializedName("kelembapan")
+    private String kelembapan;
+    @Expose
+    @SerializedName("tekanan")
+    private String tekanan;
+    @Expose
+    @SerializedName("lahan")
+    private String lahan;
+    @Expose
+    @SerializedName("air")
+    private String air;
+    @Expose
+    @SerializedName("gambar")
+    private String gambar;
+    @Expose
     @SerializedName("success")
     private Boolean success;
     @Expose
     @SerializedName("message")
     private String message;
-
-    public RekomendasiTanaman(String nama, String jenis) {
-        this.nama = nama;
-        this.jenis = jenis;
-    }
 
     public int getId() {
         return id;
@@ -43,6 +59,14 @@ public class RekomendasiTanaman {
 
     public String getNama() {
         return nama;
+    }
+
+    public String getNama_latin() {
+        return nama_latin;
+    }
+
+    public String getDeskripsi() {
+        return deskripsi;
     }
 
     public String getJenis() {
@@ -63,6 +87,26 @@ public class RekomendasiTanaman {
 
     public String getPh() {
         return ph;
+    }
+
+    public String getKelembapan() {
+        return kelembapan;
+    }
+
+    public String getTekanan() {
+        return tekanan;
+    }
+
+    public String getLahan() {
+        return lahan;
+    }
+
+    public String getAir() {
+        return air;
+    }
+
+    public String getGambar() {
+        return gambar;
     }
 
     public Boolean getSuccess() {

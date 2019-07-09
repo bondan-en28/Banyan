@@ -58,4 +58,9 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="deskripsi_style">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>

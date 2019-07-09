@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bintang.banyan.Activity.DetailRekomendasiTanaman.DetailRekomendasiTanamanActivity;
 import com.bintang.banyan.Model.RekomendasiTanaman;
 import com.bintang.banyan.R;
 
@@ -98,23 +99,48 @@ public class HasilRekomendasiActivity extends AppCompatActivity implements Hasil
         {
             int id = rekomendasiTanaman.get(position).getId();
             String nama = rekomendasiTanaman.get(position).getNama();
+            String nama_latin = rekomendasiTanaman.get(position).getNama_latin();
+            String deskripsi = rekomendasiTanaman.get(position).getDeskripsi();
             String jenis = rekomendasiTanaman.get(position).getJenis();
             String ketinggian = rekomendasiTanaman.get(position).getKetinggian();
             String struktur_tanah = rekomendasiTanaman.get(position).getTanah();
             String suhu = rekomendasiTanaman.get(position).getSuhu();
             String ph = rekomendasiTanaman.get(position).getPh();
+            String kelembapan = rekomendasiTanaman.get(position).getKelembapan();
+            String tekanan = rekomendasiTanaman.get(position).getTekanan();
+            String lahan = rekomendasiTanaman.get(position).getLahan();
+            String air = rekomendasiTanaman.get(position).getAir();
+            String gambar = rekomendasiTanaman.get(position).getGambar();
 
-            Toast.makeText(this, id + nama + jenis + ketinggian + struktur_tanah + suhu + ph, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, id + "_"+
+//                    nama + "_"+
+//                    nama_latin + " "+
+//                    jenis + "_"+
+//                    ketinggian + "_"+
+//                    struktur_tanah + "_"+
+//                    suhu + "_"+
+//                    ph + "_"+
+//                    kelembapan + "_"+
+//                    tekanan + "_"+
+//                    lahan + "_"+
+//                    air, Toast.LENGTH_SHORT).show();
 
-//            Intent toDetailTanaman = new Intent(this, DetailPostActivity.class);
-//            intent.putExtra("id", id);
-//            intent.putExtra("user_id", user_id);
-//            intent.putExtra("judul", judul);
-//            intent.putExtra("deskripsi", deskripsi);
-//            intent.putExtra("gambar", gambar);
-//            intent.putExtra("tanggal", tanggal);
-//            intent.putExtra("user_image", user_image);
-//            startActivity(intent);
+            Intent toDetailTanaman = new Intent(this, DetailRekomendasiTanamanActivity.class);
+            toDetailTanaman.putExtra("id", id);
+            toDetailTanaman.putExtra("nama", nama);
+            toDetailTanaman.putExtra("nama_latin", nama_latin);
+            toDetailTanaman.putExtra("deskripsi", deskripsi);
+            toDetailTanaman.putExtra("jenis", jenis);
+            toDetailTanaman.putExtra("ketinggian", ketinggian);
+            toDetailTanaman.putExtra("tanah", struktur_tanah);
+            toDetailTanaman.putExtra("suhu", suhu);
+            toDetailTanaman.putExtra("ph", ph);
+            toDetailTanaman.putExtra("kelembapan", kelembapan);
+            toDetailTanaman.putExtra("tekanan", tekanan);
+            toDetailTanaman.putExtra("lahan", lahan);
+            toDetailTanaman.putExtra("air", air);
+            toDetailTanaman.putExtra("gambar", gambar);
+            startActivity(toDetailTanaman);
         });
     }
 

@@ -105,7 +105,7 @@
                             android:layout_below="@id/tv_tanggal_hasil"
                             android:fontFamily="@font/redhattext_bold"
                             android:maxLength="12"
-                            android:text="Batang"
+                            android:text="Semarang"
                             android:textSize="30sp" />
 
                         <TextView
