@@ -33,21 +33,52 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="-100dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/background_usia_tanaman"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="110dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/redhattext_bold"
+                        android:text="25"
+                        android:textColor="@color/putih"
+                        android:textSize="40sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="hari"
+                        android:textColor="@color/putih" />
+
+
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/iv_tanaman"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_plant" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@id/iv_tanaman"
@@ -64,20 +95,19 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_lokasi_tanaman"
+                        android:id="@+id/tv_nama_latin_tanaman"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lokasi"
+                        android:text="Bougainvillea"
                         android:textStyle="italic" />
 
                 </LinearLayout>
-
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="17dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -89,7 +119,7 @@
                     android:layout_margin="3dp"
                     android:layout_weight="1"
                     android:background="@drawable/background_button"
-                    android:text="Siram"
+                    android:text="Perawatan"
                     android:textColor="@color/putih" />
 
                 <Button
@@ -100,7 +130,7 @@
                     android:layout_margin="3dp"
                     android:layout_weight="1"
                     android:background="@drawable/background_button"
-                    android:text="Pestisida"
+                    android:text="Detail"
                     android:textColor="@color/putih" />
 
                 <Button

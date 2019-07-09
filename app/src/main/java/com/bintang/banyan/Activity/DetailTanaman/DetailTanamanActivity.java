@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bintang.banyan.Activity.DetailRekomendasiTanaman.DetailRekomendasiTanamanActivity;
 import com.bintang.banyan.Activity.DetailTanaman.Catatan.CatatanAdapter;
 import com.bintang.banyan.Activity.DetailTanaman.Catatan.CatatanPresenter;
 import com.bintang.banyan.Activity.DetailTanaman.Catatan.CatatanView;
@@ -35,9 +36,9 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
     TambahCatatanPresenter tambahCatatanPresenter;
     EditText edtCatatan;
 
-    TextView tvTanaman, tvLokasi;
+    TextView tvNama, tvNamaLatin;
     int id;
-    String nama, nama_latin, deskripsi, jenis, ketinggian, tanah, suhu, ph, kelembapan, tekanan, lahan, air;
+    String nama, nama_latin, deskripsi, jenis, ketinggian, tanah, suhu, ph, kelembapan, tekanan, lahan, air, gambar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,8 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
 
         swipeRefreshCatatan = findViewById(R.id.swipe_refresh_catatan);
 
-        tvTanaman = findViewById(R.id.tv_nama_tanaman);
-        tvLokasi = findViewById(R.id.tv_lokasi_tanaman);
+        tvNama = findViewById(R.id.tv_nama_tanaman);
+        tvNamaLatin = findViewById(R.id.tv_nama_latin_tanaman);
         btnSiram = findViewById(R.id.btn_siram);
         btnPestisida = findViewById(R.id.btn_pestisida);
         btnCatatan = findViewById(R.id.btn_catatan);
@@ -79,9 +80,10 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
         tekanan = intent.getStringExtra("tekanan");
         lahan = intent.getStringExtra("lahan");
         air = intent.getStringExtra("air");
+        gambar = intent.getStringExtra("gambar");
 
-        tvTanaman.setText(nama);
-        tvLokasi.setText(jenis);
+        tvNama.setText(nama);
+        tvNamaLatin.setText(nama_latin);
 
         catatanPresenter.getCatatan(id);
 
@@ -113,14 +115,30 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
             public void onClick(View v) {
                 Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.bondanekanugraha28.PotKembang");
                 if (launchIntent != null) {
-                    startActivity(launchIntent);//null pointer check in case package name was not found
+                    startActivity(launchIntent);//cek null pointer
                 }
             }
         });
         btnPestisida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DetailTanamanActivity.this, "Menyiram Pestisida selama 10 detik", Toast.LENGTH_SHORT).show();
+
+                Intent toDetailTanaman = new Intent(DetailTanamanActivity.this, DetailRekomendasiTanamanActivity.class);
+                toDetailTanaman.putExtra("id", id);
+                toDetailTanaman.putExtra("nama", nama);
+                toDetailTanaman.putExtra("nama_latin", nama_latin);
+                toDetailTanaman.putExtra("deskripsi", deskripsi);
+                toDetailTanaman.putExtra("jenis", jenis);
+                toDetailTanaman.putExtra("ketinggian", ketinggian);
+                toDetailTanaman.putExtra("tanah", tanah);
+                toDetailTanaman.putExtra("suhu", suhu);
+                toDetailTanaman.putExtra("ph", ph);
+                toDetailTanaman.putExtra("kelembapan", kelembapan);
+                toDetailTanaman.putExtra("tekanan", tekanan);
+                toDetailTanaman.putExtra("lahan", lahan);
+                toDetailTanaman.putExtra("air", air);
+                toDetailTanaman.putExtra("gambar", gambar);
+                startActivity(toDetailTanaman);
             }
         });
     }

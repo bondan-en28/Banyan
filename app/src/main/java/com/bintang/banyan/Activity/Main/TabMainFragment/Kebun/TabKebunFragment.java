@@ -168,20 +168,34 @@ public class TabKebunFragment extends Fragment implements TanamanView {
             public void onItemClick(View view, int position) {
                 int id = myTanaman.get(position).getId();
                 String nama = myTanaman.get(position).getNama();
+                String nama_latin = myTanaman.get(position).getNama_latin();
+                String deskripsi = myTanaman.get(position).getDeskripsi();
                 String jenis = myTanaman.get(position).getJenis();
                 String ketinggian = myTanaman.get(position).getKetinggian();
-                String struktur_tanah = myTanaman.get(position).getTanah();
+                String struktur_tanah = myTanaman.get(position).getStruktur_tanah();
                 String suhu = myTanaman.get(position).getSuhu();
                 String ph = myTanaman.get(position).getPh();
+                String kelembapan = myTanaman.get(position).getKelembapan();
+                String tekanan = myTanaman.get(position).getTekanan();
+                String lahan = myTanaman.get(position).getLahan();
+                String air = myTanaman.get(position).getAir();
+                String gambar = myTanaman.get(position).getGambar();
 
                 Intent toTanamanDetail = new Intent(getActivity(), DetailTanamanActivity.class);
                 toTanamanDetail.putExtra("id", id);
                 toTanamanDetail.putExtra("nama", nama);
+                toTanamanDetail.putExtra("nama_latin", nama_latin);
+                toTanamanDetail.putExtra("deskripsi", deskripsi);
                 toTanamanDetail.putExtra("jenis", jenis);
                 toTanamanDetail.putExtra("ketinggian", ketinggian);
                 toTanamanDetail.putExtra("tanah", struktur_tanah);
                 toTanamanDetail.putExtra("suhu", suhu);
                 toTanamanDetail.putExtra("ph", ph);
+                toTanamanDetail.putExtra("kelembapan", kelembapan);
+                toTanamanDetail.putExtra("tekanan", tekanan);
+                toTanamanDetail.putExtra("lahan", lahan);
+                toTanamanDetail.putExtra("air", air);
+                toTanamanDetail.putExtra("gambar", gambar);
 
                 startActivity(toTanamanDetail);
 

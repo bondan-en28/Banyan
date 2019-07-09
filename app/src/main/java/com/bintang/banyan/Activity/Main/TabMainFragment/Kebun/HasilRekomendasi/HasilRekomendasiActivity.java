@@ -112,19 +112,6 @@ public class HasilRekomendasiActivity extends AppCompatActivity implements Hasil
             String air = rekomendasiTanaman.get(position).getAir();
             String gambar = rekomendasiTanaman.get(position).getGambar();
 
-//            Toast.makeText(this, id + "_"+
-//                    nama + "_"+
-//                    nama_latin + " "+
-//                    jenis + "_"+
-//                    ketinggian + "_"+
-//                    struktur_tanah + "_"+
-//                    suhu + "_"+
-//                    ph + "_"+
-//                    kelembapan + "_"+
-//                    tekanan + "_"+
-//                    lahan + "_"+
-//                    air, Toast.LENGTH_SHORT).show();
-
             Intent toDetailTanaman = new Intent(this, DetailRekomendasiTanamanActivity.class);
             toDetailTanaman.putExtra("id", id);
             toDetailTanaman.putExtra("nama", nama);
