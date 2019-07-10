@@ -180,6 +180,7 @@ public class TabKebunFragment extends Fragment implements TanamanView {
                 String lahan = myTanaman.get(position).getLahan();
                 String air = myTanaman.get(position).getAir();
                 String gambar = myTanaman.get(position).getGambar();
+                String date = myTanaman.get(position).getDate();
 
                 Intent toTanamanDetail = new Intent(getActivity(), DetailTanamanActivity.class);
                 toTanamanDetail.putExtra("id", id);
@@ -196,6 +197,7 @@ public class TabKebunFragment extends Fragment implements TanamanView {
                 toTanamanDetail.putExtra("lahan", lahan);
                 toTanamanDetail.putExtra("air", air);
                 toTanamanDetail.putExtra("gambar", gambar);
+                toTanamanDetail.putExtra("date", date);
 
                 startActivity(toTanamanDetail);
 

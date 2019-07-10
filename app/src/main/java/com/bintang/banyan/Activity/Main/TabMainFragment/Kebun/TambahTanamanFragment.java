@@ -324,9 +324,9 @@ public class TambahTanamanFragment extends Fragment implements OnMapReadyCallbac
                     toRekomenPage.putExtra("suhu", suhu);
                     toRekomenPage.putExtra("kelembapan", kelembapan);
                     toRekomenPage.putExtra("tekanan", tekanan);
-                    toRekomenPage.putExtra("tanah", spinnerTanah.getSelectedItem().toString());
-                    toRekomenPage.putExtra("lahan", spinnerLahan.getSelectedItem().toString());
-                    toRekomenPage.putExtra("air", spinnerPengairan.getSelectedItem().toString());
+                    toRekomenPage.putExtra("tanah", spinnerTanah.getSelectedItemPosition());
+                    toRekomenPage.putExtra("lahan", spinnerLahan.getSelectedItemPosition());
+                    toRekomenPage.putExtra("air", spinnerPengairan.getSelectedItemPosition());
 
                     startActivity(toRekomenPage);
                 } else {

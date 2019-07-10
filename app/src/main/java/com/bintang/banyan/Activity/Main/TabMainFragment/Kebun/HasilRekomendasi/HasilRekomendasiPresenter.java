@@ -19,11 +19,11 @@ public class HasilRekomendasiPresenter {
         this.view = view;
     }
 
-    void getRekomendasiTanaman(String suhu, String ketinggian, String tanah) {
+    void getRekomendasiTanaman(String ketinggian, String suhu, String kelembapan, String tekanan, String struktur_tanah, String lahan, String air) {
         view.showLoading();
         //Request to server
         ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-        Call<List<RekomendasiTanaman>> call = apiInterface.getRekomendasiTanaman(suhu, ketinggian, tanah);
+        Call<List<RekomendasiTanaman>> call = apiInterface.getRekomendasiTanaman(ketinggian, suhu, kelembapan, tekanan, struktur_tanah, lahan, air);
 
         call.enqueue(new Callback<List<RekomendasiTanaman>>() {
             @Override

@@ -1,6 +1,7 @@
 package com.bintang.banyan.Activity.DetailTanaman;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,12 @@ import com.bintang.banyan.Activity.Main.MainActivity;
 import com.bintang.banyan.Model.Catatan;
 import com.bintang.banyan.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DetailTanamanActivity extends AppCompatActivity implements TambahCatatanView, CatatanView {
@@ -36,9 +43,9 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
     TambahCatatanPresenter tambahCatatanPresenter;
     EditText edtCatatan;
 
-    TextView tvNama, tvNamaLatin;
+    TextView tvNama, tvNamaLatin, tvUsia;
     int id;
-    String nama, nama_latin, deskripsi, jenis, ketinggian, tanah, suhu, ph, kelembapan, tekanan, lahan, air, gambar;
+    String nama, nama_latin, deskripsi, jenis, ketinggian, tanah, suhu, ph, kelembapan, tekanan, lahan, air, gambar, tanggal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,7 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
 
         tvNama = findViewById(R.id.tv_nama_tanaman);
         tvNamaLatin = findViewById(R.id.tv_nama_latin_tanaman);
+        tvUsia = findViewById(R.id.tv_usia_tanaman);
         btnSiram = findViewById(R.id.btn_siram);
         btnPestisida = findViewById(R.id.btn_pestisida);
         btnCatatan = findViewById(R.id.btn_catatan);
@@ -81,9 +89,50 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
         lahan = intent.getStringExtra("lahan");
         air = intent.getStringExtra("air");
         gambar = intent.getStringExtra("gambar");
+        tanggal = intent.getStringExtra("date");
 
         tvNama.setText(nama);
         tvNamaLatin.setText(nama_latin);
+        String tgl = tanggal;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = null;
+        try {
+            d = sdf.parse(tgl);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar c = Calendar.getInstance();
+        c.setTime(d);
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH) + 1;
+        int date = c.get(Calendar.DATE);
+
+//        recyclerViewAdapter.tv_usia.setText(String.valueOf(year)+String.valueOf(month)+String.valueOf(date));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDate l1 = LocalDate.of(year, month, date);
+            LocalDate now = LocalDate.now();
+            Period diff1 = Period.between(l1, now);
+            String usia;
+            if (diff1.getMonths() == 0 && diff1.getYears() == 0) {
+                usia = String.valueOf(diff1.getDays());
+            } else if (diff1.getMonths() > 0 && diff1.getYears() == 0) {
+                usia = String.valueOf(diff1.getMonths() * 30 +
+                        diff1.getDays());
+            } else if (diff1.getYears() > 0 && diff1.getMonths() == 0) {
+                usia = (diff1.getYears() * 12 * 30 +
+                        diff1.getDays()) + " Hari";
+            } else if (diff1.getYears() > 0 && diff1.getDays() == 0) {
+                usia = String.valueOf(diff1.getYears() * 12 * 30);
+            } else {
+                usia = String.valueOf(diff1.getYears() * 12 * 30 +
+                        (diff1.getMonths() * 30) +
+                        diff1.getDays());
+            }
+            tvUsia.setText(usia);
+        }
+
+
+
 
         catatanPresenter.getCatatan(id);
 

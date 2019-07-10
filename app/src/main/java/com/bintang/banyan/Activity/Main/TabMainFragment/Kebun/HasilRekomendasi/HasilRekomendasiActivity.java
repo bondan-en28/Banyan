@@ -24,8 +24,9 @@ public class HasilRekomendasiActivity extends AppCompatActivity implements Hasil
     public static RecyclerView rekomendasiRecyclerView;
     public static SwipeRefreshLayout rekomendasiSwipeRefresh;
     public static HasilRekomendasiAdapter.ItemClickListener rekomendasiItemClickListener;
-    public String kota, provinsi, negara, zona, latitude, longitude, ketinggian, suhu, kelembapan, tekanan, tanah, lahan, air;
-    public TextView tvTanggal, tvKota, tvProvinsiNegara, tvSuhu, tvLatLon, tvKetinggian, tvKelembapan, tvTekanan;
+    public int tanah, lahan, air;
+    public String kota, provinsi, negara, zona, latitude, longitude, ketinggian, suhu, kelembapan, tekanan;
+    public TextView tvTanggal, tvKota, tvProvinsiNegara, tvSuhu, tvLatLon, tvKetinggian, tvKelembapan, tvTekanan, tvTanah, tvLahan, tvAir;
     HasilRekomendasiPresenter hasilRekomendasiPresenter;
     HasilRekomendasiAdapter hasilRekomendasiAdapter;
 
@@ -51,7 +52,9 @@ public class HasilRekomendasiActivity extends AppCompatActivity implements Hasil
         tvKetinggian = findViewById(R.id.tv_ketinggian_hasil);
         tvKelembapan = findViewById(R.id.tv_kelembapan_hasil);
         tvTekanan = findViewById(R.id.tv_tekanan_hasil);
-
+        tvTanah = findViewById(R.id.tv_struktur_tanah_hasil);
+        tvLahan = findViewById(R.id.tv_lahan_hasil);
+        tvAir = findViewById(R.id.tv_air_hasil);
 
         Date today = Calendar.getInstance().getTime();//getting date
         SimpleDateFormat formatter = new SimpleDateFormat("E, dd MMM yyyy z");//formating according to my need
@@ -64,37 +67,41 @@ public class HasilRekomendasiActivity extends AppCompatActivity implements Hasil
         zona = intent.getStringExtra("zona");
         latitude = intent.getStringExtra("latitude");
         longitude = intent.getStringExtra("longitude");
-
         latitude = latitude.substring(0, 10);
         longitude = longitude.substring(0, 10);
-
         ketinggian = intent.getStringExtra("ketinggian");
         suhu = intent.getStringExtra("suhu");
-
         kelembapan = intent.getStringExtra("kelembapan");
         tekanan = intent.getStringExtra("tekanan");
-        tanah = intent.getStringExtra("tanah");
-        lahan = intent.getStringExtra("lahan");
-        air = intent.getStringExtra("air");
+        tanah = intent.getIntExtra("tanah", 0);
+        lahan = intent.getIntExtra("lahan", 0);
+        air = intent.getIntExtra("air", 0);
 
         tvTanggal.setText(date);
         tvKota.setText(kota);
         tvProvinsiNegara.setText(provinsi + ", " + negara);
-
         tvSuhu.setText(suhu + " C");
         tvLatLon.setText(latitude + ", " + longitude);
         tvKetinggian.setText(ketinggian);
         tvKelembapan.setText(kelembapan);
         tvTekanan.setText(tekanan);
+        String[] lahanArray = getResources().getStringArray(R.array.ketersediaan_lahan);
+        String[] tanahArray = getResources().getStringArray(R.array.struktur_tanah);
+        String[] airArray = getResources().getStringArray(R.array.pengairan);
+//        tvLahan.setText(lahanArray[lahan]);
+//        tvTanah.setText(tanahArray[tanah]);
+//        tvAir.setText(airArray[air]);
+        tvLahan.setText(String.valueOf(lahan));
+        tvTanah.setText(String.valueOf(tanah));
+        tvAir.setText(String.valueOf(air));
 
         rekomendasiSwipeRefresh = findViewById(R.id.swipe_refresh_hasil);
         hasilRekomendasiPresenter = new HasilRekomendasiPresenter(this);
-        hasilRekomendasiPresenter.getRekomendasiTanaman(suhu, ketinggian, tanah);
+        hasilRekomendasiPresenter.getRekomendasiTanaman(ketinggian, suhu, kelembapan, tekanan, String.valueOf(tanah), String.valueOf(lahan), String.valueOf(air));
         rekomendasiRecyclerView = findViewById(R.id.recycler_view_tanaman_hasil);
         rekomendasiRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        rekomendasiSwipeRefresh.setOnRefreshListener(() -> hasilRekomendasiPresenter.getRekomendasiTanaman(suhu, ketinggian, tanah));
+        rekomendasiSwipeRefresh.setOnRefreshListener(() -> hasilRekomendasiPresenter.getRekomendasiTanaman(ketinggian, suhu, kelembapan, tekanan, String.valueOf(tanah), String.valueOf(lahan), String.valueOf(air)));
         rekomendasiItemClickListener = ((view, position) ->
         {
             int id = rekomendasiTanaman.get(position).getId();

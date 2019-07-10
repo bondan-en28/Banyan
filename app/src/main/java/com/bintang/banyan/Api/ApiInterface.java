@@ -81,9 +81,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("getrekomendasitanaman.php")
     Call<List<RekomendasiTanaman>> getRekomendasiTanaman(
-            @Field("suhu") String suhu,
             @Field("ketinggian") String ketinggian,
-            @Field("tanah") String tanah
+            @Field("suhu") String suhu,
+            @Field("kelembapan") String kelembapan,
+            @Field("tekanan") String tekanan,
+            @Field("struktur_tanah") String struktur_tanah,
+            @Field("lahan") String lahan,
+            @Field("air") String air
     );
 
     @FormUrlEncoded
