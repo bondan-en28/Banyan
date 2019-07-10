@@ -88,12 +88,12 @@ public class HasilRekomendasiActivity extends AppCompatActivity implements Hasil
         String[] lahanArray = getResources().getStringArray(R.array.ketersediaan_lahan);
         String[] tanahArray = getResources().getStringArray(R.array.struktur_tanah);
         String[] airArray = getResources().getStringArray(R.array.pengairan);
-//        tvLahan.setText(lahanArray[lahan]);
-//        tvTanah.setText(tanahArray[tanah]);
-//        tvAir.setText(airArray[air]);
-        tvLahan.setText(String.valueOf(lahan));
-        tvTanah.setText(String.valueOf(tanah));
-        tvAir.setText(String.valueOf(air));
+        tvLahan.setText(lahanArray[lahan]);
+        tvTanah.setText(tanahArray[tanah]);
+        tvAir.setText(airArray[air]);
+//        tvLahan.setText(String.valueOf(lahan));
+//        tvTanah.setText(String.valueOf(tanah));
+//        tvAir.setText(String.valueOf(air));
 
         rekomendasiSwipeRefresh = findViewById(R.id.swipe_refresh_hasil);
         hasilRekomendasiPresenter = new HasilRekomendasiPresenter(this);

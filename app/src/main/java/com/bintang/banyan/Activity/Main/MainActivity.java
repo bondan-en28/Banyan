@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements BerandaView, Prof
     public static BerandaAdapter berandaAdapter;
     public static ProfilePresenter profilePresenter;
     public static ProfileAdapter profileAdapter;
+    public static int jumlah_tanaman = 0;
     private static String URL_READ = "https://bonbon28.000webhostapp.com/banyan/read_detail.php";
     private static String URL_EDIT = "https://bonbon28.000webhostapp.com/banyan/edit_detail.php";
     private static String URL_UPLOAD = "https://bonbon28.000webhostapp.com/banyan/upload.php";

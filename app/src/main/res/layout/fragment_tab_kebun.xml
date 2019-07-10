@@ -327,6 +327,7 @@
                         android:paddingBottom="5dp">
 
                         <ImageView
+                            android:id="@+id/btn_notif"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center_horizontal"
@@ -362,6 +363,7 @@
                         android:paddingBottom="5dp">
 
                         <ImageView
+                            android:id="@+id/btn_cuaca"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:layout_gravity="center_horizontal"
@@ -386,7 +388,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="0dp"
                 android:gravity="center"
                 android:orientation="vertical">
 

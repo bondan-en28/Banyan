@@ -18,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bintang.banyan.Activity.Main.MainActivity;
@@ -42,6 +43,7 @@ public class TabProfileFragment extends Fragment implements ProfileView, View.On
     public static ImageView fotoProfil;
     public static Button btnGantiFoto;
     public static EditText edtNama, edtEmail, edtTtl, edtAlamat, edtNoTelp;
+    TextView tvJumlahTanaman;
     DatePickerDialog.OnDateSetListener date;
     Calendar myCalendar;
     //POSTINGAN=========================================================================================
@@ -77,7 +79,13 @@ public class TabProfileFragment extends Fragment implements ProfileView, View.On
         btnGantiFoto = view.findViewById(R.id.btn_ganti_foto);
         LinearLayout txtLengkapi = view.findViewById(R.id.container_lengkapi);
         myCalendar = Calendar.getInstance();
+        tvJumlahTanaman = view.findViewById(R.id.tv_jumlah_tanaman_profil);
 
+        try {
+            tvJumlahTanaman.setText(String.valueOf(MainActivity.jumlah_tanaman));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         btnGantiFoto.setOnClickListener(this);
         edtTtl.setOnClickListener(this);
 
@@ -122,9 +130,6 @@ public class TabProfileFragment extends Fragment implements ProfileView, View.On
 
         profileSwipeRefresh = view.findViewById(R.id.swipe_refresh_mypost);
 
-        profileSwipeRefresh.setOnRefreshListener(
-                () -> MainActivity.profilePresenter.getData(Integer.valueOf(MainActivity.getId)));
-
         profileRecyclerView = view.findViewById(R.id.recycler_view_mypost);
         int numberOfColumns = 3;
         profileRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
@@ -133,8 +138,6 @@ public class TabProfileFragment extends Fragment implements ProfileView, View.On
         MainActivity.profilePresenter.getData(Integer.valueOf(MainActivity.getId));
         profileSwipeRefresh.setOnRefreshListener(
                 () -> MainActivity.profilePresenter.getData(Integer.valueOf(MainActivity.getId)));
-
-
 
     }
 

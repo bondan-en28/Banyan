@@ -73,7 +73,6 @@ public class TabKebunFragment extends Fragment implements TanamanView {
     private Location mLastKnownLocation;
     private LocationCallback locationCallback;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +96,7 @@ public class TabKebunFragment extends Fragment implements TanamanView {
 
     private void initView(View view) {
         ImageView btnKelola = view.findViewById(R.id.btn_kelola);
+        ImageView btnCuaca = view.findViewById(R.id.btn_cuaca);
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
         tvTanggal = view.findViewById(R.id.tv_tanggal_hasil);
         tvKota = view.findViewById(R.id.tv_kota_hasil);
@@ -161,8 +161,8 @@ public class TabKebunFragment extends Fragment implements TanamanView {
             }
         });
 
-
-        tanamanSwipeRefresh.setOnRefreshListener(() -> tanamanPresenter.getTanamanku(Integer.valueOf(MainActivity.getId)));
+        tanamanSwipeRefresh.setOnRefreshListener(() ->
+                tanamanPresenter.getTanamanku(Integer.valueOf(MainActivity.getId)));
         tanamanItemClickListener = (new TanamanAdapter.ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -206,6 +206,12 @@ public class TabKebunFragment extends Fragment implements TanamanView {
             }
         });
 
+        btnCuaca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDeviceLocation();
+            }
+        });
     }
 
     private void changeFragment() {
@@ -390,6 +396,7 @@ public class TabKebunFragment extends Fragment implements TanamanView {
 
         tanamanAdapter.notifyDataSetChanged();
         tanamanRecyclerView.setAdapter(tanamanAdapter);
+        MainActivity.jumlah_tanaman = myTanaman.size();
         this.myTanaman = myTanaman;
 
     }

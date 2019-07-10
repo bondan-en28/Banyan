@@ -248,7 +248,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="5dp"
                             android:fontFamily="@font/redhattext_italic"
-                            android:text="Inch Hg"
+                            android:text="Milibars"
                             android:textSize="18sp"
                             android:textStyle="bold" />
                     </LinearLayout>
