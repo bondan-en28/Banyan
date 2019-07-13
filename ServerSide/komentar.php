@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     date_default_timezone_set('Asia/Jakarta');
     $date= date("Y-m-d H:i:s");
 
-    $sql = "INSERT INTO banyan_komentar (post_id, user_id, komentar, date) VALUES ('$post_id', '$user_id', '$komentar', '$date')";
+    $sql = "INSERT INTO new_banyan_komentar (post_id, user_id, komentar, date) VALUES ('$post_id', '$user_id', '$komentar', '$date')";
 
 	$query = mysqli_query($conn, $sql);
 

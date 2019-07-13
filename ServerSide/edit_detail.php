@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     require_once 'connect.php';
     $tgl = date('Y-m-d H:i:s', strtotime($ttl));
     
-    $sql = "UPDATE banyan_pengguna SET nama='$name', email='$email', ttl='$tgl', alamat='$alamat', notelp='$notelp' WHERE id='$id'";
+    $sql = "UPDATE new_banyan_pengguna SET nama='$name', email='$email', ttl='$tgl', alamat='$alamat', notelp='$notelp' WHERE id='$id'";
 
     $query = mysqli_query($conn, $sql);
     

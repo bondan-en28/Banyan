@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $deskripsi = $_POST['deskripsi'];
     $gambar = $_POST['gambar'];
     
-    $sqll = "SELECT user_id, date FROM `banyan_post` where id='$id'";
+    $sqll = "SELECT user_id, date FROM `new_banyan_post` where id='$id'";
     $queryy = mysqli_query($conn, $sqll);
     
     $resultt = array();
@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $path = "foto_post/$user_id.$date.jpeg";
     $finalpath = "http://bonbon28.000webhostapp.com/banyan/".$path;
 
-    $sql = "UPDATE banyan_post SET judul='$judul', deskripsi='$deskripsi', gambar='$finalpath' WHERE id='$id' ";
+    $sql = "UPDATE new_banyan_post SET judul='$judul', deskripsi='$deskripsi', gambar='$finalpath' WHERE id='$id' ";
 
 	$query = mysqli_query($conn, $sql);
 

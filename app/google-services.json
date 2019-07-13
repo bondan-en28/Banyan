@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1028617332281",
+    "firebase_url": "https://banyan-1561039252252.firebaseio.com",
+    "project_id": "banyan-1561039252252",
+    "storage_bucket": "banyan-1561039252252.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028617332281:android:a7a44460685a2bce",
+        "android_client_info": {
+          "package_name": "com.bintang.banyan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028617332281-jj1elp31925lcq3audj1hponf8i743md.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bintang.banyan",
+            "certificate_hash": "da8663fc53571a376c9bdd27cbe274812d702ca7"
+          }
+        },
+        {
+          "client_id": "1028617332281-91k1n7gfb6rus63c24j7b9j7pa961s51.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyzw4a33KN3kzf1Huc308XypLUbi5nMyU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028617332281-91k1n7gfb6rus63c24j7b9j7pa961s51.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,7 @@
 <?php
 $server = "localhost";
 $user = "id9485374_bondan_en28";
-$password = "cobA1234";
+$password = "b4ny4N";
 $nama_database = "id9485374_userdb";
 
 $conn = mysqli_connect($server, $user, $password, $nama_database);

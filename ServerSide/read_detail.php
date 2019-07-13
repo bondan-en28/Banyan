@@ -7,7 +7,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     
     require_once 'connect.php';
 
-    $sql = "SELECT * FROM banyan_pengguna WHERE id='$id'";
+    $sql = "SELECT * FROM new_banyan_pengguna WHERE id='$id'";
     $query = mysqli_query($conn, $sql);
     
     $result = array();

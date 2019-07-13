@@ -8,7 +8,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
 
     $password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO banyan_pengguna (nama, email, password) VALUES ('$name', '$email', '$password')";
+    $sql = "INSERT INTO new_banyan_pengguna (nama, email, password) VALUES ('$name', '$email', '$password')";
 	$query = mysqli_query($conn, $sql);
 
 	if ($query) {

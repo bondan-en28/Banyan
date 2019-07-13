@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $path = "foto_profil/$id.jpeg";
     $finalPath = "http://bonbon28.000webhostapp.com/banyan/".$path;
 
-    $sql = "UPDATE banyan_pengguna SET photo='$finalPath' WHERE id='$id'";
+    $sql = "UPDATE new_banyan_pengguna SET photo='$finalPath' WHERE id='$id'";
     $query = mysqli_query($conn, $sql);
 
     if ($query) {

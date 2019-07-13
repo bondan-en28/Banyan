@@ -6,7 +6,7 @@ include ("connect.php");
 if($_SERVER['REQUEST_METHOD']=='POST'){
     $post_id = $_POST['post_id'];
 
-    $sql = "SELECT * FROM `banyan_komentar` where post_id='$post_id' ORDER BY id";
+    $sql = "SELECT * FROM `new_banyan_komentar` where post_id='$post_id' ORDER BY id";
 
 	$query = mysqli_query($conn, $sql);
 
@@ -18,12 +18,9 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         
             $user_id = $row['user_id'];
         
-            $sqll = "SELECT nama FROM `banyan_pengguna` where id='$user_id'";
+            $sqll = "SELECT nama FROM `new_banyan_pengguna` where id='$user_id'";
             $queryy = mysqli_query($conn, $sqll);
             
-            $resultt = array();
-            $resultt['read'] = array();
-        
             if($roww = mysqli_fetch_assoc($queryy)){
                 $user_name = $roww['nama'];
             }

@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $path = "foto_post/$user_id.$date.jpeg";
     $finalPath = "http://bonbon28.000webhostapp.com/banyan/".$path;
 
-    $sql = "INSERT INTO banyan_post (user_id, judul, deskripsi, gambar, date) VALUES ('$user_id', '$judul', '$deskripsi', '$finalPath', '$date')";
+    $sql = "INSERT INTO new_banyan_post (user_id, judul, deskripsi, gambar, date) VALUES ('$user_id', '$judul', '$deskripsi', '$finalPath', '$date')";
 
 	$query = mysqli_query($conn, $sql);
 
