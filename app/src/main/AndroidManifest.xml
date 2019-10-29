@@ -24,7 +24,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.DetailRekomendasiTanaman.DetailRekomendasiTanamanActivity"></activity>
+        <activity android:name=".Activity.DetailTanaman.TanamanLogActivity"></activity>
+        <activity android:name=".Activity.DetailRekomendasiTanaman.DetailRekomendasiTanamanActivity" />
         <activity android:name=".Activity.DetailTanaman.DetailTanamanActivity" />
         <activity android:name=".Activity.Main.TabMainFragment.Kebun.HasilRekomendasi.HasilRekomendasiActivity" />
         <!--

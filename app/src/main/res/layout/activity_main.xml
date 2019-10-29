@@ -14,7 +14,7 @@
         android:background="@android:color/white"
         android:elevation="5dp"
         app:logo="@mipmap/ic_launcher"
-        app:title="Banyan"
+        app:title="@string/app_name"
         app:titleMarginStart="40dp"
         app:titleTextAppearance="@style/Toolbar.TitleText">
 

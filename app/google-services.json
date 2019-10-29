@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1028617332281:android:a7a44460685a2bce",
         "android_client_info": {
-          "package_name": "com.bintang.banyan"
+          "package_name": "com.bintang.tosca"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "1028617332281-jj1elp31925lcq3audj1hponf8i743md.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.bintang.banyan",
+            "package_name": "com.bintang.tosca",
             "certificate_hash": "da8663fc53571a376c9bdd27cbe274812d702ca7"
           }
         },

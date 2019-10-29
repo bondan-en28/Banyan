@@ -19,6 +19,7 @@ public class SessionManager {
 
     private static final String PREF_NAME = "LOGIN";
     private static final String LOGIN = "IS_LOGIN";
+
     public SharedPreferences.Editor editor;
     public Context context;
     SharedPreferences sharedPreferences;

@@ -110,12 +110,12 @@ public class MainActivity extends AppCompatActivity implements BerandaView, Prof
                     currrentFragment = 1;
                     fragment = new TabBerandaFragment();
                     edit = false;
-                    toolbar.setTitle("Banyan");
+                    toolbar.setTitle(R.string.app_name);
                     break;
                 case R.id.navigation_kebun:
                     edit = false;
                     currrentFragment = 2;
-                    toolbar.setTitle("Kebun");
+                    toolbar.setTitle("Garden");
                     toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                     toolbar.setTitleTextColor(getResources().getColor(R.color.putih));
 

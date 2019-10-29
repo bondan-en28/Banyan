@@ -39,7 +39,7 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
     List<Catatan> catatans;
     SwipeRefreshLayout swipeRefreshCatatan;
     CardView container_catatan;
-    Button btnSiram, btnPestisida, btnCatatan, btnSendCatatan;
+    Button btnSiram, btnPestisida, btnCatatan, btnSendCatatan, btnLog;
     TambahCatatanPresenter tambahCatatanPresenter;
     EditText edtCatatan;
 
@@ -69,6 +69,7 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
         tvUsia = findViewById(R.id.tv_usia_tanaman);
         btnSiram = findViewById(R.id.btn_siram);
         btnPestisida = findViewById(R.id.btn_pestisida);
+        btnLog = findViewById(R.id.btn_log);
         btnCatatan = findViewById(R.id.btn_catatan);
         btnSendCatatan = findViewById(R.id.btn_send_catatan);
         container_catatan = findViewById(R.id.container_catatan_tanaman);
@@ -131,15 +132,19 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
             tvUsia.setText(usia);
         }
 
-
-
-
         catatanPresenter.getCatatan(id);
 
         swipeRefreshCatatan.setOnRefreshListener(() -> catatanPresenter.getCatatan(id));
 
         recyclerViewCatatan = findViewById(R.id.recycler_view_catatan);
         recyclerViewCatatan.setLayoutManager(new LinearLayoutManager(this));
+
+        btnLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DetailTanamanActivity.this, "Fitur ini perlu perangkat tambahan", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         btnCatatan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +170,7 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
                 Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.bondanekanugraha28.PotKembang");
                 if (launchIntent != null) {
                     startActivity(launchIntent);//cek null pointer
+                    Toast.makeText(DetailTanamanActivity.this, "Fitur ini perlu perangkat tambahan", Toast.LENGTH_SHORT).show();
                 }
             }
         });

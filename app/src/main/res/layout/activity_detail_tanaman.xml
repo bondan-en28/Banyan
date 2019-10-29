@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="4">
 
                 <Button
                     android:id="@+id/btn_siram"
@@ -135,6 +135,17 @@
                     android:textColor="@color/putih" />
 
                 <Button
+                    android:id="@+id/btn_log"
+                    style="@style/Widget.AppCompat.Toolbar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_button"
+                    android:text="Log"
+                    android:textColor="@color/putih" />
+
+                <Button
                     android:id="@+id/btn_catatan"
                     style="@style/Widget.AppCompat.Toolbar"
                     android:layout_width="0dp"
@@ -144,6 +155,7 @@
                     android:background="@drawable/background_button"
                     android:text="Catatan(+)"
                     android:textColor="@color/putih" />
+
             </LinearLayout>
 
             <TextView
