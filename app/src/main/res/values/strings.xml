@@ -31,6 +31,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
+    <string name="btn_log">Log</string>
+    <string name="btn_detail">Detail</string>
+    <string name="btn_siram">Water</string>
+    <string name="btn_tambah_catatan">Notes(+)</string>
+    <string name="tv_catatan">Catatan</string>
+    <string name="tv_hari">hari</string>
+    <string name="fertilize">Fertilize</string>
 
     <string-array name="struktur_tanah">
         <item>Subur</item>

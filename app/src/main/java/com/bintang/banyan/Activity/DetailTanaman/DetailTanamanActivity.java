@@ -1,5 +1,6 @@
 package com.bintang.banyan.Activity.DetailTanaman;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,13 +16,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bintang.banyan.Activity.DetailRekomendasiTanaman.DetailRekomendasiTanamanActivity;
 import com.bintang.banyan.Activity.DetailTanaman.Catatan.CatatanAdapter;
 import com.bintang.banyan.Activity.DetailTanaman.Catatan.CatatanPresenter;
 import com.bintang.banyan.Activity.DetailTanaman.Catatan.CatatanView;
-import com.bintang.banyan.Activity.Main.MainActivity;
+import com.bintang.banyan.Activity.DetailTanaman.IotData.IotDataAdapter;
+import com.bintang.banyan.Activity.DetailTanaman.IotData.ReqDataPresenter;
+import com.bintang.banyan.Activity.DetailTanaman.IotData.ReqDataView;
 import com.bintang.banyan.Model.Catatan;
+import com.bintang.banyan.Model.IotData;
 import com.bintang.banyan.R;
+
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,19 +43,26 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class DetailTanamanActivity extends AppCompatActivity implements TambahCatatanView, CatatanView {
+import static com.bintang.banyan.Activity.Main.MainActivity.getId;
+
+public class DetailTanamanActivity extends AppCompatActivity implements TambahCatatanView, CatatanView, ReqDataView {
     public static Toolbar toolbar;
     RecyclerView recyclerViewCatatan;
     CatatanPresenter catatanPresenter;
     CatatanAdapter catatanAdapter;
+    private static String URL_READ = "https://bonbon28.000webhostapp.com/banyan/relay.php";
     List<Catatan> catatans;
+    public RequestQueue queue;
     SwipeRefreshLayout swipeRefreshCatatan;
     CardView container_catatan;
-    Button btnSiram, btnPestisida, btnCatatan, btnSendCatatan, btnLog;
+    IotDataAdapter iotDataAdapter;
     TambahCatatanPresenter tambahCatatanPresenter;
     EditText edtCatatan;
-
-    TextView tvNama, tvNamaLatin, tvUsia;
+    List<IotData> iotData;
+    Button btnSiram, btnPupuk, btnDetail, btnCatatan, btnSendCatatan, btnLog;
+    ReqDataPresenter reqDataPresenter;
+    ProgressDialog progressDialog;
+    TextView tvNama, tvNamaLatin, tvUsia, tvCahaya, tvSuhu, tvLembabUdara, tvLembabTanah;
     int id;
     String nama, nama_latin, deskripsi, jenis, ketinggian, tanah, suhu, ph, kelembapan, tekanan, lahan, air, gambar, tanggal;
 
@@ -60,15 +79,23 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         catatanPresenter = new CatatanPresenter(this);
+        reqDataPresenter = new ReqDataPresenter(this);
         tambahCatatanPresenter = new TambahCatatanPresenter(this);
 
         swipeRefreshCatatan = findViewById(R.id.swipe_refresh_catatan);
+        progressDialog = new ProgressDialog(DetailTanamanActivity.this);
 
         tvNama = findViewById(R.id.tv_nama_tanaman);
         tvNamaLatin = findViewById(R.id.tv_nama_latin_tanaman);
         tvUsia = findViewById(R.id.tv_usia_tanaman);
+        tvCahaya = findViewById(R.id.tv_cahaya);
+        tvSuhu = findViewById(R.id.tv_suhu);
+        tvLembabUdara = findViewById(R.id.tv_lembab_udara);
+        tvLembabTanah = findViewById(R.id.tv_lembab_tanah);
+
         btnSiram = findViewById(R.id.btn_siram);
-        btnPestisida = findViewById(R.id.btn_pestisida);
+        btnPupuk = findViewById(R.id.btn_pupuk);
+        btnDetail = findViewById(R.id.btn_detail);
         btnLog = findViewById(R.id.btn_log);
         btnCatatan = findViewById(R.id.btn_catatan);
         btnSendCatatan = findViewById(R.id.btn_send_catatan);
@@ -132,9 +159,12 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
             tvUsia.setText(usia);
         }
 
+        int user_id = Integer.parseInt(getId);
+        reqDataPresenter.reqDataIoT(user_id);
         catatanPresenter.getCatatan(id);
 
         swipeRefreshCatatan.setOnRefreshListener(() -> catatanPresenter.getCatatan(id));
+        swipeRefreshCatatan.setOnRefreshListener(() -> reqDataPresenter.reqDataIoT(user_id));
 
         recyclerViewCatatan = findViewById(R.id.recycler_view_catatan);
         recyclerViewCatatan.setLayoutManager(new LinearLayoutManager(this));
@@ -142,7 +172,7 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
         btnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DetailTanamanActivity.this, "Fitur ini perlu perangkat tambahan", Toast.LENGTH_SHORT).show();
+                recyclerViewCatatan.setAdapter(iotDataAdapter);
             }
         });
 
@@ -164,17 +194,76 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
             }
         });
 
+        queue = Volley.newRequestQueue(this);
         btnSiram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.bondanekanugraha28.PotKembang");
-                if (launchIntent != null) {
-                    startActivity(launchIntent);//cek null pointer
-                    Toast.makeText(DetailTanamanActivity.this, "Fitur ini perlu perangkat tambahan", Toast.LENGTH_SHORT).show();
-                }
+                progressDialog.setMessage("Watering...");
+                progressDialog.show();
+                relayRequest(1);
+
+//=============================================================================================================================
+//                StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_READ,
+//                        new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                progressDialog.dismiss();
+//
+//                                try {
+//                                    JSONObject jsonObject = new JSONObject(response);
+//                                    String success = jsonObject.getString("success");
+//
+//                                    if (success.equals("true")) {
+//                                        Toast.makeText(DetailTanamanActivity.this, "Watering Ok!", Toast.LENGTH_SHORT).show();
+//                                    } else {
+//                                        Toast.makeText(DetailTanamanActivity.this, "Error. Gagal"+ success, Toast.LENGTH_SHORT).show();
+//                                    }
+//
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                    progressDialog.dismiss();
+//                                    Toast.makeText(DetailTanamanActivity.this, "Error." + e.toString(), Toast.LENGTH_SHORT).show();
+//
+//                                }
+//                            }
+//                        },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//                                Toast.makeText(DetailTanamanActivity.this, "Error Connection DISINI: " + error.toString(), Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        }) {
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        Map<String, String> params = new HashMap<>();
+//                        params.put("user_id", getId);
+//                        params.put("relay", "1");
+//
+//                        return params;
+//                    }
+//                };
+//                RequestQueue requestQueue = Volley.newRequestQueue(DetailTanamanActivity.this);
+//                requestQueue.add(stringRequest);
+
+//=============================================================================================================================
+//                Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.bondanekanugraha28.PotKembang");
+//                if (launchIntent != null) {
+//                    startActivity(launchIntent);//cek null pointer
+//                    Toast.makeText(DetailTanamanActivity.this, "Fitur ini perlu perangkat tambahan", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
-        btnPestisida.setOnClickListener(new View.OnClickListener() {
+
+        btnPupuk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressDialog.setMessage("Ferilizing...");
+                progressDialog.show();
+                relayRequest(2);
+            }
+        });
+        btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -206,9 +295,41 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
 
     private void kirimCatatan() {
         tambahCatatanPresenter.postCatatan(id,
-                MainActivity.getId,
+                getId,
                 edtCatatan.getText().toString()
         );
+    }
+
+    public void relayRequest(int relay) {
+        // prepare the Request
+        String relayy = "&relay_a=0&relay_b=0";
+        if (relay == 1) {
+            relayy = "&relay_a=1&relay_b=0";
+        } else if (relay == 2) {
+            relayy = "&relay_a=0&relay_b=1";
+        }
+
+        String url_minta = URL_READ + "?user_id=" + getId + relayy;
+        Toast.makeText(this, url_minta, Toast.LENGTH_SHORT).show();
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, url_minta, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(DetailTanamanActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(DetailTanamanActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+        // add it to the RequestQueue
+        queue.add(getRequest);
+        progressDialog.dismiss();
+
     }
 
 
@@ -220,6 +341,25 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
     @Override
     public void hideProgress() {
         swipeRefreshCatatan.setRefreshing(false);
+
+    }
+
+    @Override
+    public void onRequestIotDataSuccess(List<IotData> iotData) {
+        Toast.makeText(this, "Request OKE: " + iotData.size(), Toast.LENGTH_SHORT).show();
+        iotDataAdapter = new IotDataAdapter(this, iotData);
+        iotDataAdapter.notifyDataSetChanged();
+        this.iotData = iotData;
+        IotData iotDataa = iotData.get(0);
+        tvCahaya.setText(iotDataa.getCahaya());
+        tvSuhu.setText(iotDataa.getSuhu());
+        tvLembabUdara.setText(iotDataa.getLembab_udara());
+        tvLembabTanah.setText(iotDataa.getLembab_tanah());
+    }
+
+    @Override
+    public void onRequestIotDataError(String message) {
+        Toast.makeText(this, "Request ERROR" + message, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -251,7 +391,6 @@ public class DetailTanamanActivity extends AppCompatActivity implements TambahCa
         catatanAdapter.notifyDataSetChanged();
         recyclerViewCatatan.setAdapter(catatanAdapter);
         this.catatans = catatan;
-
     }
 
     @Override

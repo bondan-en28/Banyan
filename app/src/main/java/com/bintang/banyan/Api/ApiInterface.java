@@ -2,11 +2,13 @@ package com.bintang.banyan.Api;
 
 import com.bintang.banyan.Model.AddTanaman;
 import com.bintang.banyan.Model.Catatan;
+import com.bintang.banyan.Model.IotData;
 import com.bintang.banyan.Model.Komentar;
 import com.bintang.banyan.Model.MyPosting;
 import com.bintang.banyan.Model.MyTanaman;
 import com.bintang.banyan.Model.Posting;
 import com.bintang.banyan.Model.RekomendasiTanaman;
+import com.bintang.banyan.Model.Relay;
 
 import java.util.List;
 
@@ -102,5 +104,14 @@ public interface ApiInterface {
             @Field("user_id") String user_id,
             @Field("tanaman_id") int tanaman_id
     );
+
+    @FormUrlEncoded
+    @POST("getiotdata.php")
+    Call<List<IotData>> reqData(
+            @Field("user_id") int user_id
+    );
+
+    @GET("relay.php")
+    Call<Relay> relay();
 
 }

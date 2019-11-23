@@ -14,7 +14,7 @@
         android:background="@color/colorPrimaryDark"
         android:elevation="5dp"
         app:theme="@style/ToolbarTheme"
-        app:title="Detail Tanaman"
+        app:title="Plant Detail"
         app:titleTextAppearance="@style/Toolbar.TitleText"
         app:titleTextColor="@color/putih">
 
@@ -26,158 +26,393 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_tanaman">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="-100dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/background_usia_tanaman"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="110dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="10dp">
-
-                    <TextView
-                        android:id="@+id/tv_usia_tanaman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/redhattext_bold"
-                        android:text="25"
-                        android:textColor="@color/putih"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="hari"
-                        android:textColor="@color/putih" />
-
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/iv_tanaman"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_plant" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/iv_tanaman"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_nama_tanaman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/redhattext_regular"
-                        android:text="Bougenville"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_nama_latin_tanaman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bougainvillea"
-                        android:textStyle="italic" />
-
-                </LinearLayout>
-            </RelativeLayout>
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="17dp"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
-                <Button
-                    android:id="@+id/btn_siram"
-                    style="@style/Widget.AppCompat.Toolbar"
-                    android:layout_width="0dp"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="-100dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/background_usia_tanaman"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="110dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_usia_tanaman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/redhattext_bold"
+                            android:text="25"
+                            android:textColor="@color/putih"
+                            android:textSize="40sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_hari"
+                            android:textColor="@color/putih" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_tanaman"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_plant" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/iv_tanaman"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_nama_tanaman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/redhattext_regular"
+                            android:text="Bougenville"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_nama_latin_tanaman"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bougainvillea"
+                            android:textStyle="italic" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <GridLayout
+                    android:id="@+id/grid_view_kebun"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_button"
-                    android:text="Perawatan"
-                    android:textColor="@color/putih" />
+                    android:layout_below="@id/container_cuaca"
+                    android:columnCount="4"
+                    android:rowCount="1"
+                    android:textColor="@color/colorPrimaryDark">
 
-                <Button
-                    android:id="@+id/btn_pestisida"
-                    style="@style/Widget.AppCompat.Toolbar"
-                    android:layout_width="0dp"
+                    <!--row1, kolom1-->
+                    <android.support.v7.widget.CardView
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="3dp"
+                                android:gravity="center_horizontal"
+                                android:text="Light"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_cahaya"
+                                android:layout_width="69dp"
+                                android:layout_height="60dp"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="200"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="3dp"
+                                android:gravity="center_horizontal"
+                                android:text="lux"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="10sp"
+                                android:textStyle="italic" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <!--row1, kolom2 -->
+                    <android.support.v7.widget.CardView
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="3dp"
+                                android:gravity="center_horizontal"
+                                android:text="Temperature"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_suhu"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="27"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="3dp"
+                                android:gravity="center_horizontal"
+                                android:text="Celcius"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="10sp"
+                                android:textStyle="italic" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <!--row1, kolom3-->
+                    <android.support.v7.widget.CardView
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="3dp"
+                                android:gravity="center_horizontal"
+                                android:text="Humidity"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_lembab_udara"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_gravity="center_horizontal"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="34"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="3dp"
+                                android:gravity="center_horizontal"
+                                android:text="%"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="10sp"
+                                android:textStyle="italic" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                    <!--row1, kolom4-->
+                    <android.support.v7.widget.CardView
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5dp"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="5dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="3dp"
+                                android:gravity="center_horizontal"
+                                android:text="Soil Moisture"
+                                android:textSize="10sp" />
+
+                            <TextView
+                                android:id="@+id/tv_lembab_tanah"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:singleLine="true"
+                                android:text="70"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="25sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_margin="3dp"
+                                android:gravity="center_horizontal"
+                                android:text="%"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="10sp"
+                                android:textStyle="italic" />
+
+                        </LinearLayout>
+
+                    </android.support.v7.widget.CardView>
+
+                </GridLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_button"
-                    android:text="Detail"
-                    android:textColor="@color/putih" />
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
 
-                <Button
-                    android:id="@+id/btn_log"
-                    style="@style/Widget.AppCompat.Toolbar"
-                    android:layout_width="0dp"
+                    <Button
+                        android:id="@+id/btn_siram"
+                        style="@style/Widget.AppCompat.Toolbar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_button"
+                        android:text="@string/btn_siram"
+                        android:textColor="@color/putih" />
+
+                    <Button
+                        android:id="@+id/btn_pupuk"
+                        style="@style/Widget.AppCompat.Toolbar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_button"
+                        android:text="@string/fertilize"
+                        android:textColor="@color/putih" />
+
+                    <Button
+                        android:id="@+id/btn_detail"
+                        style="@style/Widget.AppCompat.Toolbar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_button"
+                        android:text="@string/btn_detail"
+                        android:textColor="@color/putih" />
+
+                    <Button
+                        android:id="@+id/btn_log"
+                        style="@style/Widget.AppCompat.Toolbar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_button"
+                        android:text="@string/btn_log"
+                        android:textColor="@color/putih" />
+
+                    <Button
+                        android:id="@+id/btn_catatan"
+                        style="@style/Widget.AppCompat.Toolbar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_button"
+                        android:text="@string/btn_tambah_catatan"
+                        android:textColor="@color/putih" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_button"
-                    android:text="Log"
-                    android:textColor="@color/putih" />
+                    android:layout_marginTop="10dp"
+                    android:text="@string/tv_catatan"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="15sp" />
 
-                <Button
-                    android:id="@+id/btn_catatan"
-                    style="@style/Widget.AppCompat.Toolbar"
-                    android:layout_width="0dp"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@color/colorAccentt" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_catatan"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/background_button"
-                    android:text="Catatan(+)"
-                    android:textColor="@color/putih" />
-
+                    android:layout_marginTop="5dp" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Catatan"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="15sp" />
+        </android.support.v4.widget.NestedScrollView>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="2dp"
-                android:background="@color/colorAccentt" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_catatan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp" />
-        </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
