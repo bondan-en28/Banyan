@@ -4,7 +4,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="app_desc">Di zaman digital yang semakin pesat, ditengah gencarnya Revolusi industri 4.0 ini, Diperlukan sebuah inovasi untuk mengatasi masalah masalah yang terjadi dimasyarakat melalui aplikasi digital dan socialentepreuner yang dikembangkan melalui Startup (Industri kreatif). Salah satu masalah yang harus segera diatasi yaitu semakin berkurangnya lahan terbuka hijau / lahan pertanian baik diperumahan, daerah perkotaan bahkan didesa. Juga berkurangnya minat dan terbatasnya pengetahuan masyarakat dalam bercocok tanam serta penurunan jumlah pekerja yang ada disektor pertanian yang terjadi ditahun 2018 akhir akhir ini, menjadi hal yang mendasari  pembuatan aplikasi ini, dengan harapan nantinya aplikasi ini dapat memberikan model dan metode bercocok tanam yang inovatif dan kreatif dalam rangka untuk meningkatkan kembali minat masyarakat khususnya petani untuk kembali berperan aktif disektor pertaniaan. Melaui aplikasi ini diharapkan dapat menjadi tempat atau wadah masyarakat dalam melakukan pertukaran informasi terutama dalam bidang agricultural dan juga dapat membuka lapangan pekerjaan baru dan menarik minat para anak muda untuk ikut terjun disektor pertanian.</string>
-    <string name="app_team">RPL-Banyan Team</string>
+    <string name="app_team">Banyan Team</string>
     <!--    <string name="app_desc">Tosca adalah aplikasi inovatif berbasis android yang mempunyai konektivitas dengan perangkat IoT(Internet of Things) sebagai media penghubung yang efisien dan langkah otomasi dari perawatan manual menjadi perawatan secara digital melalui teknologi. Aplikasi ini dapat memantau kesehatan tanaman dan melakukan perawatan secara langsung dari aplikasi mobile (long-distance treatment) sehingga keadaan tanaman perkotaan dapat terkondisikan dan tumbuh dengan lebih baik. Tosca juga mampu membaca parameter lingkungan hidup tanaman untuk dijadikan sebagai acuan dalam menentukan jenis perawatan tertentu yang selanjutnya mungkin perlu dilakukan oleh petugas yang berwenang.\n\nAnggota tim:\n - Bondan Eka Nugraha\n - Riski Danang Kartiko\n - Moh. Tajudin</string>
         <string name="app_team">Tosca Team</string>
     -->
@@ -14,7 +14,7 @@
     <string name="judul_fitur_3">Hijau!</string>
     <string name="judul_fitur_4">IoT!</string>
     <string name="desc_fitur_1">Dengan Banyan kita dapat dengan mudah memantau kesehatan tanaman kita</string>
-    <string name="desc_fitur_2">Hanya dengan sentuhan jadi Banyan dapat melakukan long distance treatment</string>
+    <string name="desc_fitur_2">Hanya dengan sentuhan jari Banyan dapat melakukan long distance treatment</string>
     <string name="desc_fitur_3">Buat suasana Dunia menjadi hijau dengan berkontribusi melalui Banyan!</string>
     <string name="desc_fitur_4">Didukung dengan perangkat IoT yang membuat kehidupan kita semakin mudah dan kekinian!</string>
 
